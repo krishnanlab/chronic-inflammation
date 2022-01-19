@@ -9,7 +9,7 @@
  
 library(tidyverse)
 args <- commandArgs(TRUE)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("chronic_inflammation_functions.R")
 
 output_dir = args[3]
 if(!dir.exists(output_dir)){
@@ -37,20 +37,21 @@ cioi_filt = cioi %>%
 # disease clusters --------------------------------------------------------
 print("disease clusters")
 disease_dir = args[1]
-setwd(disease_dir)
+print(disease_dir)
+#setwd(disease_dir)
 # dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/leiden_ModularityVertexPartition_b=0.5"
-files = list.files(disease_dir, pattern = ".csv")
-
+files = list.files(disease_dir, pattern = ".csv",full.names=T)
+print(files)
 # remove chronic inflammation clusters we don't care about
 ci_files = c("chronic_inflammation_gene_shot_pubs_greater10_clusters.csv",
              "chronic_inflammation_gene_shot_clusters.csv",
              "chronic_inflammation_go_clusters.csv") 
 
 files = files[!files %in% ci_files]
-
+print(files)
 # read in the cluster files
 cluster_list = lapply(files, read.csv, row.names = 1)
-
+print(cluster_list)
 # bind all diseases into one df
 dis = do.call(rbind, cluster_list)
 

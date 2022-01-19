@@ -16,7 +16,8 @@ dg = read.delim("../data/disgenet_2020-10_curated_gene_disease_associations.tsv"
 diseases = read.delim(args[1], header = F)
 diseases = diseases$V1
 # set up the output_dir
-output_dir = args[2]
+#output_dir = args[2]
+output_dir="../data"
 if (!dir.exists(output_dir)) {dir.create(output_dir)}
 
 disease_dir = paste0(output_dir, "/disease_gene_files")
@@ -44,30 +45,6 @@ for(d in diseases){
               quote = F)
 }
 
-# chronic inflammation seed genes
-# chronic_inflammation_geneshot_npubs_greater10
-cigs10 = read.delim("../data/chronic_inflammation_genes/chronic_inflammation_geneshot_npubs_greater10.tsv")
-gene = cigs10$Gene
-entrez = symbol2entrez(gene)
-cigs10 = data.frame(Gene = entrez,
-                    Disease = "chronic_inflammation_gene_shot_pubs_greater10")
-write.table(cigs10, 
-            file = paste0(disease_dir, "/", "chronic_inflammation_gene_shot_pubs_greater10.txt"),
-            sep = "\t",
-            row.names = F,
-            quote = F)
-# chronic-inflammation_geneshot-generif_genes
-cigs = read.delim("../data/chronic_inflammation_genes/chronic-inflammation_geneshot-generif_genes.tsv")
-gene = cigs$Gene
-entrez = symbol2entrez(gene)
-cigs = data.frame(Gene = entrez,
-                    Disease = "chronic_inflammation_gene_shot")
-write.table(cigs, 
-            file = paste0(disease_dir, "/", "chronic_inflammation_gene_shot.txt"),
-            sep = "\t",
-            row.names = F,
-            quote = F)
-
 # human_chronic_inflammatory_reponse_GO
 cigo = read.delim("../data/chronic_inflammation_genes/human_chronic_inflammatory_reponse_GO.txt",header=F)
 gene = cigo$V2
@@ -79,4 +56,3 @@ write.table(cigo,
             sep = "\t",
             row.names = F,
             quote = F)
-

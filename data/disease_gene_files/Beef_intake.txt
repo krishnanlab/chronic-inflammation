@@ -1,0 +1,14 @@
+Gene	Disease
+4802	Beef_intake
+51592	Beef_intake
+5305	Beef_intake
+341019	Beef_intake
+3909	Beef_intake
+348825	Beef_intake
+79310	Beef_intake
+54502	Beef_intake
+55132	Beef_intake
+3351	Beef_intake
+4199	Beef_intake
+51622	Beef_intake
+7965	Beef_intake

@@ -10,7 +10,7 @@ args <- commandArgs(TRUE)
 
 outdir = args[5]
 if (!dir.exists(outdir)) {dir.create(outdir)}
-setwd(outdir)
+#setwd(outdir)
 
 if(args[3] == TRUE){
   edgelist = read.delim(args[1], header = F, sep = " ")
