@@ -1,8 +1,10 @@
-#Will e the new file I use to get disease/inflam drugs, as well as using synonyms to search dgidb for interactions
-
 #This function take each drugcentral drug, get synonyms, and see if the synonym is in
 #expertcurated. If it is, overwrite it in expertcurated with the preferred name I am
 #using in drugcentral
+
+library(tidyverse)
+library(parallel)
+
 getsynonyms<-function(curid){
   #the id is a struct id from drugcentral, for that id, get all instances in
   #synonyms.csv
@@ -17,19 +19,13 @@ getsynonyms<-function(curid){
 #Get for each row the num of cols greater than
 getpvalues<-function(row,faketraitnum){
   
-  #number of permutations the real score is less than
-  #get less than so I can just divide. If less than all, I will get 1000. 1000/1000=1
-  #I want cols that are less than score, because that means the score I have is better
+  #Want the number of traits that have greater or equal real score
   #, so >= beucase if equal, then it will get more cols and lower the pval
   cols_greaterequal_score=pivoted[row,2:ncol(pivoted)] %>% select_if(~any(.>=pull(pivoted[row,2])))
     
-  #divide by 1000 here. Why? Because if I lose permutations because no clusters,
-  #I should count them since the only reason I lack them is because no clusters were found,
-  #thus no drugs were found
-  #add 1 to 1000 for the real
+  #divide by the number of fake traits I made, not just the columsn that appear
+  #add 1 to 5000 for the real
   pvalue=as.double(ncol(cols_greaterequal_score) / (faketraitnum +1 ))
-  #pvalue=as.double(ncol(cols_score_less_than) / (ncol(pivoted) - 2))
-  #print(pvalue)
   return(pvalue)
 }
 
@@ -123,22 +119,17 @@ getDiseaseFromFake<-function(trait){
   return(toreturn)
 }
 
-
-
-library(tidyverse)
-library(parallel)
-#inflamclusters=read_csv("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/biogrid_noRWR/expanded_disease_genes_biogrid_iterations=2_FDR=FALSE_cutoff=0.01/clusters/chronic_inflammation_go_clusters.csv")%>%
-#  select(Cluster,Gene)
-scores=read_tsv("../output/diseasescorevector.tsv",col_names=T)
 #load expertcurated
 expertcurated=read_tsv("./../data/dgidb/expertcurated_entrez.tsv")
 expertcurated = expertcurated %>% dplyr::select(drugName,Entrez,expert) %>% distinct()
 drugcentral=read_tsv("../data/drugcentral/drugcentral_entrez.tsv")
 
+#Loading synonyms
 synonyms=read_csv("../data/drugcentral/databasecsvs/synonyms.csv")
 synonyms$name=toupper(synonyms$name)
 synonyms=filter(synonyms,id %in% drugcentral$STRUCT_ID)
-#number of ids from drugcentral
+
+#number of ids from drugcentral and get synonyms for drugcentral drugs
 ids=unique(drugcentral$STRUCT_ID)
 out=mclapply(ids,getsynonyms,mc.cores=8)
 expertcurated=bind_rows(out) %>% distinct
@@ -151,18 +142,12 @@ drugcentral$Entrez=as.character(drugcentral$Entrez)
 #disease clusters, and get score based on percent of targets that are in the clusters for that
 #disease
 
-#load("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/all_cluster_assignments_for_alex.Rdata")
 #Do this stuff if Stephanie did not filter clusters out
-all_clusters_df=read_csv("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency/relevant_gene_cluster_assigments.csv")
+all_clusters_df=read_csv("../results/GenePlexus_String_Adjacency/relevant_gene_cluster_assigments.csv")
 diseaseclusters=all_clusters_df %>% as_tibble %>% filter(Disease!="chronic_inflammation_go") %>% select(-X1,-ClusterGraph)
 diseaseclusters$Gene=as.character(diseaseclusters$Gene)
-#rm(all_clusters_df)
-#tokeep=diseaseclusters %>% count(Graph,Cluster) %>% filter(n>=5) %>% select(-n)
-#diseaseclusters=tokeep %>% left_join(diseaseclusters,by=c("Graph","Cluster")) %>% select(Gene,Disease,Cluster,ClusterID,Method,Graph,Iterations,expandFDR,expandCutoff,Resolution,Control)
-#rm(tokeep)
 
-
-clustermatrix=read_csv("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency/final_for_alex.csv")#%>% filter(phyperFDR<.05) %>% filter(PermutedFDR<.05)
+clustermatrix=read_csv("../results/GenePlexus_String_Adjacency/final_for_alex.csv")#%>% filter(phyperFDR<.05) %>% filter(PermutedFDR<.05)
 faketraits=diseaseclusters %>% filter(grepl("Fake",Disease))
 #adding real clusters to above, also filter for only relevant clusters from clustermatrix
 realtraits=diseaseclusters %>% filter(!grepl("Fake",Disease)) %>% filter(Cluster %in%clustermatrix$Disease_Cluster)
@@ -174,48 +159,6 @@ out=mclapply(toget,getDiseaseFromFake,mc.cores=14)
 drugscores=bind_rows(out)
 realtraitscores=filter(drugscores,!grepl("Fake",Trait))
 faketraitscores=filter(drugscores,grepl("Fake",Trait))
-#Loop for dataframe where I get each disease that is in real, and organize based on
-#drug | real | permutation 1-1000
-# towrite=tibble()
-# for(disease in unique(clustermatrix$Disease)){
-#   #Can filter down to only drugs I care about, aka the ones hit by the real biogrid
-#   f = filter(drugscores,Disease==disease) %>% select(-Disease)
-#   drugsicareabout=(f %>% filter(Network=="biogrid"))$Drugs
-#   f=f %>% filter(Drugs %in% drugsicareabout) %>% arrange(Network,Drugs)
-#   if(nrow(f)==0){
-#     next
-#   }
-#   #before I pivot, f has drugs only found by real. So I should replace the latter 3
-#   #cols in f with values from network
-#   ftopivot = f %>% select(Network,Drugs,Scores) %>% arrange(Drugs)
-#   pivoted=pivot_wider(ftopivot,values_from=Scores,names_from=Network) %>% replace(is.na(.),0) %>% arrange(Drugs)
-#   
-#   
-#   print(head(colnames(pivoted),2))
-#   #no drugs found for real, so add it in
-#   #if(colnames(pivoted)[2]!="biogrid"){
-#   #  pivoted$biogrid=0
-#   #  pivoted=relocate(pivoted,biogrid,.after=Drugs)
-#   #}
-#   print(head(colnames(pivoted),2))
-#   #Finding columns that have greater value than what is in col 2
-#   rows=1:nrow(pivoted)
-#   pvals=mclapply(rows,getpvalue,mc.cores=detectCores()-1)
-#   pivoted$pvals=as.double(unlist(pvals))
-#   pivoted$FDR=p.adjust(pivoted$pvals,method="BH")
-#   pivoted=pivoted %>% relocate(pvals,.after=Drugs) %>% relocate(FDR,.after=pvals)
-#   print(disease)
-#   print(pivoted)
-#   print(summary(pivoted$pvals))
-#   print(summary(pivoted$FDR))
-#   pivoted= pivoted %>%left_join((f %>% filter(Network=="biogrid") %>% select(Drugs,EntrezFound,SymbolFound,Clustersforgenes)),by="Drugs") %>%
-#     relocate(EntrezFound,.after=Drugs) %>% relocate(SymbolFound,.after=EntrezFound) %>% relocate(Clustersforgenes,.after=SymbolFound)
-#   toadd = pivoted %>% select(Drugs,EntrezFound,SymbolFound,Clustersforgenes,pvals,FDR,biogrid)
-#   if(!(disease %in% c("Faketrait_2","Faketrait_5","Faketrait_7","Height_gene_shot","Left_Hand_Phone","Right_Hand_Phone"))){
-#     towrite=rbind(towrite,tibble(Disease=disease,toadd))
-#   }
-#   #write_tsv(pivoted,paste0("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/drugs/output/drugscores/",disease,"_drugs.tsv"))
-# }
 
 #loop for getting scores if I use 1000 fake traits instead
 towrite=tibble()
@@ -253,9 +196,6 @@ for(disease in unique(clustermatrix$Disease)){
   #}
 }
 
-
-
-
 #GEtting indications
 dc=select(drugcentral,STRUCT_ID,DRUG_NAME)  %>% distinct
 colnames(dc)[2]="Drugs"
@@ -275,12 +215,4 @@ for(i in unique(towrite2$STRUCT_ID)){
 }
 disinds=towrite2 %>% left_join(indicationst,by="STRUCT_ID") #%>% select(-STRUCT_ID)
 
-#Get gene 
-
-
-#disinds=towrite2 %>% left_join(ind,by="STRUCT_ID") %>% select(-snomed_full_name,-cui_semantic_type,-snomed_conceptid,-umls_cui)
-write_tsv(disinds,"/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_Drugs.tsv")
-
-#write_tsv(networkdata,"/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/drugs/output/finalnetworkdata.tsv")
-#drugcentral expert curated number of times each drug appears histogram
-#hist(table(drugcentral$DRUG_NAME),breaks=500)
+write_tsv(disinds,"../results/GenePlexus_Drugs.tsv")
