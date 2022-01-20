@@ -1,9 +1,14 @@
 #This function take each drugcentral drug, get synonyms, and see if the synonym is in
 #expertcurated. If it is, overwrite it in expertcurated with the preferred name I am
 #using in drugcentral
-
+#' @param args[1] path to significant cluster results
+#' @param args[2] out directory for drug results
 library(tidyverse)
 library(parallel)
+args = commandArgs(trailingOnly=TRUE)
+
+clusterdir=as.character(args[1])
+outdir=as.character(args[2])
 
 getsynonyms<-function(curid){
   #the id is a struct id from drugcentral, for that id, get all instances in
@@ -29,61 +34,8 @@ getpvalues<-function(row,faketraitnum){
   return(pvalue)
 }
 
-#Take in clustermatrix, and for each permutation I get the drugs that hit each disease
-#and the score. 
-#druglist because ill just have every drug possible, and after this delete rows
-#where all NA for a disease
-getdiseasedrugs<-function(graphnum){
-  whattoget=unique(diseaseclusters$Graph)[graphnum]
-  
-  #if real, only get clusters from diseaseclusters that are in the names of the clustermatrix
-  #else get all clusters
-  if(whattoget=="biogrid"){
-    curgraph=diseaseclusters %>% filter(Graph==whattoget,Cluster %in% clustermatrix$Disease_Cluster)
-  }else{
-    curgraph=diseaseclusters %>% filter(Graph==whattoget)  
-  }
-  #set up tibble
-  toreturn=tibble()
-  #for each disease in curgraph
-  for(disease in unique(curgraph$Disease)){
-    #print(disease)
-    #filter for the disease
-    curdis=filter(curgraph,Disease==disease)
-    #get all drugs that are in the targets for this disease
-    founddrugs=drugcentral %>% filter(Entrez %in% curdis$Gene)
-    colnames(curdis)[1]="Entrez"
-    #Get cluster by joining found drugs with curdis
-    founddrugs=founddrugs %>% left_join(curdis,by="Entrez")
-    
-    #For the drugs that are found, find targets that appear. Don't need to filter
-    #again, just see how many rows the drug is in drugcenral, and how many rows
-    #it is in founddrugs
-    drugs=character()
-    scores=numeric()
-    entrezfound=character()
-    symbolfound=character()
-    Clusterforgenes=character()
-    for(drug in unique(founddrugs$DRUG_NAME)){
-      drugs=c(drugs,drug)
-      scores=c(scores,length(founddrugs$DRUG_NAME[founddrugs$DRUG_NAME==drug]) / length(drugcentral$DRUG_NAME[drugcentral$DRUG_NAME==drug]))
-      entrezfound=c(entrezfound,paste0(founddrugs$Entrez[founddrugs$DRUG_NAME==drug],collapse=","))
-      symbolfound=c(symbolfound,paste0(founddrugs$GENE[founddrugs$DRUG_NAME==drug],collapse=","))
-      Clusterforgenes=c(Clusterforgenes,paste0(founddrugs$Cluster[founddrugs$DRUG_NAME==drug],collapse=","))
-    }
-    toreturn=rbind(toreturn,tibble(Network=whattoget,Disease=disease,Drugs=drugs,Scores=scores,EntrezFound=entrezfound,SymbolFound=symbolfound,
-                                   Clustersforgenes=Clusterforgenes))
-    
-  }
-  print(toreturn)
-  
-  #Return large matrix where disease |  drug | col of permuted/real | score
-  #I will cbind all of the results in the list
-  return(toreturn)
-}
-
 #Get drugs for all traits, real or fake 
-getDiseaseFromFake<-function(trait){
+getDrugs<-function(trait){
   #subset for fake trait
   curtrait=diseaseclusters %>% filter(Disease==trait)
   #if a real trait, further subset based on clustermatrix$Disease_Cluster
@@ -125,7 +77,7 @@ expertcurated = expertcurated %>% dplyr::select(drugName,Entrez,expert) %>% dist
 drugcentral=read_tsv("../data/drugcentral/drugcentral_entrez.tsv")
 
 #Loading synonyms
-synonyms=read_csv("../data/drugcentral/databasecsvs/synonyms.csv")
+synonyms=read_csv("../data/drugcentral/synonyms.csv")
 synonyms$name=toupper(synonyms$name)
 synonyms=filter(synonyms,id %in% drugcentral$STRUCT_ID)
 
@@ -143,17 +95,19 @@ drugcentral$Entrez=as.character(drugcentral$Entrez)
 #disease
 
 #Do this stuff if Stephanie did not filter clusters out
-all_clusters_df=read_csv("../results/GenePlexus_String_Adjacency/relevant_gene_cluster_assigments.csv")
+#all_clusters_df=read_csv("../results/GenePlexus_String_Adjacency/relevant_gene_cluster_assigments.csv")
+all_clusters_df=read_csv(paste0(clusterdir,"/relevant_gene_cluster_assigments.csv"))
 diseaseclusters=all_clusters_df %>% as_tibble %>% filter(Disease!="chronic_inflammation_go") %>% select(-X1,-ClusterGraph)
 diseaseclusters$Gene=as.character(diseaseclusters$Gene)
 
-clustermatrix=read_csv("../results/GenePlexus_String_Adjacency/final_for_alex.csv")#%>% filter(phyperFDR<.05) %>% filter(PermutedFDR<.05)
+#clustermatrix=read_csv("../results/GenePlexus_String_Adjacency/final_for_alex.csv")#%>% filter(phyperFDR<.05) %>% filter(PermutedFDR<.05)
+clustermatrix=read_csv(paste0(clusterdir,"/final_for_alex.csv"))
 faketraits=diseaseclusters %>% filter(grepl("Fake",Disease))
 #adding real clusters to above, also filter for only relevant clusters from clustermatrix
 realtraits=diseaseclusters %>% filter(!grepl("Fake",Disease)) %>% filter(Cluster %in%clustermatrix$Disease_Cluster)
 toget=c(unique(realtraits$Disease),unique(faketraits$Disease))
 
-out=mclapply(toget,getDiseaseFromFake,mc.cores=14)
+out=mclapply(toget,getDrugs,mc.cores=14)
 #each thing in out is each permutation, so I want to rbind everything
 #1-27 are real traits
 drugscores=bind_rows(out)
@@ -200,7 +154,7 @@ for(disease in unique(clustermatrix$Disease)){
 dc=select(drugcentral,STRUCT_ID,DRUG_NAME)  %>% distinct
 colnames(dc)[2]="Drugs"
 towrite2=towrite %>% left_join(dc,by="Drugs")
-ind=read_csv("../data/drugcentral/databasecsvs/indications.csv") %>% filter(relationship_name=="indication" | relationship_name=="off-label use") %>% select(-id,-concept_id)
+ind=read_csv("../data/drugcentral/indications.csv") %>% filter(relationship_name=="indication" | relationship_name=="off-label use") %>% select(-id,-concept_id)
 colnames(ind)[1]="STRUCT_ID"
 ind = ind %>% filter(STRUCT_ID %in% towrite2$STRUCT_ID)
 
@@ -215,4 +169,5 @@ for(i in unique(towrite2$STRUCT_ID)){
 }
 disinds=towrite2 %>% left_join(indicationst,by="STRUCT_ID") #%>% select(-STRUCT_ID)
 
-write_tsv(disinds,"../results/GenePlexus_Drugs.tsv")
+#write_tsv(disinds,"../results/GenePlexus_Drugs.tsv")
+write_tsv(disinds,paste0(outdir,"/GenePlexus_Drugs.tsv"))
