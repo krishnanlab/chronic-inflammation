@@ -33,7 +33,7 @@ parser.add_argument('-j','--jobname',
                     type = str,
                     help = 'sting to use for jobname')
 parser.add_argument('-s','--fp_save',
-                    default = '../../results_GenePlexus/',
+                    default = '../../results/GenePlexus_output/',
                     type = str,
                     help = 'The path to save the file to (needs the / in it for now)')
 args = parser.parse_args()

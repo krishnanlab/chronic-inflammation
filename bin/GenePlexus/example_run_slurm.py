@@ -22,7 +22,7 @@ features = 'Adjacency'
 # avoid changing these arguments if possible
 save_path = '../../results_GenePlexus/'
 file_loc = 'local'
-slurm_dir = '../../slurms_GenePlexus/'
+slurm_dir = '../../results/GenePlexus_output/'
 if not os.path.exists(slurm_dir):
     os.makedirs(slurm_dir)
     
