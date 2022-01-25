@@ -1,4 +1,4 @@
-% A network-based drug repurposing approach identifies new treatment opportunities for the systemic chronic inflammation underlying multiple complex diseases
+# A network-based drug repurposing approach identifies new treatment opportunities for the systemic chronic inflammation underlying multiple complex diseases
 This GitHub repository contains all code used for reproducing results from
 the manuscript "**A network-based drug repurposing approach identifies new treatment opportunities for the systemic chronic inflammation underlying multiple complex diseases**", which can be found [here] (Get link)
 
