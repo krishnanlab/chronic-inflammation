@@ -20,9 +20,9 @@ net_type = 'STRING'
 features = 'Adjacency'
 
 # avoid changing these arguments if possible
-save_path = '../../results_GenePlexus/'
+save_path = '../../results/GenePlexus_output/'
 file_loc = 'local'
-slurm_dir = '../../results/GenePlexus_output/'
+slurm_dir = '../../results/GenePlexus_slurms/'
 if not os.path.exists(slurm_dir):
     os.makedirs(slurm_dir)
     
