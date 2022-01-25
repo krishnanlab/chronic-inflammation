@@ -7,77 +7,57 @@ library(tidyverse)
 library(parallel)
 real_only_logical = as.logical(args[3])
 
-#path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/biogrid_noRWR/expanded_disease_genes_biogrid_iterations=2_FDR=FALSE_cutoff=0.01/overlaps/scores"
+#path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency/scores"
 path = args[1]
-setwd(path)
-files = list.files(path)
+#setwd(path)
+files = list.files(path, pattern = ".csv",full.names=T)
 
 temp = mclapply(files, 
                 read.csv, 
                 row.names = 1,
-                mc.cores= detectCores())
+                mc.cores= detectCores()-1)
 
 df = do.call(rbind, temp)
 rm(temp)  
 
-all_disease = unique(df$Disease)
+df = 
+  df %>%
+  mutate(TraitType =
+           case_when(
+             grepl("Fake", Disease) == TRUE ~ "Fake",
+             grepl("Fake", Disease) == FALSE ~ "Real"))
 
-ai = c("Celiac_Disease",
-       "Crohn_Disease",
-       "Irritable_Bowel_Syndrome",
-       "Lupus_Erythematosus_Systemic",
-       "Multiple_Sclerosis",
-       "Psoriasis",
-       "Rheumatoid_Arthritis",
-       "Ulcerative_Colitis",
-       "Vasculitis",
-       "Diabetes_Mellitus_NonInsulinDependent"
-)
+fake_df = 
+  df %>%
+  filter(TraitType == "Fake")
 
-neg =  c("Right_Hand_Phone",
-         "North_UK",
-         "Left_Hand_Phone",
-         "Height",
-         "Equal_Hand_Phone",
-         "East_UK",
-         "Driving_Speed",
-         "Banana_Intake")
+colnames(fake_df) = paste0(colnames(fake_df), "_fake")
 
-neg_controls = all_disease[grep(paste(neg, collapse="|"),
-                                all_disease)]
+fake_df$Disease_fake = gsub("Fake_", "", fake_df$Disease_fake)
+fake_df$Disease_fake = gsub("_[^_]+$", "", fake_df$Disease_fake)
 
-fake_controls = all_disease[grep("Faketrait",
-                                 all_disease)]
+npermutations_df = 
+  fake_df %>%
+  group_by(Disease_fake) %>%
+  tally %>%
+  arrange(n)
 
+colnames(npermutations_df) = c("Disease", "nFakeClusters")
 
-df$Control = ifelse(df$Disease %in% ai, 
-                    "Autoimmune_disease", 
-                    ifelse(df$Disease %in% neg_controls,
-                           "Negative_trait",
-                           ifelse(df$Disease %in% fake_controls,
-                                  "Fake_trait",
-                                  "Complex_disease")))
-
-df$Permuted = ifelse(df$Graph == "biogrid", 
-                     "real", 
-                     "permuted")
-
-permuted_df = df %>%
-  filter(Permuted == "permuted")
-colnames(permuted_df) = paste0(colnames(permuted_df), "_permuted")
-
-mutatePermutedPval <-function(row,Group1, 
+mutatePermutedPval <-function(row,
+                              Group1, 
                               Disease, 
                               Enrichment, 
-                              Permuted){
+                              TraitType){
   
   print(paste0("current row = ", row))
-  permuted_scores = permuted_df %>%
-    filter(Group1_permuted == Group1[row], 
-           Disease_permuted == Disease[row]) %>%
-    pull(Enrichment_permuted)
+  permuted_scores = 
+    fake_df %>%
+    filter(Group1_fake == Group1[row], 
+           Disease_fake == Disease[row]) %>%
+    pull(Enrichment_fake)
   
-  if(Permuted[row] == "real"){
+  if(TraitType[row] == "Real"){
     permuted_scores = c(permuted_scores, Enrichment[row]) 
   }
   
@@ -89,7 +69,8 @@ mutatePermutedPval <-function(row,Group1,
 }
 
 if(real_only_logical == TRUE){
-  df = filter(df, Permuted == "real") 
+  df = filter(df, TraitType == "Real") 
+  
 }
 
 rowtoget=1:nrow(df)
@@ -98,19 +79,21 @@ ans =  mclapply(rowtoget,
                 Group1=df$Group1,
                 Disease=df$Disease,
                 Enrichment=df$Enrichment,
-                Permuted=df$Permuted,
+                TraitType=df$TraitType,
                 mutatePermutedPval,
                 mc.cores= detectCores())
 
 df$PermutedPval = unlist(ans)
 
-df = df %>%
+df = 
+  df %>%
   group_by(ChronicInf, 
-           Disease, 
-           Graph) %>%
+           Disease) %>%
   mutate(PermutedFDR = p.adjust(PermutedPval))
 
-#outdir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/biogrid_noRWR/expanded_disease_genes_biogrid_iterations=2_FDR=FALSE_cutoff=0.01/overlaps"
+df = left_join(df, npermutations_df)
+
+#outdir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency"
 outdir = args[2]
 
 if(real_only_logical == TRUE){
@@ -120,6 +103,3 @@ if(real_only_logical == TRUE){
   save(df, file = paste0(outdir, "/overlap_results_real_and_permuted.Rdata"))
   print("overlap_results_real_and_permuted.Rdata saved")
 }
-
-
-    

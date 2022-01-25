@@ -4,7 +4,7 @@ library("tidyverse")
 # path to file with all random disease gene sets
 #for args[1]
 #random_path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/5000Expandedfaketraits_biogrid.tsv"
-random_path = "../Zenodo/5000Expandedfaketraits_biogrid.tsv"
+random_path = "../data_Zenodo/5000Expandedfaketraits_biogrid.tsv"
 # load diseases of interest
 # for args[2]
 # object is sla1
@@ -12,7 +12,7 @@ load("../results/GenePlexus_parameters/diseases_with_SLA_models_cv_greater1.Rdat
 
 # path to graph
 # for args[3]
-edge_path = "../Zenodo/biogrid/BioGrid_igraph.Rdata"
+edge_path = "../data_Zenodo/biogrid/BioGrid_igraph.Rdata"
 netname = gsub("igraph.Rdata", "", basename(edge_path))
 
 # results path for args[6]
@@ -39,8 +39,6 @@ if(!dir.exists(dirname)){
                  "#SBATCH --time=1:00:00",
                  "#SBATCH --nodes=1",
                  "#SBATCH --cpus-per-task=1",
-                 "#SBATCH --exclude=qml-000,qml-002,qml-003",
-                 "#SBATCH --account=wang-krishnan",
                  "",
                  "cd ../src",
                  "",

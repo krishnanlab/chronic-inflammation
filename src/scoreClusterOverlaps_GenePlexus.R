@@ -23,15 +23,15 @@ cioi_name = sub("--.*$", "", basename(args[2]))
 # disease clusters --------------------------------------------------------
 print("disease clusters")
 disease_dir = args[1]
-setwd(disease_dir)
+#setwd(disease_dir)
 # dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/leiden_ModularityVertexPartition_b=0.5"
 doi = args[4]
 
 doi_grep = paste0("^", doi)
 doi_fake_grep = paste0("Fake_", doi)
 
-real_files = list.files(disease_dir, pattern = doi_grep)
-fake_files = list.files(disease_dir, pattern = doi_fake_grep)
+real_files = list.files(disease_dir, pattern = doi_grep,full.names=T)
+fake_files = list.files(disease_dir, pattern = doi_fake_grep,full.names=T)
 files = c(real_files, fake_files)
 
 # read in the cluster files

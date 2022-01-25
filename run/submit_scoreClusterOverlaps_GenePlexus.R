@@ -21,7 +21,7 @@ out_dir = "../results/GenePlexus_String_Adjacency"
 load("../results/GenePlexus_parameters/diseases_with_SLA_models_cv_greater1.Rdata")
 
 # genes in biogrid for args[6]
-network_genes = "../Zenodo/biogrid/BioGrid_genes.csv"
+network_genes = "../data_Zenodo/biogrid/BioGrid_genes.csv"
 
 for(disease in sla1){
   
@@ -34,14 +34,12 @@ for(disease in sla1){
   
   rjobConn <- file(paste0(dirname,"/",rjobsh))
   writeLines(c("#!/bin/sh -login",
-               "#SBATCH --mem=100GB",
+               "#SBATCH --mem=70GB",
                paste0("#SBATCH --job-name=score_", disease),
                paste0("#SBATCH --output=", dirname, "/", disease, "_", cioi_name, ".out"),
-               "#SBATCH --time=4:00:00",
+               "#SBATCH --time=3:59:00",
                "#SBATCH --nodes=1",
                "#SBATCH --cpus-per-task=1",
-               "#SBATCH --exclude=qml-000,qml-002,qml-003",
-               "#SBATCH --account=wang-krishnan",
                "",
                "cd ../src",
                "",

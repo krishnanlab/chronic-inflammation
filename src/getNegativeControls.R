@@ -1,10 +1,12 @@
 ############################################################
 #' Creates 'seed gene files' from the uk biobank pascal results
-#' @args[1] directory with pascal output files
-#' @args[2]
+#' @args[1] Uk biobank traits we are using
+#' @args[2] directory with pascal output files
 #' @args[3] Where disease_gene_files is located
 ############################################################
 library(tidyverse)
+args <- commandArgs(TRUE)
+
 #convert to entrez
 symbol2entrez = function(gene_symbols){
   require("org.Hs.eg.db")
@@ -17,7 +19,7 @@ symbol2entrez = function(gene_symbols){
 }
 
 #Load file I made linking ids of interest and trait description
-bio=read_tsv("../Zenodo/ourukbbtraitsanddescription.tsv")
+bio=read_tsv(as.character(args[1]))
 
 #put underscores for every space in this description
 #get rid of special characters of "-", "/" replacing them with _
@@ -33,9 +35,9 @@ bio$X2=gsub("__","_",bio$X2)
 bio$X2=gsub("__","_",bio$X2)
 
 #Edit column 1 to have file name so I can get correct disease name
-bio$X1=paste0("../Zenodo/pascal_out/",bio$X1,".gwas.imputed_v3.both_sexes.tsv.sum.genescores.txt")
+bio$X1=paste0(as.character(args[2]),"/",bio$X1,".gwas.imputed_v3.both_sexes.tsv.sum.genescores.txt")
 
-pasfiles=list.files("../Zenodo/pascal_out",full.names=T)
+pasfiles=list.files(as.character(args[2]),full.names=T)
 #For each disease, get genes that have a pvalue < .001
 for(file in pasfiles){
   pasresult=read_tsv(file,col_names=T)
@@ -44,5 +46,5 @@ for(file in pasfiles){
   dis=(filter(bio,X1==file))$X2
   pastrait=tibble(Gene=unname(pasentrez),Disease=dis)
   print(pastrait)
-  write_tsv(pastrait,paste0("../data/disease_gene_files/",dis,".txt"))
+  write_tsv(pastrait,paste0(as.character(args[3]),"disease_gene_files/",dis,".txt"))
 }

@@ -7,7 +7,6 @@
 #SBATCH --cpus-per-task=1           # number of CPUs (or cores) per task (same as -c)
 #SBATCH --mem=50G         	    	# memory required per allocated CPU (or core) - amount of memory (in bytes)
 #SBATCH --job-name filtsig     # you can give your job a name for easier identification (same as -J)
-#SBATCH --account=wang-krishnan
 #SBATCH -o ./%j.out
 #SBATCH -e ./%j.err
 ########## Command Lines to Run ##########
@@ -19,5 +18,5 @@ cd ../src
 Rscript filterSignificantOverlaps_GenePlexus.R ../results/overlap_results_real_only.Rdata \
  .01 \
  ../results/ \
- ../results/number_clustered.txt \
- ../GenePlexus_output/clusters_threshold.80
+ ../results/num_random_clustered \
+ ../results/GenePlexus_output/clusters_threshold.80

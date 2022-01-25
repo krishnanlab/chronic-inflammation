@@ -100,4 +100,4 @@ print(paste("number clustered =", number_clustered))
 
 numclusdir="../results/num_random_clustered"
 if(!dir.exists(numclusdir)) {dir.create(numclusdir)}
-write_tsv(tibble(Disease=doi,nFakesClustered=number_clustered),paste0(numclusdir,doi,".txt"))
+write_tsv(tibble(Disease=doi,nFakesClustered=number_clustered),paste0(numclusdir,"/",doi,".txt"))

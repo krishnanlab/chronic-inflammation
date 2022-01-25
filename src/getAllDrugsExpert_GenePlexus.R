@@ -1,6 +1,3 @@
-#This function take each drugcentral drug, get synonyms, and see if the synonym is in
-#expertcurated. If it is, overwrite it in expertcurated with the preferred name I am
-#using in drugcentral
 #' @param args[1] path to significant cluster results
 #' @param args[2] out directory for drug results
 library(tidyverse)
@@ -77,7 +74,7 @@ expertcurated = expertcurated %>% dplyr::select(drugName,Entrez,expert) %>% dist
 drugcentral=read_tsv("../data/drugcentral/drugcentral_entrez.tsv")
 
 #Loading synonyms
-synonyms=read_csv("../data/drugcentral/synonyms.csv")
+synonyms=read_csv("../data/drugcentral/databasecsvs/synonyms.csv")
 synonyms$name=toupper(synonyms$name)
 synonyms=filter(synonyms,id %in% drugcentral$STRUCT_ID)
 
@@ -101,7 +98,7 @@ diseaseclusters=all_clusters_df %>% as_tibble %>% filter(Disease!="chronic_infla
 diseaseclusters$Gene=as.character(diseaseclusters$Gene)
 
 #clustermatrix=read_csv("../results/GenePlexus_String_Adjacency/final_for_alex.csv")#%>% filter(phyperFDR<.05) %>% filter(PermutedFDR<.05)
-clustermatrix=read_csv(paste0(clusterdir,"/final_for_alex.csv"))
+clustermatrix=read_csv(paste0(clusterdir,"/sig_cluster_relations.csv"))
 faketraits=diseaseclusters %>% filter(grepl("Fake",Disease))
 #adding real clusters to above, also filter for only relevant clusters from clustermatrix
 realtraits=diseaseclusters %>% filter(!grepl("Fake",Disease)) %>% filter(Cluster %in%clustermatrix$Disease_Cluster)
@@ -116,6 +113,7 @@ faketraitscores=filter(drugscores,grepl("Fake",Trait))
 
 #loop for getting scores if I use 1000 fake traits instead
 towrite=tibble()
+faketraitarg=5000
 for(disease in unique(clustermatrix$Disease)){
   f=filter(realtraitscores,Trait==disease)
   if(nrow(f)==0){
@@ -131,7 +129,7 @@ for(disease in unique(clustermatrix$Disease)){
   topivot=rbind(ftopivot,faketraitdrugs)
   pivoted=pivot_wider(topivot,values_from=Scores,names_from=Trait) %>% replace(is.na(.),0) %>% arrange(Drugs)
   rows=1:nrow(pivoted)
-  pvals=mclapply(rows,getpvalues,5000,mc.cores=detectCores()-1)
+  pvals=mclapply(rows,getpvalues,faketraitarg,mc.cores=detectCores()-1)
   pivoted$pvals=as.double(unlist(pvals))
   pivoted$FDR=p.adjust(pivoted$pvals,method="BH")
   pivoted=pivoted %>% relocate(pvals,.after=Drugs) %>% relocate(FDR,.after=pvals)
@@ -154,7 +152,7 @@ for(disease in unique(clustermatrix$Disease)){
 dc=select(drugcentral,STRUCT_ID,DRUG_NAME)  %>% distinct
 colnames(dc)[2]="Drugs"
 towrite2=towrite %>% left_join(dc,by="Drugs")
-ind=read_csv("../data/drugcentral/indications.csv") %>% filter(relationship_name=="indication" | relationship_name=="off-label use") %>% select(-id,-concept_id)
+ind=read_csv("../data/drugcentral/databasecsvs/indications.csv") %>% filter(relationship_name=="indication" | relationship_name=="off-label use") %>% select(-id,-concept_id)
 colnames(ind)[1]="STRUCT_ID"
 ind = ind %>% filter(STRUCT_ID %in% towrite2$STRUCT_ID)
 

@@ -12,11 +12,11 @@ gp_files = list.files(gp_path,pattern=".tsv")
 # for args[2]
 #thresholds = c("mccf1", seq(0.5, 0.95, .05))
 #Using .8 because thats what we ended up using, origianlly ran with sequence
-thresholds=c("0.8",)
+thresholds=c("0.8")
 
 # path to graph
 # for args[3]
-edge_path = "../Zenodo/biogrid/BioGrid_igraph.Rdata"
+edge_path = "../data_Zenodo/biogrid/BioGrid_igraph.Rdata"
 netname = gsub("igraph.Rdata", "", basename(edge_path))
 # results path for args[6]
 results_path ="../results/GenePlexus_output/"
@@ -48,8 +48,6 @@ for(thresh in thresholds) {
                  "#SBATCH --time=0:30:00",
                  "#SBATCH --nodes=1",
                  "#SBATCH --cpus-per-task=1",
-                 "#SBATCH --exclude=qml-000,qml-002,qml-003",
-                 "#SBATCH --account=wang-krishnan",
                  "",
                  "cd ../src",
                  "",

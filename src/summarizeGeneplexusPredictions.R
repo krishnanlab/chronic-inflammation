@@ -306,7 +306,7 @@ to_copy =
              "--predictions.tsv")) %>%
   pull(to_copy)
 
-new_dir = paste0("../GenePlexus_output/predictions_cv_greater", thresh)
+new_dir = paste0("../results/GenePlexus_output/predictions_cv_greater", thresh)
 if(!dir.exists(new_dir)){dir.create(new_dir)}
 
 file.copy(paste0(args[1], to_copy), new_dir)

@@ -1,0 +1,3856 @@
+id,name,is_group,source
+7740,Monoamine Oxidase Inhibitors,1,LEXICOMP
+7741,Alpha/Beta Agonists,1,LEXICOMP
+7742,Amphetamines,1,LEXICOMP
+7743,Inhalational Anesthetics,1,LEXICOMP
+7744,Reversible Inhibitors of MAO-A,1,LEXICOMP
+7745,Irreversible inhibitors of MAO-B,1,LEXICOMP
+7746,Serotonin/Norepinephrine Reuptake Inhibitors,1,LEXICOMP
+7747,Selective Serotonin Reuptake Inhibitors,1,LEXICOMP
+7748,Indirectly Acting Sympathomimetic Amines,1,LEXICOMP
+7749,Tricyclic Antidepressants,1,LEXICOMP
+7750,Vasodilators Organic Nitrates,1,LEXICOMP
+7751,Phosphodiesterase 5 Inhibitors,1,LEXICOMP
+7753,Proton Pump Inhibitors,1,LEXICOMP
+7754,High Risk QT Prolonging Agents,1,LEXICOMP
+7755,Moderate Risk QT Prolonging Agents,1,LEXICOMP
+7756,Moderate CYP2D6 Inhibitors,1,LEXICOMP
+3849,naloxegol,0,DRUGDB
+3850,gemigliptin,0,DRUGDB
+3851,eliglustat,0,DRUGDB
+3852,ethacizine,0,DRUGDB
+3853,antimony pentasulfide,0,DRUGDB
+3854,apremilast,0,DRUGDB
+3855,empagliflozin,0,DRUGDB
+3856,vintafolide,0,DRUGDB
+3857,etilefrine pivalate,0,DRUGDB
+3858,laquinimod,0,DRUGDB
+3859,iodohippurate sodium I125,0,DRUGDB
+3860,iodohippurate sodium I131,0,DRUGDB
+3861,laninamivir,0,DRUGDB
+3862,peramivir,0,DRUGDB
+3863,florbetaben F18,0,DRUGDB
+3864,delamanid,0,DRUGDB
+3865,nordefrin,0,DRUGDB
+3866,tasimelteon,0,DRUGDB
+3867,rifamycin,0,DRUGDB
+3868,luliconazole,0,DRUGDB
+3869,olodaterol,0,DRUGDB
+3870,umeclidinium,0,DRUGDB
+3871,vortioxetine,0,DRUGDB
+3872,riociguat,0,DRUGDB
+3873,ipidacrine,0,DRUGDB
+3874,macitentan,0,DRUGDB
+3875,ibrutinib,0,DRUGDB
+3876,sofosbuvir,0,DRUGDB
+3877,simeprevir,0,DRUGDB
+3878,dolutegravir,0,DRUGDB
+3879,sodium picosulfate,0,DRUGDB
+3880,sodium tartrate,0,DRUGDB
+3881,sodium selenate,0,DRUGDB
+3882,sodium selenite,0,DRUGDB
+3883,hachimycin,0,DRUGDB
+3884,sodium chlorite,0,DRUGDB
+3885,sinecatechins,0,DRUGDB
+3886,mercuric amidochloride,0,DRUGDB
+3887,mercuric chloride,0,DRUGDB
+3888,mercurochrome,0,DRUGDB
+3889,technetium Tc 99m tilmanocept,0,DRUGDB
+3890,polaprezinc,0,DRUGDB
+3891,dimethyl fumarate,0,DRUGDB
+3892,canagliflozin,0,DRUGDB
+3893,aloglutamol,0,DRUGDB
+3894,aloxiprin,0,DRUGDB
+3895,aluminium acetoacetate,0,DRUGDB
+3896,glycerol phenylbutyrate,0,DRUGDB
+3897,pomalidomide,0,DRUGDB
+3898,quifenadine,0,DRUGDB
+3899,ospemifene,0,DRUGDB
+3900,cetyl alcohol,0,DRUGDB
+3901,fomivirsen,0,DRUGDB
+3902,levobetaxolol,0,DRUGDB
+3903,pentetate calcium trisodium,0,DRUGDB
+3904,pentetate zinc trisodium,0,DRUGDB
+3905,regorafenib,0,DRUGDB
+3906,tedisamil,0,DRUGDB
+3907,meprotixol,0,DRUGDB
+3908,mersalyl,0,DRUGDB
+3909,metabutethamine,0,DRUGDB
+3910,metamizole,0,DRUGDB
+3911,methylatropine,0,DRUGDB
+3912,creatine,0,DRUGDB
+3913,choline magnesium trisalicylate,0,DRUGDB
+3914,benzoin,0,DRUGDB
+3915,oxygen,0,DRUGDB
+3916,octinoxate,0,DRUGDB
+3917,titanium dioxide,0,DRUGDB
+3918,nitrous oxide,0,DRUGDB
+3919,calcium carbonate,0,DRUGDB
+3920,zinc oxide,0,DRUGDB
+3921,octisalate,0,DRUGDB
+3922,avobenzone,0,DRUGDB
+3923,sodium fluoride,0,DRUGDB
+3924,magnesium hydroxide,0,DRUGDB
+3925,methyl salicylate,0,DRUGDB
+3926,Polymyxin B,0,DRUGDB
+3927,tafluprost,0,DRUGDB
+3928,Ioflupane I-123,0,DRUGDB
+3930,telbivudine,0,DRUGDB
+3931,mequinol,0,DRUGDB
+3932,metitepine,0,DRUGDB
+3933,vilazodone,0,DRUGDB
+3934,pirfenidone,0,DRUGDB
+3935,axitinib,0,DRUGDB
+3936,ingenol mebutate,0,DRUGDB
+3937,icatibant,0,DRUGDB
+3938,crizotinib,0,DRUGDB
+3939,deferiprone,0,DRUGDB
+3940,hydroxyprogesterone caproate,0,DRUGDB
+3941,nitric oxide,0,DRUGDB
+3942,formaldehyde,0,DRUGDB
+3943,hydrogen peroxide,0,DRUGDB
+3944,ethylamine,0,DRUGDB
+3945,ethanol,0,DRUGDB
+3946,guanidine,0,DRUGDB
+3947,boric acid,0,DRUGDB
+3948,ethyl chloride,0,DRUGDB
+3949,vinyl ether,0,DRUGDB
+3950,propiolactone,0,DRUGDB
+3951,glycine,0,DRUGDB
+3952,acetohydroxamic acid,0,DRUGDB
+3953,hydroxycarbamide,0,DRUGDB
+3954,propylene glycol,0,DRUGDB
+3955,mercaptamine,0,DRUGDB
+3956,dimethyl sulfoxide,0,DRUGDB
+3957,fomepizole,0,DRUGDB
+3958,piperazine,0,DRUGDB
+3959,morpholine,0,DRUGDB
+3960,dimethylacetamide,0,DRUGDB
+3961,ethyl acetate,0,DRUGDB
+3962,deanol,0,DRUGDB
+3963,dihydroxyacetone,0,DRUGDB
+3964,lactic acid,0,DRUGDB
+3965,glycerol,0,DRUGDB
+3966,protoanemonin,0,DRUGDB
+3967,methylpentynol,0,DRUGDB
+3968,glutaral,0,DRUGDB
+3969,aminothiazole,0,DRUGDB
+3970,cycloserine,0,DRUGDB
+3971,aminobutyric acid,0,DRUGDB
+3972,choline,0,DRUGDB
+3973,benzyl alcohol,0,DRUGDB
+3974,aminopicoline,0,DRUGDB
+3975,nicotinyl alcohol,0,DRUGDB
+3976,resorcinol,0,DRUGDB
+3977,hydroquinone,0,DRUGDB
+3978,histamine,0,DRUGDB
+3979,betazole,0,DRUGDB
+3980,thiamazole,0,DRUGDB
+3981,tuaminoheptane,0,DRUGDB
+3982,methylhexaneamine,0,DRUGDB
+3983,fumaric acid,0,DRUGDB
+3984,glycocyamine,0,DRUGDB
+3985,amyl nitrite,0,DRUGDB
+3986,succinic acid,0,DRUGDB
+3987,betaine,0,DRUGDB
+3988,aminohydroxybutyric acid,0,DRUGDB
+3989,oxymethurea,0,DRUGDB
+3990,noxytiolin,0,DRUGDB
+3991,trometamol,0,DRUGDB
+3992,cysteine,0,DRUGDB
+3993,nicotinamide,0,DRUGDB
+3994,nicotinic acid,0,DRUGDB
+3995,pyrazinamide,0,DRUGDB
+3996,guaiacol,0,DRUGDB
+3997,dimercaprol,0,DRUGDB
+3998,foscarnet,0,DRUGDB
+3999,fluroxene,0,DRUGDB
+4000,pyrogallol,0,DRUGDB
+4001,phloroglucinol,0,DRUGDB
+4002,orazamide,0,DRUGDB
+4003,pyrithione,0,DRUGDB
+4004,3-quinuclidinol,0,DRUGDB
+4005,thiouracil,0,DRUGDB
+4006,azulene,0,DRUGDB
+4007,dichloroacetic acid,0,DRUGDB
+4008,flucytosine,0,DRUGDB
+4009,dimethadione,0,DRUGDB
+4010,vigabatrin,0,DRUGDB
+4011,metformin,0,DRUGDB
+4012,octodrine,0,DRUGDB
+4013,fluorouracil,0,DRUGDB
+4014,aminolevulinic acid,0,DRUGDB
+4015,leucine,0,DRUGDB
+4016,aminocaproic acid,0,DRUGDB
+4017,trichloroethylene,0,DRUGDB
+4018,paraldehyde,0,DRUGDB
+4019,ornithine,0,DRUGDB
+4020,prenderol,0,DRUGDB
+4021,aspartic acid,0,DRUGDB
+4022,timonacic,0,DRUGDB
+4023,tranylcypromine,0,DRUGDB
+4024,adenine,0,DRUGDB
+4025,acetanilide,0,DRUGDB
+4026,mecysteine,0,DRUGDB
+4027,levamfetamine,0,DRUGDB
+4028,dexamfetamine,0,DRUGDB
+4029,amfetamine,0,DRUGDB
+4030,allopurinol,0,DRUGDB
+4031,pentaerythritol,0,DRUGDB
+4032,phenylpropanol,0,DRUGDB
+4033,phenelzine,0,DRUGDB
+4034,betahistine,0,DRUGDB
+4035,homonicotinic acid,0,DRUGDB
+4036,methyl nicotinate,0,DRUGDB
+4037,salicylamide,0,DRUGDB
+4038,aminobenzoic acid,0,DRUGDB
+4039,isoniazid,0,DRUGDB
+4040,pralidoxime,0,DRUGDB
+4041,phenylethanolamine,0,DRUGDB
+4042,tyramine,0,DRUGDB
+4043,isaxonine,0,DRUGDB
+4044,cacodylic acid,0,DRUGDB
+4045,fosfomycin,0,DRUGDB
+4046,salicylic acid,0,DRUGDB
+4047,phenoxyethanol,0,DRUGDB
+4048,pentetrazol,0,DRUGDB
+4049,oxiniacic acid,0,DRUGDB
+4050,methenamine,0,DRUGDB
+4051,furtrethonium,0,DRUGDB
+4052,ethosuximide,0,DRUGDB
+4053,isometheptene,0,DRUGDB
+4054,cyclopentamine,0,DRUGDB
+4055,kojic acid,0,DRUGDB
+4056,piracetam,0,DRUGDB
+4057,methylthiouracil,0,DRUGDB
+4058,mesna,0,DRUGDB
+4059,trimethadione,0,DRUGDB
+4060,valpromide,0,DRUGDB
+4061,valnoctamide,0,DRUGDB
+4062,betanaphthol,0,DRUGDB
+4063,octanoic acid,0,DRUGDB
+4064,valproic acid,0,DRUGDB
+4065,octamoxin,0,DRUGDB
+4066,ethchlorvynol,0,DRUGDB
+4067,methyl aminolevulinate,0,DRUGDB
+4068,oxyquinoline,0,DRUGDB
+4069,emylcamate,0,DRUGDB
+4070,heptaminol,0,DRUGDB
+4071,gimeracil,0,DRUGDB
+4072,sulfur hexafluoride,0,DRUGDB
+4073,adipic acid,0,DRUGDB
+4074,isosorbide,0,DRUGDB
+4075,coumarin,0,DRUGDB
+4076,glutamine,0,DRUGDB
+4077,lysine,0,DRUGDB
+4078,oxapropanium,0,DRUGDB
+4079,acetylcholine,0,DRUGDB
+4080,trientine,0,DRUGDB
+4081,glutamic acid,0,DRUGDB
+4082,meldonium,0,DRUGDB
+4083,carbachol,0,DRUGDB
+4084,ketoxal,0,DRUGDB
+4085,trolamine,0,DRUGDB
+4086,methionine,0,DRUGDB
+4087,penicillamine,0,DRUGDB
+4088,phenpromethamine,0,DRUGDB
+4089,phentermine,0,DRUGDB
+4090,methamphetamine,0,DRUGDB
+4091,ditiocarb,0,DRUGDB
+4092,tartaric acid,0,DRUGDB
+4093,xylose,0,DRUGDB
+4094,paroxypropione,0,DRUGDB
+4095,pheniprazine,0,DRUGDB
+4096,metacetamol,0,DRUGDB
+4097,acetaminophen,0,DRUGDB
+4098,aminomethylbenzoic acid,0,DRUGDB
+4099,phenicarbazide,0,DRUGDB
+4100,cathine,0,DRUGDB
+4101,phenylpropanolamine,0,DRUGDB
+4102,hydroxyamfetamine,0,DRUGDB
+4103,gepefrine,0,DRUGDB
+4104,amantadine,0,DRUGDB
+4105,methylparaben,0,DRUGDB
+4106,mandelic acid,0,DRUGDB
+4107,hydroxymethylnicotinamide,0,DRUGDB
+4108,tisopurine,0,DRUGDB
+4109,mercaptopurine,0,DRUGDB
+4110,homocamfin,0,DRUGDB
+4111,camphor,0,DRUGDB
+4112,aminosalicylic acid,0,DRUGDB
+4113,mesalazine,0,DRUGDB
+4114,octopamine,0,DRUGDB
+4115,enbucrilate,0,DRUGDB
+4116,norfenefrine,0,DRUGDB
+4117,dopamine,0,DRUGDB
+4118,carbon tetrachloride,0,DRUGDB
+4119,gentisic acid,0,DRUGDB
+4120,acipimox,0,DRUGDB
+4121,guancidine,0,DRUGDB
+4122,allomethadione,0,DRUGDB
+4123,histidine,0,DRUGDB
+4124,bemegride,0,DRUGDB
+4125,arecoline,0,DRUGDB
+4126,valdetamide,0,DRUGDB
+4127,propylhexedrine,0,DRUGDB
+4128,pempidine,0,DRUGDB
+4129,mechlorethamine,0,DRUGDB
+4130,orotic acid,0,DRUGDB
+4131,nifuroxime,0,DRUGDB
+4132,ectylurea,0,DRUGDB
+4133,levomenthol,0,DRUGDB
+4134,chloroxylenol,0,DRUGDB
+4135,oteracil,0,DRUGDB
+4136,furamicid,0,DRUGDB
+4137,paramethadione,0,DRUGDB
+4138,ethadione,0,DRUGDB
+4139,tranexamic acid,0,DRUGDB
+4140,oxanamide,0,DRUGDB
+4141,buformin,0,DRUGDB
+4142,oxiracetam,0,DRUGDB
+4143,tiliquinol,0,DRUGDB
+4144,citiolone,0,DRUGDB
+4145,pregabalin,0,DRUGDB
+4146,pargyline,0,DRUGDB
+4147,hydralazine,0,DRUGDB
+4148,tolazoline,0,DRUGDB
+4149,methacholine,0,DRUGDB
+4150,carpronium,0,DRUGDB
+4151,bethanechol,0,DRUGDB
+4152,clomethiazole,0,DRUGDB
+4153,meglutol,0,DRUGDB
+4154,fenadiazole,0,DRUGDB
+4155,aminorex,0,DRUGDB
+4156,levocarnitine,0,DRUGDB
+4157,nicotine,0,DRUGDB
+4158,carsalam,0,DRUGDB
+4159,tiopronin,0,DRUGDB
+4160,acetylcysteine,0,DRUGDB
+4161,pentorex,0,DRUGDB
+4162,mephentermine,0,DRUGDB
+4163,etilamfetamine,0,DRUGDB
+4164,trichloroacetic acid,0,DRUGDB
+4165,buphenyl,0,DRUGDB
+4166,fenipentol,0,DRUGDB
+4167,methiosulfonium chloride,0,DRUGDB
+4168,methoxyflurane,0,DRUGDB
+4169,phenylalanine,0,DRUGDB
+4170,ethenzamide,0,DRUGDB
+4171,benzocaine,0,DRUGDB
+4172,pholedrine,0,DRUGDB
+4173,pseudoephedrine,0,DRUGDB
+4174,ephedrine,0,DRUGDB
+4175,chloral hydrate,0,DRUGDB
+4176,tetrachloroethylene,0,DRUGDB
+4177,fenoxypropazine,0,DRUGDB
+4178,edrophonium,0,DRUGDB
+4179,ethionamide,0,DRUGDB
+4180,orthocaine,0,DRUGDB
+4181,thioguanine,0,DRUGDB
+4182,oxedrine,0,DRUGDB
+4183,pyrithyldione,0,DRUGDB
+4184,phenylephrine,0,DRUGDB
+4185,metaraminol,0,DRUGDB
+4186,mecamylamine,0,DRUGDB
+4187,desflurane,0,DRUGDB
+4188,tioxolone,0,DRUGDB
+4189,cicrotoic acid,0,DRUGDB
+4190,pyridoxine,0,DRUGDB
+4191,norepinephrine,0,DRUGDB
+4192,piperidione,0,DRUGDB
+4193,chlorzoxazone,0,DRUGDB
+4194,levetiracetam,0,DRUGDB
+4195,propylthiouracil,0,DRUGDB
+4196,sobrerol,0,DRUGDB
+4197,metronidazole,0,DRUGDB
+4198,moroxydine,0,DRUGDB
+4199,gabapentin,0,DRUGDB
+4200,rasagiline,0,DRUGDB
+4201,menadione,0,DRUGDB
+4202,sulfanilamide,0,DRUGDB
+4203,hexacyclonate sodium,0,DRUGDB
+4204,terpin,0,DRUGDB
+4205,oxaceprol,0,DRUGDB
+4206,sulfanilic acid,0,DRUGDB
+4207,acetylleucine,0,DRUGDB
+4208,menadiol,0,DRUGDB
+4209,arginine hydrochloride,0,DRUGDB
+4210,benzalamide,0,DRUGDB
+4211,debrisoquine,0,DRUGDB
+4212,medronic acid,0,DRUGDB
+4213,ascorbic acid,0,DRUGDB
+4214,glucurolactone,0,DRUGDB
+4215,hymecromone,0,DRUGDB
+4216,pemoline,0,DRUGDB
+4217,cotinine,0,DRUGDB
+4218,dichlorobenzyl alcohol,0,DRUGDB
+4219,tidiacic,0,DRUGDB
+4220,phenmetrazine,0,DRUGDB
+4221,betanidine,0,DRUGDB
+4222,chlorobutanol,0,DRUGDB
+4223,phenacemide,0,DRUGDB
+4224,nikethamide,0,DRUGDB
+4225,propofol,0,DRUGDB
+4226,acivicin,0,DRUGDB
+4227,glucosamine,0,DRUGDB
+4228,salacetamide,0,DRUGDB
+4229,phenprobamate,0,DRUGDB
+4230,phenacetin,0,DRUGDB
+4231,homarylamine,0,DRUGDB
+4232,iproniazid,0,DRUGDB
+4233,fudosteine,0,DRUGDB
+4234,methylephedrine,0,DRUGDB
+4235,mexiletine,0,DRUGDB
+4236,methoxyphenamine,0,DRUGDB
+4237,rimantadine,0,DRUGDB
+4238,memantine,0,DRUGDB
+4239,cloxiquine,0,DRUGDB
+4240,inositol,0,DRUGDB
+4241,galactose,0,DRUGDB
+4242,fructose,0,DRUGDB
+4243,glucose,0,DRUGDB
+4244,acetylsalicylic acid,0,DRUGDB
+4245,theophylline,0,DRUGDB
+4246,theobromine,0,DRUGDB
+4247,propylparaben,0,DRUGDB
+4248,rilmenidine,0,DRUGDB
+4249,protionamide,0,DRUGDB
+4250,teflurane,0,DRUGDB
+4251,styramate,0,DRUGDB
+4252,adrenalone,0,DRUGDB
+4253,acamprosate,0,DRUGDB
+4254,pyridostigmine,0,DRUGDB
+4255,oxilofrine,0,DRUGDB
+4256,hexapropymate,0,DRUGDB
+4257,etilefrine,0,DRUGDB
+4258,eflornithine,0,DRUGDB
+4259,sorbitol,0,DRUGDB
+4260,mannitol,0,DRUGDB
+4261,dacarbazine,0,DRUGDB
+4262,mephenesin,0,DRUGDB
+4263,succimer,0,DRUGDB
+4264,guanacline,0,DRUGDB
+4265,epinephrine,0,DRUGDB
+4266,methyprylon,0,DRUGDB
+4267,clortermine,0,DRUGDB
+4268,chlorphentermine,0,DRUGDB
+4269,fluostigmine,0,DRUGDB
+4270,phosphorylcholine,0,DRUGDB
+4271,barbital,0,DRUGDB
+4272,mitoguazone,0,DRUGDB
+4273,apronal,0,DRUGDB
+4274,undecylenic acid,0,DRUGDB
+4275,guanazodine,0,DRUGDB
+4276,isoflurane,0,DRUGDB
+4277,enflurane,0,DRUGDB
+4278,secnidazole,0,DRUGDB
+4279,mafenide,0,DRUGDB
+4280,carbimazole,0,DRUGDB
+4281,epomediol,0,DRUGDB
+4282,cyclobutyrol,0,DRUGDB
+4283,aminitrozole,0,DRUGDB
+4284,amrinone,0,DRUGDB
+4285,pivagabine,0,DRUGDB
+4286,selegiline,0,DRUGDB
+4287,perflutren,0,DRUGDB
+4288,aceglutamide,0,DRUGDB
+4289,azelaic acid,0,DRUGDB
+4290,phenazone,0,DRUGDB
+4291,fenproporex,0,DRUGDB
+4292,etryptamine,0,DRUGDB
+4293,phensuximide,0,DRUGDB
+4294,thiotepa,0,DRUGDB
+4295,colestipol,0,DRUGDB
+4296,carglumic acid,0,DRUGDB
+4297,nitroxoline,0,DRUGDB
+4298,etamsylate,0,DRUGDB
+4299,calcium dobesilate,0,DRUGDB
+4300,dihydralazine,0,DRUGDB
+4301,isosorbide mononitrate,0,DRUGDB
+4302,idrocilamide,0,DRUGDB
+4303,phendimetrazine,0,DRUGDB
+4304,oxidronic acid,0,DRUGDB
+4305,citric acid,0,DRUGDB
+4306,ibufenac,0,DRUGDB
+4307,tocainide,0,DRUGDB
+4308,(S)-tocainide,0,DRUGDB
+4309,glucuronamide,0,DRUGDB
+4310,betamipron,0,DRUGDB
+4311,actarit,0,DRUGDB
+4312,butamben,0,DRUGDB
+4313,sabcomeline,0,DRUGDB
+4314,camphotamide,0,DRUGDB
+4315,etafedrine,0,DRUGDB
+4316,temozolomide,0,DRUGDB
+4317,aminohippuric acid,0,DRUGDB
+4318,enprofylline,0,DRUGDB
+4319,caffeine,0,DRUGDB
+4320,aminoacridine,0,DRUGDB
+4321,hexylresorcinol,0,DRUGDB
+4322,salamidacetic acid,0,DRUGDB
+4323,meglumine antimonate,0,DRUGDB
+4324,buramate,0,DRUGDB
+4325,metyrosine,0,DRUGDB
+4326,pimeclone,0,DRUGDB
+4327,gluconic acid,0,DRUGDB
+4328,creatinolfosfate,0,DRUGDB
+4329,levodopa,0,DRUGDB
+4330,pildralazine,0,DRUGDB
+4331,halothane,0,DRUGDB
+4332,beclamide,0,DRUGDB
+4333,arsenic trioxide,0,DRUGDB
+4334,nitrofurazone,0,DRUGDB
+4335,guaifenesin,0,DRUGDB
+4336,metharbital,0,DRUGDB
+4337,tacrine,0,DRUGDB
+4338,guaiazulen,0,DRUGDB
+4339,guanethidine,0,DRUGDB
+4340,oxophenarsine,0,DRUGDB
+4341,clavulanic acid,0,DRUGDB
+4342,diethylcarbamazine,0,DRUGDB
+4343,cevimeline,0,DRUGDB
+4344,sevoflurane,0,DRUGDB
+4345,tegafur-uracil,0,DRUGDB
+4346,monobenzone,0,DRUGDB
+4347,tetryzoline,0,DRUGDB
+4348,dexmedetomidine,0,DRUGDB
+4349,thiabendazole,0,DRUGDB
+4350,indanazoline,0,DRUGDB
+4351,amezinium metilsulfate,0,DRUGDB
+4352,hexamethonium,0,DRUGDB
+4353,chlorphenesin,0,DRUGDB
+4354,acetylcarnitine,0,DRUGDB
+4355,methsuximide,0,DRUGDB
+4356,crotamiton,0,DRUGDB
+4357,sulfogaiacol,0,DRUGDB
+4358,tryptophan,0,DRUGDB
+4359,fenozolone,0,DRUGDB
+4360,ethotoin,0,DRUGDB
+4361,tretamine,0,DRUGDB
+4362,levamisole,0,DRUGDB
+4363,ethambutol,0,DRUGDB
+4364,telmesteine,0,DRUGDB
+4365,dexpanthenol,0,DRUGDB
+4366,trapidil,0,DRUGDB
+4367,phenformin,0,DRUGDB
+4368,amfepramone,0,DRUGDB
+4369,tosylchloramide sodium,0,DRUGDB
+4370,etidronic acid,0,DRUGDB
+4371,caroxazone,0,DRUGDB
+4372,pheneturide,0,DRUGDB
+4373,dexibuprofen,0,DRUGDB
+4374,ibuprofen,0,DRUGDB
+4375,pyrantel,0,DRUGDB
+4376,miglitol,0,DRUGDB
+4377,thurfyl nicotinate,0,DRUGDB
+4378,toloxatone,0,DRUGDB
+4379,guanoxan,0,DRUGDB
+4380,guabenxan,0,DRUGDB
+4381,ciclopirox,0,DRUGDB
+4382,allobarbital,0,DRUGDB
+4383,pilocarpine,0,DRUGDB
+4384,bendazol,0,DRUGDB
+4385,oxyfenamate,0,DRUGDB
+4386,proflavine,0,DRUGDB
+4387,minoxidil,0,DRUGDB
+4388,fepradinol,0,DRUGDB
+4389,bamethan,0,DRUGDB
+4390,tolonidine,0,DRUGDB
+4391,phanquinone,0,DRUGDB
+4392,aprobarbital,0,DRUGDB
+4393,naphazoline,0,DRUGDB
+4394,altretamine,0,DRUGDB
+4395,fosfocreatine,0,DRUGDB
+4396,nicorandil,0,DRUGDB
+4397,methyldopa,0,DRUGDB
+4398,melevodopa,0,DRUGDB
+4399,zalcitabine,0,DRUGDB
+4400,milrinone,0,DRUGDB
+4401,levisoprenaline,0,DRUGDB
+4402,methoxamine,0,DRUGDB
+4403,metaproterenol,0,DRUGDB
+4404,isoprenaline,0,DRUGDB
+4405,dioxethedrin,0,DRUGDB
+4406,varenicline,0,DRUGDB
+4407,pramipexole,0,DRUGDB
+4408,mefenorex,0,DRUGDB
+4409,zonisamide,0,DRUGDB
+4410,felbinac,0,DRUGDB
+4411,benzyl benzoate,0,DRUGDB
+4412,butobarbital,0,DRUGDB
+4413,secbutabarbital,0,DRUGDB
+4414,albutoin,0,DRUGDB
+4415,droxidopa,0,DRUGDB
+4416,troxacitabine,0,DRUGDB
+4417,salicylanilide,0,DRUGDB
+4418,benzyl nicotinate,0,DRUGDB
+4419,phenazopyridine,0,DRUGDB
+4420,guanadrel,0,DRUGDB
+4421,baclofen,0,DRUGDB
+4422,clorprenaline,0,DRUGDB
+4423,chloroxine,0,DRUGDB
+4424,carmustine,0,DRUGDB
+4425,etanidazole,0,DRUGDB
+4426,niridazole,0,DRUGDB
+4427,phenyl salicylate,0,DRUGDB
+4428,amifostine,0,DRUGDB
+4429,sulfacetamide,0,DRUGDB
+4430,sulfaguanidine,0,DRUGDB
+4431,velnacrine,0,DRUGDB
+4432,fenyramidol,0,DRUGDB
+4433,dimenhydrinate,0,DRUGDB
+4434,clofibric acid,0,DRUGDB
+4435,naftazone,0,DRUGDB
+4436,sulfacarbamide,0,DRUGDB
+4437,tramazoline,0,DRUGDB
+4438,fencamfamin,0,DRUGDB
+4439,tiamenidine,0,DRUGDB
+4440,bergapten,0,DRUGDB
+4441,methoxsalen,0,DRUGDB
+4442,bisorcic,0,DRUGDB
+4443,glutethimide,0,DRUGDB
+4444,captopril,0,DRUGDB
+4445,tinazoline,0,DRUGDB
+4446,prolintane,0,DRUGDB
+4447,fosfosal,0,DRUGDB
+4448,salicylsulfuric acid,0,DRUGDB
+4449,triacetin,0,DRUGDB
+4450,heptobarbital,0,DRUGDB
+4451,meprobamate,0,DRUGDB
+4452,primidone,0,DRUGDB
+4453,mephenytoin,0,DRUGDB
+4454,aclatonium,0,DRUGDB
+4455,benzylthiouracil,0,DRUGDB
+4456,fenoxazoline,0,DRUGDB
+4457,uredepa,0,DRUGDB
+4458,aniracetam,0,DRUGDB
+4459,dacisteine,0,DRUGDB
+4460,miglustat,0,DRUGDB
+4461,alminoprofen,0,DRUGDB
+4462,ornidazole,0,DRUGDB
+4463,oxitriptan,0,DRUGDB
+4464,butibufen,0,DRUGDB
+4465,prilocaine,0,DRUGDB
+4466,metaxalone,0,DRUGDB
+4467,ibuproxam,0,DRUGDB
+4468,procarbazine,0,DRUGDB
+4469,methiodal,0,DRUGDB
+4470,dimecrotic acid,0,DRUGDB
+4471,phenindione,0,DRUGDB
+4472,morinamide,0,DRUGDB
+4473,acetazolamide,0,DRUGDB
+4474,nicametate,0,DRUGDB
+4475,bromisoval,0,DRUGDB
+4476,mephenoxalone,0,DRUGDB
+4477,bufexamac,0,DRUGDB
+4478,rimiterol,0,DRUGDB
+4479,etamivan,0,DRUGDB
+4480,bucetin,0,DRUGDB
+4481,fadrozole,0,DRUGDB
+4482,neostigmine,0,DRUGDB
+4483,toliprolol,0,DRUGDB
+4484,tigloidine,0,DRUGDB
+4485,bucillamine,0,DRUGDB
+4486,nifuradene,0,DRUGDB
+4487,stavudine,0,DRUGDB
+4488,etofylline,0,DRUGDB
+4489,vinbarbital,0,DRUGDB
+4490,enallylpropymal,0,DRUGDB
+4491,nifenalol,0,DRUGDB
+4492,vinylbital,0,DRUGDB
+4493,talbutal,0,DRUGDB
+4494,butalbital,0,DRUGDB
+4495,febuprol,0,DRUGDB
+4496,furazolidone,0,DRUGDB
+4497,ancitabine,0,DRUGDB
+4498,aciclovir,0,DRUGDB
+4499,drometrizole,0,DRUGDB
+4500,terbutaline,0,DRUGDB
+4501,prenalterol,0,DRUGDB
+4502,lefetamine,0,DRUGDB
+4503,esaprazole,0,DRUGDB
+4504,dithranol,0,DRUGDB
+4505,proxibarbal,0,DRUGDB
+4506,carbidopa,0,DRUGDB
+4507,nimorazole,0,DRUGDB
+4508,pentobarbital,0,DRUGDB
+4509,amobarbital,0,DRUGDB
+4510,metyrapone,0,DRUGDB
+4511,crotetamide,0,DRUGDB
+4512,pirlindole,0,DRUGDB
+4513,alclofenac,0,DRUGDB
+4514,glyceryl trinitrate,0,DRUGDB
+4515,decitabine,0,DRUGDB
+4516,dimetofrine,0,DRUGDB
+4517,buclosamide,0,DRUGDB
+4518,tulobuterol,0,DRUGDB
+4519,chlorquinaldol,0,DRUGDB
+4520,pemirolast,0,DRUGDB
+4521,guaiacol benzoate,0,DRUGDB
+4522,trioxsalen,0,DRUGDB
+4523,ozagrel,0,DRUGDB
+4524,nabumetone,0,DRUGDB
+4525,fenpentadiol,0,DRUGDB
+4526,osalmid,0,DRUGDB
+4527,furonazide,0,DRUGDB
+4528,lamivudine,0,DRUGDB
+4529,furfenorex,0,DRUGDB
+4530,pronetalol,0,DRUGDB
+4531,triclofos,0,DRUGDB
+4532,amiloride,0,DRUGDB
+4533,clonidine,0,DRUGDB
+4534,naproxen,0,DRUGDB
+4535,propyphenazone,0,DRUGDB
+4536,ibudilast,0,DRUGDB
+4537,diazoxide,0,DRUGDB
+4538,guanabenz,0,DRUGDB
+4539,methaniazide,0,DRUGDB
+4540,isocarboxazid,0,DRUGDB
+4541,fenfluramine,0,DRUGDB
+4542,dexfenfluramine,0,DRUGDB
+4543,aminophenazone,0,DRUGDB
+4544,sulfathiourea,0,DRUGDB
+4545,eptazocine,0,DRUGDB
+4546,nifurprazine,0,DRUGDB
+4547,seletracetam,0,DRUGDB
+4548,phenobarbital,0,DRUGDB
+4549,nalidixic acid,0,DRUGDB
+4550,todralazine,0,DRUGDB
+4551,mebutamate,0,DRUGDB
+4552,mofebutazone,0,DRUGDB
+4553,melatonin,0,DRUGDB
+4554,aminoglutethimide,0,DRUGDB
+4555,pyrrocaine,0,DRUGDB
+4556,tymazoline,0,DRUGDB
+4557,acitazanolast,0,DRUGDB
+4558,sulbactam,0,DRUGDB
+4559,levofacetoperane,0,DRUGDB
+4560,methylphenidate,0,DRUGDB
+4561,dexmethylphenidate,0,DRUGDB
+4562,meptazinol,0,DRUGDB
+4563,lomustine,0,DRUGDB
+4564,diloxanide,0,DRUGDB
+4565,riluzole,0,DRUGDB
+4566,cyclopentobarbital,0,DRUGDB
+4567,metisazone,0,DRUGDB
+4568,monoctanoin,0,DRUGDB
+4569,stiripentol,0,DRUGDB
+4570,octacaine,0,DRUGDB
+4571,lidocaine,0,DRUGDB
+4572,sparteine,0,DRUGDB
+4573,pamidronic acid,0,DRUGDB
+4574,taurosteine,0,DRUGDB
+4575,meprylcaine,0,DRUGDB
+4576,amylocaine,0,DRUGDB
+4577,azapetine,0,DRUGDB
+4578,procainamide,0,DRUGDB
+4579,picilorex,0,DRUGDB
+4580,isosorbide dinitrate,0,DRUGDB
+4581,didanosine,0,DRUGDB
+4582,hexobarbital,0,DRUGDB
+4583,cyclobarbital,0,DRUGDB
+4584,carbamazepine,0,DRUGDB
+4585,methazolamide,0,DRUGDB
+4586,zileuton,0,DRUGDB
+4587,amithiozone,0,DRUGDB
+4588,procaine,0,DRUGDB
+4589,levodropropizine,0,DRUGDB
+4590,dropropizine,0,DRUGDB
+4591,dimethicone,0,DRUGDB
+4592,carbromal,0,DRUGDB
+4593,ambazone,0,DRUGDB
+4594,viloxazine,0,DRUGDB
+4595,ketamine,0,DRUGDB
+4596,perflubutane,0,DRUGDB
+4597,tilbroquinol,0,DRUGDB
+4598,nitrofurantoin,0,DRUGDB
+4599,rufinamide,0,DRUGDB
+4600,dipyrocetyl,0,DRUGDB
+4601,acefylline,0,DRUGDB
+4602,felbamate,0,DRUGDB
+4603,protheobromine,0,DRUGDB
+4604,proxyphylline,0,DRUGDB
+4605,nealbarbital,0,DRUGDB
+4606,secobarbital,0,DRUGDB
+4607,nomifensine,0,DRUGDB
+4608,metapramine,0,DRUGDB
+4609,flosequinan,0,DRUGDB
+4610,emorfazone,0,DRUGDB
+4611,levomoprolol,0,DRUGDB
+4612,moprolol,0,DRUGDB
+4613,levosalbutamol,0,DRUGDB
+4614,isoetarine,0,DRUGDB
+4615,salbutamol,0,DRUGDB
+4616,benzphetamine,0,DRUGDB
+4617,bupropion,0,DRUGDB
+4618,dantron,0,DRUGDB
+4619,fluindione,0,DRUGDB
+4620,tetrabarbital,0,DRUGDB
+4621,hexethal,0,DRUGDB
+4622,pirbuterol,0,DRUGDB
+4623,benmoxin,0,DRUGDB
+4624,imiquimod,0,DRUGDB
+4625,budralazine,0,DRUGDB
+4626,buthalital,0,DRUGDB
+4627,pheniramine,0,DRUGDB
+4628,anethole trithione,0,DRUGDB
+4629,pentolonium,0,DRUGDB
+4630,thiram,0,DRUGDB
+4631,methocarbamol,0,DRUGDB
+4632,salinazid,0,DRUGDB
+4633,sapropterin,0,DRUGDB
+4634,enfenamic acid,0,DRUGDB
+4635,mefenamic acid,0,DRUGDB
+4636,moxonidine,0,DRUGDB
+4637,benzoyl peroxide,0,DRUGDB
+4638,fenoprofen,0,DRUGDB
+4639,isonixin,0,DRUGDB
+4640,thiopental,0,DRUGDB
+4641,dixanthogen,0,DRUGDB
+4642,clofibrate,0,DRUGDB
+4643,iproclozide,0,DRUGDB
+4644,bretylium,0,DRUGDB
+4645,cytarabine,0,DRUGDB
+4646,taribavirin,0,DRUGDB
+4647,molsidomine,0,DRUGDB
+4648,agomelatine,0,DRUGDB
+4649,frovatriptan,0,DRUGDB
+4650,phencyclidine,0,DRUGDB
+4651,domiodol,0,DRUGDB
+4652,ribavirin,0,DRUGDB
+4653,azacitidine,0,DRUGDB
+4654,flurbiprofen,0,DRUGDB
+4655,pidotimod,0,DRUGDB
+4656,etomidate,0,DRUGDB
+4657,biotin,0,DRUGDB
+4658,amidefrine,0,DRUGDB
+4659,mesulfen,0,DRUGDB
+4660,xylometazoline,0,DRUGDB
+4661,isoaminile,0,DRUGDB
+4662,clodronic acid,0,DRUGDB
+4663,apraclonidine,0,DRUGDB
+4664,menadoxime,0,DRUGDB
+4665,ramifenazone,0,DRUGDB
+4666,oxolamine,0,DRUGDB
+4667,pinacidil,0,DRUGDB
+4668,tolperisone,0,DRUGDB
+4669,dezocine,0,DRUGDB
+4670,guanfacine,0,DRUGDB
+4671,floxuridine,0,DRUGDB
+4672,doxifluridine,0,DRUGDB
+4673,nifurpirinol,0,DRUGDB
+4674,azanidazole,0,DRUGDB
+4675,methylphenobarbital,0,DRUGDB
+4676,loxoprofen,0,DRUGDB
+4677,busulfan,0,DRUGDB
+4678,parsalmide,0,DRUGDB
+4679,nefiracetam,0,DRUGDB
+4680,milnacipran,0,DRUGDB
+4681,mepivacaine,0,DRUGDB
+4682,guanoxabenz,0,DRUGDB
+4683,pyridoxal phosphate,0,DRUGDB
+4684,emtricitabine,0,DRUGDB
+4685,tinidazole,0,DRUGDB
+4686,ciclonicate,0,DRUGDB
+4687,pethidine,0,DRUGDB
+4688,ketobemidone,0,DRUGDB
+4689,indenolol,0,DRUGDB
+4690,butidrine,0,DRUGDB
+4691,triflusal,0,DRUGDB
+4692,enoximone,0,DRUGDB
+4693,dapsone,0,DRUGDB
+4694,piridocaine,0,DRUGDB
+4695,pindolol,0,DRUGDB
+4696,bunitrolol,0,DRUGDB
+4697,trimecaine,0,DRUGDB
+4698,pyrimethamine,0,DRUGDB
+4699,alendronic acid,0,DRUGDB
+4700,cinchophen,0,DRUGDB
+4701,sulfapyridine,0,DRUGDB
+4702,erdosteine,0,DRUGDB
+4703,epinastine,0,DRUGDB
+4704,mabuprofen,0,DRUGDB
+4705,ciramadol,0,DRUGDB
+4706,alprenolol,0,DRUGDB
+4707,benzoctamine,0,DRUGDB
+4708,diflunisal,0,DRUGDB
+4709,olprinone,0,DRUGDB
+4710,sulfadiazine,0,DRUGDB
+4711,heptabarb,0,DRUGDB
+4712,methaqualone,0,DRUGDB
+4713,gemfibrozil,0,DRUGDB
+4714,naepaine,0,DRUGDB
+4715,rivastigmine,0,DRUGDB
+4716,amfetaminil,0,DRUGDB
+4717,dimethazan,0,DRUGDB
+4718,rimazolium,0,DRUGDB
+4719,xibenolol,0,DRUGDB
+4720,cyverine,0,DRUGDB
+4721,pirprofen,0,DRUGDB
+4722,uracil mustard,0,DRUGDB
+4723,anisindione,0,DRUGDB
+4724,phenytoin,0,DRUGDB
+4725,oxcarbazepine,0,DRUGDB
+4726,cimetidine,0,DRUGDB
+4727,cioteronel,0,DRUGDB
+4728,pyricarbate,0,DRUGDB
+4729,penciclovir,0,DRUGDB
+4730,triamterene,0,DRUGDB
+4731,actinoquinol,0,DRUGDB
+4732,sulfamethoxazole,0,DRUGDB
+4733,ethacridine,0,DRUGDB
+4734,vanitiolide,0,DRUGDB
+4735,nefopam,0,DRUGDB
+4736,meladrazine,0,DRUGDB
+4737,tolpropamine,0,DRUGDB
+4738,tizanidine,0,DRUGDB
+4739,proguanil,0,DRUGDB
+4740,dichlorophenarsine,0,DRUGDB
+4741,iodothiouracil,0,DRUGDB
+4742,diprophylline,0,DRUGDB
+4743,ketoprofen,0,DRUGDB
+4744,fenbufen,0,DRUGDB
+4745,dexketoprofen,0,DRUGDB
+4746,midodrine,0,DRUGDB
+4747,nepafenac,0,DRUGDB
+4749,sulfadicramide,0,DRUGDB
+4750,thiamylal,0,DRUGDB
+4751,bucricaine,0,DRUGDB
+4752,phenbenzamine,0,DRUGDB
+4753,butanilicaine,0,DRUGDB
+4754,ganciclovir,0,DRUGDB
+4755,pranoprofen,0,DRUGDB
+4756,ketorolac,0,DRUGDB
+4757,amfenac,0,DRUGDB
+4758,tenonitrozole,0,DRUGDB
+4759,sulfathiazole,0,DRUGDB
+4760,tofenacin,0,DRUGDB
+4761,phenyltoloxamine,0,DRUGDB
+4762,diphenhydramine,0,DRUGDB
+4763,atomoxetine,0,DRUGDB
+4764,tripelennamine,0,DRUGDB
+4765,dimemorfan,0,DRUGDB
+4766,cloforex,0,DRUGDB
+4767,clobutinol,0,DRUGDB
+4768,anagrelide,0,DRUGDB
+4769,lamotrigine,0,DRUGDB
+4770,edoxudine,0,DRUGDB
+4771,echothiophate,0,DRUGDB
+4772,bephenium,0,DRUGDB
+4773,clorindione,0,DRUGDB
+4774,chlormidazole,0,DRUGDB
+4775,pyrrolnitrin,0,DRUGDB
+4776,carmofur,0,DRUGDB
+4777,tolmetin,0,DRUGDB
+4778,etebenecid,0,DRUGDB
+4779,medifoxamine,0,DRUGDB
+4780,levorphanol,0,DRUGDB
+4781,metrifonate,0,DRUGDB
+4782,meclofenoxate,0,DRUGDB
+4783,salsalate,0,DRUGDB
+4784,glycerylphosphorylcholine,0,DRUGDB
+4785,choline alfoscerate,0,DRUGDB
+4786,thalidomide,0,DRUGDB
+4787,acadesine,0,DRUGDB
+4788,menbutone,0,DRUGDB
+4789,phethenylate,0,DRUGDB
+4790,ethoxzolamide,0,DRUGDB
+4791,xibornol,0,DRUGDB
+4792,decamethonium,0,DRUGDB
+4793,cloridarol,0,DRUGDB
+4794,pamabrom,0,DRUGDB
+4795,lofexidine,0,DRUGDB
+4796,mizoribine,0,DRUGDB
+4797,lenalidomide,0,DRUGDB
+4798,ciclobendazole,0,DRUGDB
+4799,ramelteon,0,DRUGDB
+4800,levopropranolol,0,DRUGDB
+4801,propranolol,0,DRUGDB
+4802,nortilidine,0,DRUGDB
+4803,primaquine,0,DRUGDB
+4804,eperisone,0,DRUGDB
+4805,azintamide,0,DRUGDB
+4806,clobenzorex,0,DRUGDB
+4807,carbarsone,0,DRUGDB
+4808,glucose-1-phosphate,0,DRUGDB
+4809,khellin,0,DRUGDB
+4810,tiazofurine,0,DRUGDB
+4811,phetharbital,0,DRUGDB
+4812,nadoxolol,0,DRUGDB
+4813,tiaprofenic acid,0,DRUGDB
+4814,suprofen,0,DRUGDB
+4815,carisoprodol,0,DRUGDB
+4816,fenspiride,0,DRUGDB
+4817,imolamine,0,DRUGDB
+4818,ropinirole,0,DRUGDB
+4819,oxymetazoline,0,DRUGDB
+4820,ifosfamide,0,DRUGDB
+4821,cyclophosphamide,0,DRUGDB
+4822,oxolinic acid,0,DRUGDB
+4823,flumequine,0,DRUGDB
+4824,benznidazole,0,DRUGDB
+4825,hexylcaine,0,DRUGDB
+4826,bufuralol,0,DRUGDB
+4827,phenindamine,0,DRUGDB
+4828,methapyrilene,0,DRUGDB
+4829,tolfenamic acid,0,DRUGDB
+4830,cicletanine,0,DRUGDB
+4831,cinoxacin,0,DRUGDB
+4832,etoglucid,0,DRUGDB
+4833,reposal,0,DRUGDB
+4834,methohexital,0,DRUGDB
+4835,benzylsulfamide,0,DRUGDB
+4836,mepindolol,0,DRUGDB
+4837,cibenzoline,0,DRUGDB
+4838,clonixin,0,DRUGDB
+4839,gemcitabine,0,DRUGDB
+4840,miloxacin,0,DRUGDB
+4841,hydroxypethidine,0,DRUGDB
+4842,melperone,0,DRUGDB
+4843,tramadol,0,DRUGDB
+4844,butetamate,0,DRUGDB
+4845,protriptyline,0,DRUGDB
+4846,nortriptyline,0,DRUGDB
+4847,clopirac,0,DRUGDB
+4848,ticlopidine,0,DRUGDB
+4849,naphthosalol,0,DRUGDB
+4850,iprazochrome,0,DRUGDB
+4851,sulfaperin,0,DRUGDB
+4852,sulfamerazine,0,DRUGDB
+4853,propacetamol,0,DRUGDB
+4854,etaqualone,0,DRUGDB
+4855,pentifylline,0,DRUGDB
+4856,thialbarbital,0,DRUGDB
+4857,tetracaine,0,DRUGDB
+4858,mianserin,0,DRUGDB
+4859,streptozocin,0,DRUGDB
+4860,oxycinchophen,0,DRUGDB
+4861,albendazole,0,DRUGDB
+4862,parethoxycaine,0,DRUGDB
+4863,oxprenolol,0,DRUGDB
+4864,mirtazapine,0,DRUGDB
+4865,antazoline,0,DRUGDB
+4866,thiamine (vit B1),0,DRUGDB
+4867,myrtecaine,0,DRUGDB
+4868,chloralodol,0,DRUGDB
+4869,doxofylline,0,DRUGDB
+4870,benzarone,0,DRUGDB
+4871,nevirapine,0,DRUGDB
+4872,dienestrol,0,DRUGDB
+4873,practolol,0,DRUGDB
+4874,bucolome,0,DRUGDB
+4875,trimetazidine,0,DRUGDB
+4876,atenolol,0,DRUGDB
+4877,desipramine,0,DRUGDB
+4878,cyclizine,0,DRUGDB
+4879,propenidazole,0,DRUGDB
+4880,zidovudine,0,DRUGDB
+4881,vidarabine,0,DRUGDB
+4882,adenosine,0,DRUGDB
+4883,voglibose,0,DRUGDB
+4884,sulfafurazole,0,DRUGDB
+4885,sulfamoxole,0,DRUGDB
+4886,apomorphine,0,DRUGDB
+4887,carbuterol,0,DRUGDB
+4888,metoprolol,0,DRUGDB
+4889,azacyclonol,0,DRUGDB
+4890,pipradrol,0,DRUGDB
+4891,nifurtoinol,0,DRUGDB
+4892,inosine,0,DRUGDB
+4893,isoxepac,0,DRUGDB
+4894,pentostatin,0,DRUGDB
+4895,dexrazoxane,0,DRUGDB
+4896,ripazepam,0,DRUGDB
+4897,diethylstilbestrol,0,DRUGDB
+4898,trimethidinium,0,DRUGDB
+4899,moclobemide,0,DRUGDB
+4900,dichlorophen,0,DRUGDB
+4901,propatylnitrate,0,DRUGDB
+4902,endralazine,0,DRUGDB
+4903,sulfasomizole,0,DRUGDB
+4904,sulfamethylthiazole,0,DRUGDB
+4905,rizatriptan,0,DRUGDB
+4906,orphenadrine,0,DRUGDB
+4907,moxastine,0,DRUGDB
+4908,dextrofemine,0,DRUGDB
+4909,bifemelane,0,DRUGDB
+4910,pramiracetam,0,DRUGDB
+4911,alinidine,0,DRUGDB
+4912,leflunomide,0,DRUGDB
+4913,epervudine,0,DRUGDB
+4914,sulfamethizole,0,DRUGDB
+4915,tolbutamide,0,DRUGDB
+4916,estrone,0,DRUGDB
+4917,hexestrol,0,DRUGDB
+4918,doxylamine,0,DRUGDB
+4919,tolonium,0,DRUGDB
+4920,fenethazine,0,DRUGDB
+4921,nordazepam,0,DRUGDB
+4922,clofenamide,0,DRUGDB
+4923,chloroprocaine,0,DRUGDB
+4924,medazepam,0,DRUGDB
+4925,acetaminosalol,0,DRUGDB
+4926,carbubarb,0,DRUGDB
+4927,ftivazide,0,DRUGDB
+4928,carbutamide,0,DRUGDB
+4929,desomorphine,0,DRUGDB
+4930,subathizone,0,DRUGDB
+4931,racemethorphan,0,DRUGDB
+4932,nepinalone,0,DRUGDB
+4933,dextromethorphan,0,DRUGDB
+4934,cyclazocine,0,DRUGDB
+4935,delmopinol,0,DRUGDB
+4936,bupranolol,0,DRUGDB
+4937,zoledronic acid,0,DRUGDB
+4938,muzolimine,0,DRUGDB
+4939,zolimidine,0,DRUGDB
+4940,sotalol,0,DRUGDB
+4941,estradiol,0,DRUGDB
+4942,quinisocaine,0,DRUGDB
+4943,pilsicainide,0,DRUGDB
+4944,nimustine,0,DRUGDB
+4945,adefovir,0,DRUGDB
+4946,tolcapone,0,DRUGDB
+4947,oxaflozane,0,DRUGDB
+4948,stepronin,0,DRUGDB
+4949,modafinil,0,DRUGDB
+4950,tilidine,0,DRUGDB
+4951,carprofen,0,DRUGDB
+4952,chlormezanone,0,DRUGDB
+4953,nandrolone,0,DRUGDB
+4954,ropivacaine,0,DRUGDB
+4955,chlorphenamine,0,DRUGDB
+4956,iobenguane (123I),0,DRUGDB
+4957,acetarsol,0,DRUGDB
+4958,nifuroxazide,0,DRUGDB
+4959,furalazine,0,DRUGDB
+4960,meturedepa,0,DRUGDB
+4961,homatropine,0,DRUGDB
+4962,meticrane,0,DRUGDB
+4963,physostigmine,0,DRUGDB
+4964,propipocaine,0,DRUGDB
+4965,cyclobenzaprine,0,DRUGDB
+4966,tipepidine,0,DRUGDB
+4967,flutamide,0,DRUGDB
+4968,sulfabenzamide,0,DRUGDB
+4969,cyclandelate,0,DRUGDB
+4970,molindone,0,DRUGDB
+4971,mebhydrolin,0,DRUGDB
+4972,bolandiol,0,DRUGDB
+4973,etidocaine,0,DRUGDB
+4974,chlorpropamide,0,DRUGDB
+4975,neridronic acid,0,DRUGDB
+4976,clenbuterol,0,DRUGDB
+4977,azathioprine,0,DRUGDB
+4978,entecavir,0,DRUGDB
+4979,elliptinium,0,DRUGDB
+4980,venlafaxine,0,DRUGDB
+4981,maprotiline,0,DRUGDB
+4982,amitriptyline,0,DRUGDB
+4983,perhexiline,0,DRUGDB
+4984,treosulfan,0,DRUGDB
+4985,lomifylline,0,DRUGDB
+4986,pentoxifylline,0,DRUGDB
+4987,sulfisomidine,0,DRUGDB
+4988,sulfadimidine,0,DRUGDB
+4989,tolycaine,0,DRUGDB
+4990,proquazone,0,DRUGDB
+4991,sodium gualenate,0,DRUGDB
+4992,dimethocaine,0,DRUGDB
+4993,triprolidine,0,DRUGDB
+4994,diphemanil,0,DRUGDB
+4995,gamolenic acid,0,DRUGDB
+4996,clidanac,0,DRUGDB
+4997,cidofovir,0,DRUGDB
+4998,oxamniquine,0,DRUGDB
+4999,ramosetron,0,DRUGDB
+5000,etamiphylline,0,DRUGDB
+5001,moxisylyte,0,DRUGDB
+5002,letosteine,0,DRUGDB
+5003,doxepin,0,DRUGDB
+5004,prodipine,0,DRUGDB
+5005,fenpiprane,0,DRUGDB
+5006,sibutramine,0,DRUGDB
+5007,levosimendan,0,DRUGDB
+5008,sulfamonomethoxine,0,DRUGDB
+5009,sulfalene,0,DRUGDB
+5010,sulfamethoxypyridazine,0,DRUGDB
+5011,sulfameter,0,DRUGDB
+5012,phenprocoumon,0,DRUGDB
+5013,ipriflavone,0,DRUGDB
+5014,lisofylline,0,DRUGDB
+5015,hydroxystilbamidine,0,DRUGDB
+5016,hydroxytetracaine,0,DRUGDB
+5017,tromantadine,0,DRUGDB
+5018,imipramine,0,DRUGDB
+5019,histapyrrodine,0,DRUGDB
+5020,bamipine,0,DRUGDB
+5021,flufenamic acid,0,DRUGDB
+5022,benzodepa,0,DRUGDB
+5023,nitrazepam,0,DRUGDB
+5024,indoprofen,0,DRUGDB
+5025,ciclosidomine,0,DRUGDB
+5026,albendazole sulfoxide,0,DRUGDB
+5027,phentolamine,0,DRUGDB
+5028,diphenylpyraline,0,DRUGDB
+5029,terodiline,0,DRUGDB
+5030,alverine,0,DRUGDB
+5031,niflumic acid,0,DRUGDB
+5032,bendazac,0,DRUGDB
+5033,artemisinin,0,DRUGDB
+5034,vedaprofen,0,DRUGDB
+5035,mestilbol,0,DRUGDB
+5036,octatropine methylbromide,0,DRUGDB
+5037,emepronium,0,DRUGDB
+5038,ethanolamine oleate,0,DRUGDB
+5039,risedronic acid,0,DRUGDB
+5040,papaveroline,0,DRUGDB
+5041,cadralazine,0,DRUGDB
+5042,levallorphan,0,DRUGDB
+5043,trolnitrate,0,DRUGDB
+5044,nicaraven,0,DRUGDB
+5045,nolatrexed,0,DRUGDB
+5046,tropisetron,0,DRUGDB
+5047,tropicamide,0,DRUGDB
+5048,taurolidine,0,DRUGDB
+5049,sulfaethidole,0,DRUGDB
+5050,articaine,0,DRUGDB
+5051,etozolin,0,DRUGDB
+5052,methylthioninium chloride,0,DRUGDB
+5053,bibenzonium,0,DRUGDB
+5054,isopromethazine,0,DRUGDB
+5055,promethazine,0,DRUGDB
+5056,promazine,0,DRUGDB
+5057,lynestrenol,0,DRUGDB
+5058,iprindole,0,DRUGDB
+5059,cetrimonium,0,DRUGDB
+5060,sulfachlorpyridazine,0,DRUGDB
+5061,disulfamide,0,DRUGDB
+5062,mazindol,0,DRUGDB
+5063,diazepam,0,DRUGDB
+5064,bromebric acid,0,DRUGDB
+5066,flunoxaprofen,0,DRUGDB
+5067,nifuratel,0,DRUGDB
+5068,letrozole,0,DRUGDB
+5069,faropenem,0,DRUGDB
+5070,morphine,0,DRUGDB
+5071,hydromorphone,0,DRUGDB
+5072,probenecid,0,DRUGDB
+5073,mepyramine,0,DRUGDB
+5074,prothipendyl,0,DRUGDB
+5075,isothipendyl,0,DRUGDB
+5076,pentazocine,0,DRUGDB
+5077,cladribine,0,DRUGDB
+5078,asenapine,0,DRUGDB
+5079,guaimesal,0,DRUGDB
+5080,guacetisal,0,DRUGDB
+5081,sulfametrole,0,DRUGDB
+5082,neotropine,0,DRUGDB
+5083,abacavir,0,DRUGDB
+5084,methallenestril,0,DRUGDB
+5085,thonzylamine,0,DRUGDB
+5086,androstenedione,0,DRUGDB
+5087,thenalidine,0,DRUGDB
+5088,retinol,0,DRUGDB
+5089,oxazepam,0,DRUGDB
+5090,brallobarbital,0,DRUGDB
+5091,incadronic acid,0,DRUGDB
+5092,tenofovir,0,DRUGDB
+5093,nifurtimox,0,DRUGDB
+5094,ritodrine,0,DRUGDB
+5095,galantamine,0,DRUGDB
+5096,etodolac,0,DRUGDB
+5097,zolmitriptan,0,DRUGDB
+5098,naftifine,0,DRUGDB
+5099,cyproheptadine,0,DRUGDB
+5100,rhodoquine,0,DRUGDB
+5101,proxazole,0,DRUGDB
+5102,procyclidine,0,DRUGDB
+5103,chlorproguanil,0,DRUGDB
+5104,fospropofol,0,DRUGDB
+5105,xantocillin,0,DRUGDB
+5106,piromidic acid,0,DRUGDB
+5107,protiofate,0,DRUGDB
+5108,difenpiramide,0,DRUGDB
+5109,estriol,0,DRUGDB
+5110,phenglutarimide,0,DRUGDB
+5111,milverine,0,DRUGDB
+5112,testosterone,0,DRUGDB
+5113,methylestrenolone,0,DRUGDB
+5114,prasterone,0,DRUGDB
+5115,bupivacaine,0,DRUGDB
+5116,levobupivacaine,0,DRUGDB
+5117,methitural,0,DRUGDB
+5118,ethylestrenol,0,DRUGDB
+5119,desalkylflurazepam,0,DRUGDB
+5120,tetrazepam,0,DRUGDB
+5121,propallylonal,0,DRUGDB
+5122,ciprofibrate,0,DRUGDB
+5123,tazanolast,0,DRUGDB
+5124,adrafinil,0,DRUGDB
+5125,hyoscyamine,0,DRUGDB
+5126,atropine,0,DRUGDB
+5127,improsulfan,0,DRUGDB
+5128,butaverine,0,DRUGDB
+5129,pentapiperide,0,DRUGDB
+5130,dyclonine,0,DRUGDB
+5131,caramiphen,0,DRUGDB
+5132,bencyclane,0,DRUGDB
+5133,triclosan,0,DRUGDB
+5134,quinethazone,0,DRUGDB
+5135,nicoclonate,0,DRUGDB
+5136,clofedanol,0,DRUGDB
+5137,chloropyramine,0,DRUGDB
+5138,trimethoprim,0,DRUGDB
+5139,procaterol,0,DRUGDB
+5140,sulcaine,0,DRUGDB
+5141,sultiame,0,DRUGDB
+5142,methylhomatropine,0,DRUGDB
+5143,oxabolone,0,DRUGDB
+5144,suxamethonium,0,DRUGDB
+5145,azatadine,0,DRUGDB
+5146,androstanolone,0,DRUGDB
+5147,androstenediol,0,DRUGDB
+5148,carbinoxamine,0,DRUGDB
+5149,lindane,0,DRUGDB
+5150,befunolol,0,DRUGDB
+5151,eseridine,0,DRUGDB
+5152,fasudil,0,DRUGDB
+5153,pecilocin,0,DRUGDB
+5154,eucatropine,0,DRUGDB
+5155,cyclopentolate,0,DRUGDB
+5156,levobunolol,0,DRUGDB
+5157,butinoline,0,DRUGDB
+5158,perlapine,0,DRUGDB
+5159,penbutolol,0,DRUGDB
+5160,terbinafine,0,DRUGDB
+5161,melitracen,0,DRUGDB
+5162,lobenzarit,0,DRUGDB
+5163,zomepirac,0,DRUGDB
+5164,butedronic acid,0,DRUGDB
+5165,brimonidine,0,DRUGDB
+5166,cloranolol,0,DRUGDB
+5167,tiamiprine,0,DRUGDB
+5168,carteolol,0,DRUGDB
+5169,leucinocaine,0,DRUGDB
+5170,dimetindene,0,DRUGDB
+5171,perfosfamide,0,DRUGDB
+5172,oxaprozin,0,DRUGDB
+5173,ondansetron,0,DRUGDB
+5174,anastrozole,0,DRUGDB
+5175,pramocaine,0,DRUGDB
+5176,butoxycaine,0,DRUGDB
+5177,pimethixene,0,DRUGDB
+5178,dimazole,0,DRUGDB
+5179,prozapine,0,DRUGDB
+5180,pramiverine,0,DRUGDB
+5181,butriptyline,0,DRUGDB
+5182,budipine,0,DRUGDB
+5183,lumiracoxib,0,DRUGDB
+5184,lidofenin,0,DRUGDB
+5185,rosoxacin,0,DRUGDB
+5186,sulfametomidine,0,DRUGDB
+5187,sulfacytine,0,DRUGDB
+5188,troxipide,0,DRUGDB
+5189,alosetron,0,DRUGDB
+5190,norgestrienone,0,DRUGDB
+5191,propoxycaine,0,DRUGDB
+5192,proparacaine,0,DRUGDB
+5193,vinburnine,0,DRUGDB
+5194,trimipramine,0,DRUGDB
+5195,dimetacrine,0,DRUGDB
+5196,tetradecyl sulfate,0,DRUGDB
+5197,tiadenol,0,DRUGDB
+5198,estazolam,0,DRUGDB
+5199,bucloxic acid,0,DRUGDB
+5200,glyconiazide,0,DRUGDB
+5201,azidamfenicol,0,DRUGDB
+5202,nimetazepam,0,DRUGDB
+5203,mebendazole,0,DRUGDB
+5204,indobufen,0,DRUGDB
+5205,floredil,0,DRUGDB
+5206,esmolol,0,DRUGDB
+5207,dibenzepin,0,DRUGDB
+5208,sumatriptan,0,DRUGDB
+5209,diphemethoxidine,0,DRUGDB
+5210,pridinol,0,DRUGDB
+5211,normethadone,0,DRUGDB
+5212,tertatolol,0,DRUGDB
+5213,pizotifen,0,DRUGDB
+5214,dosulepin,0,DRUGDB
+5215,diisopromine,0,DRUGDB
+5216,chlorothiazide,0,DRUGDB
+5217,sulfarside,0,DRUGDB
+5218,meclofenamic acid,0,DRUGDB
+5219,diclofenac,0,DRUGDB
+5220,trifluridine,0,DRUGDB
+5221,bermoprofen,0,DRUGDB
+5222,fluproquazone,0,DRUGDB
+5223,exiproben,0,DRUGDB
+5224,propizepine,0,DRUGDB
+5225,glycyclamide,0,DRUGDB
+5226,bentazepam,0,DRUGDB
+5227,exemestane,0,DRUGDB
+5228,ethinylestradiol,0,DRUGDB
+5229,palonosetron,0,DRUGDB
+5230,dimevamide,0,DRUGDB
+5231,methdilazine,0,DRUGDB
+5232,cholestyramine,0,DRUGDB
+5233,disulfiram,0,DRUGDB
+5234,fenclofenac,0,DRUGDB
+5235,enilconazole,0,DRUGDB
+5236,nelarabine,0,DRUGDB
+5237,ibuprofen piconol,0,DRUGDB
+5238,glybuzole,0,DRUGDB
+5239,imipramine oxide,0,DRUGDB
+5240,tolindate,0,DRUGDB
+5241,duloxetine,0,DRUGDB
+5242,dimantine,0,DRUGDB
+5243,hydrochlorothiazide,0,DRUGDB
+5244,amlexanox,0,DRUGDB
+5245,piribedil,0,DRUGDB
+5246,nialamide,0,DRUGDB
+5247,zaltoprofen,0,DRUGDB
+5248,artemether,0,DRUGDB
+5249,phenacaine,0,DRUGDB
+5250,carazolol,0,DRUGDB
+5251,minaprine,0,DRUGDB
+5252,piprozolin,0,DRUGDB
+5253,methestrol,0,DRUGDB
+5254,norethynodrel,0,DRUGDB
+5255,norethisterone,0,DRUGDB
+5256,benzestrol,0,DRUGDB
+5257,trimeprazine,0,DRUGDB
+5258,ricinoleic acid,0,DRUGDB
+5259,rosaprostol,0,DRUGDB
+5260,imipenem,0,DRUGDB
+5261,hydrocodone,0,DRUGDB
+5262,codeine,0,DRUGDB
+5263,buphenine,0,DRUGDB
+5264,thiazinam,0,DRUGDB
+5265,traxanox,0,DRUGDB
+5266,chlordiazepoxide,0,DRUGDB
+5267,metoclopramide,0,DRUGDB
+5268,tazobactam,0,DRUGDB
+5269,carbazochrome,0,DRUGDB
+5270,azapropazone,0,DRUGDB
+5271,testolactone,0,DRUGDB
+5272,alitretinoin,0,DRUGDB
+5273,norvinisterone,0,DRUGDB
+5274,norgesterone,0,DRUGDB
+5275,tretinoin,0,DRUGDB
+5276,metandienone,0,DRUGDB
+5277,isotretinoin,0,DRUGDB
+5278,etynodiol,0,DRUGDB
+5279,allylestrenol,0,DRUGDB
+5280,temazepam,0,DRUGDB
+5281,clobazam,0,DRUGDB
+5282,etifoxine,0,DRUGDB
+5283,clomacran,0,DRUGDB
+5284,chlorcyclizine,0,DRUGDB
+5285,isobromindione,0,DRUGDB
+5286,isoxsuprine,0,DRUGDB
+5287,dobutamine,0,DRUGDB
+5288,dihydrocodeine,0,DRUGDB
+5289,tegaserod,0,DRUGDB
+5290,trihexyphenidyl,0,DRUGDB
+5291,benoxaprofen,0,DRUGDB
+5292,eritrityl tetranitrate,0,DRUGDB
+5293,olsalazine,0,DRUGDB
+5294,hesperetin,0,DRUGDB
+5295,terizidone,0,DRUGDB
+5296,florantyrone,0,DRUGDB
+5297,masoprocol,0,DRUGDB
+5298,formestane,0,DRUGDB
+5299,epimestrol,0,DRUGDB
+5300,emedastine,0,DRUGDB
+5301,neticonazole,0,DRUGDB
+5302,oxendolone,0,DRUGDB
+5303,methyltestosterone,0,DRUGDB
+5304,norethandrolone,0,DRUGDB
+5305,methenolone,0,DRUGDB
+5306,fludiazepam,0,DRUGDB
+5307,broxyquinoline,0,DRUGDB
+5308,ethacrynic acid,0,DRUGDB
+5309,narcobarbital,0,DRUGDB
+5310,Iofetamine (123I),0,DRUGDB
+5311,flumazenil,0,DRUGDB
+5312,pipemidic acid,0,DRUGDB
+5313,scopolamine,0,DRUGDB
+5314,fenoterol,0,DRUGDB
+5315,cocaine,0,DRUGDB
+5316,vildagliptin,0,DRUGDB
+5317,aptiganel,0,DRUGDB
+5318,piroheptine,0,DRUGDB
+5319,clofarabine,0,DRUGDB
+5320,phenoxybenzamine,0,DRUGDB
+5321,chlorphenoxamine,0,DRUGDB
+5322,chlorambucil,0,DRUGDB
+5323,spaglumic acid,0,DRUGDB
+5324,flupirtine,0,DRUGDB
+5325,xyloylsulfamine,0,DRUGDB
+5326,tilisolol,0,DRUGDB
+5327,quinupramine,0,DRUGDB
+5328,mesterolone,0,DRUGDB
+5329,mestanolone,0,DRUGDB
+5330,methandriol,0,DRUGDB
+5332,cetylpyridinium,0,DRUGDB
+5333,clobuzarit,0,DRUGDB
+5334,dichlorphenamide,0,DRUGDB
+5335,delorazepam,0,DRUGDB
+5336,mannomustine,0,DRUGDB
+5337,melphalan,0,DRUGDB
+5338,entacapone,0,DRUGDB
+5339,zaleplon,0,DRUGDB
+5340,amiprilose,0,DRUGDB
+5341,bucumolol,0,DRUGDB
+5342,atropine oxyde,0,DRUGDB
+5343,capsaicin,0,DRUGDB
+5344,clioquinol,0,DRUGDB
+5345,nicofibrate,0,DRUGDB
+5346,fenoldopam,0,DRUGDB
+5347,sertraline,0,DRUGDB
+5348,fluconazole,0,DRUGDB
+5349,acediasulfone,0,DRUGDB
+5350,phenolphthalol,0,DRUGDB
+5351,propentofylline,0,DRUGDB
+5352,roxatidine,0,DRUGDB
+5353,oxandrolone,0,DRUGDB
+5354,butacaine,0,DRUGDB
+5355,valethamate,0,DRUGDB
+5356,prifinium,0,DRUGDB
+5357,plaunotol,0,DRUGDB
+5358,broxuridine,0,DRUGDB
+5359,nitazoxanide,0,DRUGDB
+5360,glutathione,0,DRUGDB
+5361,sulfasymazine,0,DRUGDB
+5362,ibopamine,0,DRUGDB
+5363,buflomedil,0,DRUGDB
+5364,moxaverine,0,DRUGDB
+5365,talastine,0,DRUGDB
+5366,zolpidem,0,DRUGDB
+5367,tolnaftate,0,DRUGDB
+5368,amprotropine,0,DRUGDB
+5369,butamirate,0,DRUGDB
+5370,betaxolol,0,DRUGDB
+5371,benzatropine,0,DRUGDB
+5372,mitobronitol,0,DRUGDB
+5373,mitolactol,0,DRUGDB
+5374,pirenoxine,0,DRUGDB
+5375,nimesulide,0,DRUGDB
+5376,warfarin,0,DRUGDB
+5377,roquinimex,0,DRUGDB
+5378,nifenazone,0,DRUGDB
+5379,ubenimex,0,DRUGDB
+5380,phenylbutazone,0,DRUGDB
+5381,gestrinone,0,DRUGDB
+5382,metabutoxycaine,0,DRUGDB
+5383,oxybuprocaine,0,DRUGDB
+5384,pinazepam,0,DRUGDB
+5385,liarozole,0,DRUGDB
+5386,alprazolam,0,DRUGDB
+5387,fluoxetine,0,DRUGDB
+5388,glymidine,0,DRUGDB
+5389,sulfaguanole,0,DRUGDB
+5390,nadolol,0,DRUGDB
+5391,metipranolol,0,DRUGDB
+5392,dioxadrol,0,DRUGDB
+5393,amolanone,0,DRUGDB
+5394,benzydamine,0,DRUGDB
+5395,ketotifen,0,DRUGDB
+5396,methadone,0,DRUGDB
+5397,isomethadone,0,DRUGDB
+5398,diphenidol,0,DRUGDB
+5399,metixene,0,DRUGDB
+5400,dicycloverine,0,DRUGDB
+5401,chloralose,0,DRUGDB
+5402,picrotin,0,DRUGDB
+5403,sulfadoxine,0,DRUGDB
+5404,sulfadimethoxine,0,DRUGDB
+5405,trepibutone,0,DRUGDB
+5406,cetamolol,0,DRUGDB
+5407,bifonazole,0,DRUGDB
+5408,mestranol,0,DRUGDB
+5409,desogestrel,0,DRUGDB
+5410,mabuterol,0,DRUGDB
+5411,croconazole,0,DRUGDB
+5412,alloclamide,0,DRUGDB
+5413,desloratadine,0,DRUGDB
+5414,nalorphine,0,DRUGDB
+5415,butofilolol,0,DRUGDB
+5416,tolazamide,0,DRUGDB
+5417,metahexamide,0,DRUGDB
+5418,fomocaine,0,DRUGDB
+5419,femoxetine,0,DRUGDB
+5420,dienogest,0,DRUGDB
+5421,adiphenine,0,DRUGDB
+5422,ambutonium,0,DRUGDB
+5423,biperiden,0,DRUGDB
+5424,lodoxamide,0,DRUGDB
+5425,pyrrobutamine,0,DRUGDB
+5426,propamidine,0,DRUGDB
+5427,artemotil,0,DRUGDB
+5428,ibuprofen guaiacol ester,0,DRUGDB
+5429,oseltamivir,0,DRUGDB
+5430,praziquantel,0,DRUGDB
+5431,granisetron,0,DRUGDB
+5432,glybuthiazol,0,DRUGDB
+5433,olanzapine,0,DRUGDB
+5434,guggulsterone,0,DRUGDB
+5435,tibolone,0,DRUGDB
+5436,levonorgestrel,0,DRUGDB
+5437,ethisterone,0,DRUGDB
+5438,dydrogesterone,0,DRUGDB
+5439,demegestone,0,DRUGDB
+5440,profenamine,0,DRUGDB
+5441,lonazolac,0,DRUGDB
+5442,flunitrazepam,0,DRUGDB
+5443,flubendazole,0,DRUGDB
+5444,benorilate,0,DRUGDB
+5445,ethylmorphine,0,DRUGDB
+5446,xenysalate,0,DRUGDB
+5447,reboxetine,0,DRUGDB
+5448,oxyfedrine,0,DRUGDB
+5449,indisetron,0,DRUGDB
+5450,fenalcomine,0,DRUGDB
+5451,amoxapine,0,DRUGDB
+5452,dantrolene,0,DRUGDB
+5453,pimefylline,0,DRUGDB
+5454,rofecoxib,0,DRUGDB
+5455,valdecoxib,0,DRUGDB
+5456,sulfaphenazole,0,DRUGDB
+5457,ranitidine,0,DRUGDB
+5458,dronabinol,0,DRUGDB
+5459,progesterone,0,DRUGDB
+5460,sulbentine,0,DRUGDB
+5461,pergolide,0,DRUGDB
+5462,clorazepate,0,DRUGDB
+5463,homochlorcyclizine,0,DRUGDB
+5464,clomipramine,0,DRUGDB
+5465,loflucarban,0,DRUGDB
+5466,oxycodone,0,DRUGDB
+5467,alizapride,0,DRUGDB
+5468,protizinic acid,0,DRUGDB
+5469,mitiglinide,0,DRUGDB
+5470,saxagliptin,0,DRUGDB
+5471,fendiline,0,DRUGDB
+5472,pamaquine,0,DRUGDB
+5473,rotigotine,0,DRUGDB
+5474,efavirenz,0,DRUGDB
+5475,fotemustine,0,DRUGDB
+5476,clonazepam,0,DRUGDB
+5477,fentiazac,0,DRUGDB
+5478,clobenzepam,0,DRUGDB
+5479,chlorprothixene,0,DRUGDB
+5480,pentaerithrityl tetranitrate,0,DRUGDB
+5481,bromazepam,0,DRUGDB
+5482,febuxostat,0,DRUGDB
+5483,tinoridine,0,DRUGDB
+5484,timolol,0,DRUGDB
+5485,butalamine,0,DRUGDB
+5486,pregnenolone,0,DRUGDB
+5487,calusterone,0,DRUGDB
+5488,nilutamide,0,DRUGDB
+5489,zimeldine,0,DRUGDB
+5490,oxyphenisatine,0,DRUGDB
+5491,denopamine,0,DRUGDB
+5492,arbutamine,0,DRUGDB
+5493,tetrabenazine,0,DRUGDB
+5494,nateglinide,0,DRUGDB
+5495,butenafine,0,DRUGDB
+5496,hexocyclium,0,DRUGDB
+5497,amorolfine,0,DRUGDB
+5498,mecloxamine,0,DRUGDB
+5499,pazufloxacin,0,DRUGDB
+5500,phenolphthalein,0,DRUGDB
+5501,fluvoxamine,0,DRUGDB
+5502,methscopolamine,0,DRUGDB
+5503,tocamphyl,0,DRUGDB
+5504,oxymesterone,0,DRUGDB
+5505,bietamiverine,0,DRUGDB
+5506,tiemonium,0,DRUGDB
+5507,eltanolone,0,DRUGDB
+5508,tridihexethyl,0,DRUGDB
+5509,tiludronic acid,0,DRUGDB
+5510,clotiazepam,0,DRUGDB
+5511,chlorpromazine,0,DRUGDB
+5512,ibandronic acid,0,DRUGDB
+5513,dexbrompheniramine,0,DRUGDB
+5514,brompheniramine,0,DRUGDB
+5515,norfloxacin,0,DRUGDB
+5516,oxetorone,0,DRUGDB
+5517,epalrestat,0,DRUGDB
+5518,cilansetron,0,DRUGDB
+5519,cyclodrine,0,DRUGDB
+5520,lanoconazole,0,DRUGDB
+5521,chloroquine,0,DRUGDB
+5522,mitotane,0,DRUGDB
+5523,enoxacin,0,DRUGDB
+5524,mycophenolic acid,0,DRUGDB
+5525,eterobarb,0,DRUGDB
+5526,eniporide,0,DRUGDB
+5527,feprazone,0,DRUGDB
+5528,dibunate,0,DRUGDB
+5529,camylofin,0,DRUGDB
+5530,timepidium,0,DRUGDB
+5531,lorazepam,0,DRUGDB
+5532,lonidamine,0,DRUGDB
+5533,carboquone,0,DRUGDB
+5534,famciclovir,0,DRUGDB
+5535,gabexate,0,DRUGDB
+5536,phenazocine,0,DRUGDB
+5537,dihexyverine,0,DRUGDB
+5538,clopidogrel,0,DRUGDB
+5539,minodronic acid,0,DRUGDB
+5540,cyclocoumarol,0,DRUGDB
+5541,kebuzone,0,DRUGDB
+5542,zeranol,0,DRUGDB
+5543,glyhexamide,0,DRUGDB
+5544,mequitazine,0,DRUGDB
+5545,aprindine,0,DRUGDB
+5546,bisaramil,0,DRUGDB
+5547,clostebol,0,DRUGDB
+5548,chloramphenicol,0,DRUGDB
+5549,mepixanox,0,DRUGDB
+5550,dimefline,0,DRUGDB
+5551,gliclazide,0,DRUGDB
+5552,guaiapate,0,DRUGDB
+5553,bufetolol,0,DRUGDB
+5554,cicloprolol,0,DRUGDB
+5555,piperidolate,0,DRUGDB
+5556,cinnamaverine,0,DRUGDB
+5557,lysergide,0,DRUGDB
+5558,tolciclate,0,DRUGDB
+5559,cyamemazine,0,DRUGDB
+5560,oxysonium,0,DRUGDB
+5561,trofosfamide,0,DRUGDB
+5562,furaltadone,0,DRUGDB
+5563,efloxate,0,DRUGDB
+5564,valaciclovir,0,DRUGDB
+5565,dolasetron,0,DRUGDB
+5566,oxyphenbutazone,0,DRUGDB
+5567,ditazole,0,DRUGDB
+5568,nitracrine,0,DRUGDB
+5569,escitalopram,0,DRUGDB
+5570,citalopram,0,DRUGDB
+5571,acetohexamide,0,DRUGDB
+5572,viquidil,0,DRUGDB
+5573,quinidine,0,DRUGDB
+5574,dorzolamide,0,DRUGDB
+5575,etonogestrel,0,DRUGDB
+5576,vorozole,0,DRUGDB
+5577,prazepam,0,DRUGDB
+5578,ergometrine,0,DRUGDB
+5579,mecillinam,0,DRUGDB
+5580,bisoprolol,0,DRUGDB
+5581,ifenprodil,0,DRUGDB
+5582,etafenone,0,DRUGDB
+5584,dapiprazole,0,DRUGDB
+5585,tolterodine,0,DRUGDB
+5586,midazolam,0,DRUGDB
+5587,clemizole,0,DRUGDB
+5588,nipradilol,0,DRUGDB
+5589,hydrodolasetron,0,DRUGDB
+5590,bumadizone,0,DRUGDB
+5591,moxestrol,0,DRUGDB
+5592,acitretin,0,DRUGDB
+5593,hydroquinidine,0,DRUGDB
+5594,ajmaline,0,DRUGDB
+5595,acepromazine,0,DRUGDB
+5596,promegestone,0,DRUGDB
+5597,bunaftine,0,DRUGDB
+5598,bromochlorosalicylanilide,0,DRUGDB
+5599,docosanol,0,DRUGDB
+5600,clozapine,0,DRUGDB
+5601,niclosamide,0,DRUGDB
+5602,naloxone,0,DRUGDB
+5603,dimenoxadol,0,DRUGDB
+5604,difemerine,0,DRUGDB
+5605,benactyzine,0,DRUGDB
+5606,norelgestromin,0,DRUGDB
+5607,butorphanol,0,DRUGDB
+5608,ranimustine,0,DRUGDB
+5609,clofibride,0,DRUGDB
+5610,loxapine,0,DRUGDB
+5611,labetalol,0,DRUGDB
+5612,dilevalol,0,DRUGDB
+5613,tiapride,0,DRUGDB
+5614,suplatast,0,DRUGDB
+5615,levomepromazine,0,DRUGDB
+5616,promestriene,0,DRUGDB
+5617,stanozolol,0,DRUGDB
+5618,ciclonium,0,DRUGDB
+5619,oxazolam,0,DRUGDB
+5620,clorexolone,0,DRUGDB
+5621,eberconazole,0,DRUGDB
+5622,nitisinone,0,DRUGDB
+5623,flumethiazide,0,DRUGDB
+5624,etofylline nicotinate,0,DRUGDB
+5625,paroxetine,0,DRUGDB
+5626,trilostane,0,DRUGDB
+5627,bornaprine,0,DRUGDB
+5628,androisoxazole,0,DRUGDB
+5629,prenylamine,0,DRUGDB
+5630,cloperastine,0,DRUGDB
+5631,malathion,0,DRUGDB
+5632,almecillin,0,DRUGDB
+5633,oxomemazine,0,DRUGDB
+5635,desoxycortone,0,DRUGDB
+5636,prasterone acetate,0,DRUGDB
+5637,dipiproverine,0,DRUGDB
+5639,icosapent ethyl,0,DRUGDB
+5640,tiquizium,0,DRUGDB
+5641,furosemide,0,DRUGDB
+5642,tienilic acid,0,DRUGDB
+5643,hydroflumethiazide,0,DRUGDB
+5644,genaconazole,0,DRUGDB
+5645,ciprofloxacin,0,DRUGDB
+5646,piroxicam,0,DRUGDB
+5647,marimastat,0,DRUGDB
+5648,oxyclipine,0,DRUGDB
+5649,nizatidine,0,DRUGDB
+5650,glypinamide,0,DRUGDB
+5651,zotepine,0,DRUGDB
+5652,dibromol,0,DRUGDB
+5653,fluorescein,0,DRUGDB
+5654,zanamivir,0,DRUGDB
+5655,spectinomycin,0,DRUGDB
+5656,acedapsone,0,DRUGDB
+5657,oxitropium,0,DRUGDB
+5658,ipratropium,0,DRUGDB
+5659,oxymetholone,0,DRUGDB
+5660,alfaxalone,0,DRUGDB
+5661,brivudine,0,DRUGDB
+5662,pefloxacin,0,DRUGDB
+5663,pentoxyverine,0,DRUGDB
+5664,deptropine,0,DRUGDB
+5665,tropatepine,0,DRUGDB
+5666,bromfenac,0,DRUGDB
+5667,bromazine,0,DRUGDB
+5668,mitomycin,0,DRUGDB
+5669,tetroxoprim,0,DRUGDB
+5670,pimobendan,0,DRUGDB
+5671,benzylpenicillin,0,DRUGDB
+5672,proglumide,0,DRUGDB
+5673,strychnine,0,DRUGDB
+5674,progabide,0,DRUGDB
+5675,lormetazepam,0,DRUGDB
+5676,isoxicam,0,DRUGDB
+5677,sulfachrysoidine,0,DRUGDB
+5678,naratriptan,0,DRUGDB
+5679,almotriptan,0,DRUGDB
+5680,oxeladin,0,DRUGDB
+5681,norpipanone,0,DRUGDB
+5682,pirifibrate,0,DRUGDB
+5683,hydroxychloroquine,0,DRUGDB
+5684,nifurzide,0,DRUGDB
+5685,dicoumarol,0,DRUGDB
+5686,acebutolol,0,DRUGDB
+5687,fluoxymesterone,0,DRUGDB
+5688,fentanyl,0,DRUGDB
+5689,nifurfoline,0,DRUGDB
+5690,linezolid,0,DRUGDB
+5691,disufenton,0,DRUGDB
+5692,tenoxicam,0,DRUGDB
+5693,propanidid,0,DRUGDB
+5694,pargeverine,0,DRUGDB
+5695,olopatadine,0,DRUGDB
+5696,famotidine,0,DRUGDB
+5697,danazol,0,DRUGDB
+5698,amineptine,0,DRUGDB
+5699,fenpiverinium,0,DRUGDB
+5700,suloctidil,0,DRUGDB
+5701,fenquizone,0,DRUGDB
+5702,perflexane,0,DRUGDB
+5703,idebenone,0,DRUGDB
+5704,lisuride,0,DRUGDB
+5705,pirmenol,0,DRUGDB
+5706,chlorthalidone,0,DRUGDB
+5707,brodimoprim,0,DRUGDB
+5708,cefacetrile,0,DRUGDB
+5709,mofezolac,0,DRUGDB
+5710,topiramate,0,DRUGDB
+5711,papaverine,0,DRUGDB
+5712,canadine,0,DRUGDB
+5713,xamoterol,0,DRUGDB
+5714,carbenin,0,DRUGDB
+5715,panipenem,0,DRUGDB
+5716,nalmefene,0,DRUGDB
+5717,methylergometrine,0,DRUGDB
+5718,levopropoxyphene,0,DRUGDB
+5719,dextropropoxyphene,0,DRUGDB
+5720,disopyramide,0,DRUGDB
+5721,perazine,0,DRUGDB
+5722,rociverine,0,DRUGDB
+5723,hexetidine,0,DRUGDB
+5724,metipamide,0,DRUGDB
+5725,pirisudanol,0,DRUGDB
+5727,pentamidine,0,DRUGDB
+5728,poldine,0,DRUGDB
+5729,methantheline,0,DRUGDB
+5730,mepenzolate,0,DRUGDB
+5731,canrenone,0,DRUGDB
+5732,ethylhydrocupreine,0,DRUGDB
+5733,terguride,0,DRUGDB
+5734,propiomazine,0,DRUGDB
+5735,medrogestone,0,DRUGDB
+5736,dimethisterone,0,DRUGDB
+5737,penthienate,0,DRUGDB
+5738,docosanoic acid,0,DRUGDB
+5739,nitroxazepine,0,DRUGDB
+5740,thebacon,0,DRUGDB
+5741,naltrexone,0,DRUGDB
+5742,diseptal B ,0,DRUGDB
+5743,fenetylline,0,DRUGDB
+5744,sulpiride,0,DRUGDB
+5745,levosulpiride,0,DRUGDB
+5746,cyclacillin,0,DRUGDB
+5747,propafenone,0,DRUGDB
+5748,clobenztropine,0,DRUGDB
+5749,ranelic acid,0,DRUGDB
+5750,lactulose,0,DRUGDB
+5751,lactose,0,DRUGDB
+5752,siccanin,0,DRUGDB
+5753,megestrol,0,DRUGDB
+5754,flutoprazepam,0,DRUGDB
+5755,etizolam,0,DRUGDB
+5756,triazolam,0,DRUGDB
+5757,cilomilast,0,DRUGDB
+5758,acetyldihydrocodeine,0,DRUGDB
+5759,cinchocaine,0,DRUGDB
+5760,clotiapine,0,DRUGDB
+5761,clemastine,0,DRUGDB
+5762,bromopride,0,DRUGDB
+5763,lactitol,0,DRUGDB
+5764,formoterol,0,DRUGDB
+5765,piketoprofen,0,DRUGDB
+5766,formebolone,0,DRUGDB
+5767,oxyphencyclimine,0,DRUGDB
+5768,medrysone,0,DRUGDB
+5769,medroxyprogesterone,0,DRUGDB
+5770,tribromometacresol,0,DRUGDB
+5771,clotrimazole,0,DRUGDB
+5772,trengestone,0,DRUGDB
+5773,clorotepine,0,DRUGDB
+5774,niclofolan,0,DRUGDB
+5775,tretoquinol,0,DRUGDB
+5776,omeprazole,0,DRUGDB
+5777,esomeprazole,0,DRUGDB
+5778,bevantolol,0,DRUGDB
+5779,clopamide,0,DRUGDB
+5780,nifedipine,0,DRUGDB
+5781,flutrimazole,0,DRUGDB
+5782,sorbitan laurate,0,DRUGDB
+5783,chlorproethazine,0,DRUGDB
+5784,arsthinol,0,DRUGDB
+5785,nafamostat,0,DRUGDB
+5786,cefalexin,0,DRUGDB
+5787,fedrilate,0,DRUGDB
+5788,benzpiperylone,0,DRUGDB
+5789,indoramin,0,DRUGDB
+5790,embramine,0,DRUGDB
+5791,enalaprilat,0,DRUGDB
+5792,torsemide,0,DRUGDB
+5794,acrivastine,0,DRUGDB
+5795,intoplicine,0,DRUGDB
+5796,bexarotene,0,DRUGDB
+5797,leiopyrrole,0,DRUGDB
+5798,oxyphenonium,0,DRUGDB
+5799,doxefazepam,0,DRUGDB
+5800,sorivudine,0,DRUGDB
+5801,cloxazolam,0,DRUGDB
+5802,voriconazole,0,DRUGDB
+5803,cinmetacin,0,DRUGDB
+5804,ulifloxacin,0,DRUGDB
+5805,cefradine,0,DRUGDB
+5806,ampicillin,0,DRUGDB
+5807,cetiedil,0,DRUGDB
+5808,loracarbef,0,DRUGDB
+5809,azasetron,0,DRUGDB
+5810,phenoxymethylpenicillin,0,DRUGDB
+5811,biapenem,0,DRUGDB
+5812,disofenin,0,DRUGDB
+5813,estrone sulphate,0,DRUGDB
+5814,vinpocetine,0,DRUGDB
+5815,loretin,0,DRUGDB
+5816,lomefloxacin,0,DRUGDB
+5817,benfluorex,0,DRUGDB
+5818,moquizone,0,DRUGDB
+5819,meloxicam,0,DRUGDB
+5820,pirenzepine,0,DRUGDB
+5821,epicillin,0,DRUGDB
+5822,dipivefrine,0,DRUGDB
+5823,tamibarotene,0,DRUGDB
+5824,pipoxolan,0,DRUGDB
+5825,tazarotene,0,DRUGDB
+5826,phenadoxone,0,DRUGDB
+5827,adinazolam,0,DRUGDB
+5828,sulmarin,0,DRUGDB
+5829,triflupromazine,0,DRUGDB
+5830,posatirelin,0,DRUGDB
+5831,clidinium,0,DRUGDB
+5832,epoprostenol,0,DRUGDB
+5833,dinoprostone,0,DRUGDB
+5834,betoxycaine,0,DRUGDB
+5835,encainide,0,DRUGDB
+5836,anileridine,0,DRUGDB
+5837,quinbolone,0,DRUGDB
+5838,halazepam,0,DRUGDB
+5839,griseofulvin,0,DRUGDB
+5840,acenocoumarol,0,DRUGDB
+5841,methysergide,0,DRUGDB
+5842,motretinide,0,DRUGDB
+5843,levomethadyl acetate,0,DRUGDB
+5844,isopropamide,0,DRUGDB
+5845,butizide,0,DRUGDB
+5846,idoxuridine,0,DRUGDB
+5847,aceclofenac,0,DRUGDB
+5848,valganciclovir,0,DRUGDB
+5849,phenolsulfonphthalein,0,DRUGDB
+5850,isofezolac,0,DRUGDB
+5851,seratrodast,0,DRUGDB
+5852,yohimbine,0,DRUGDB
+5853,vincamine,0,DRUGDB
+5854,hexamidine,0,DRUGDB
+5855,bevonium,0,DRUGDB
+5856,pipenzolate,0,DRUGDB
+5857,benzilonium,0,DRUGDB
+5858,sultopride,0,DRUGDB
+5859,dinoprost,0,DRUGDB
+5860,alprostadil,0,DRUGDB
+5861,etretinate,0,DRUGDB
+5862,eprozinol,0,DRUGDB
+5863,rioprostil,0,DRUGDB
+5864,xipamide,0,DRUGDB
+5865,repirinast,0,DRUGDB
+5866,succinylsulfathiazole,0,DRUGDB
+5867,moperone,0,DRUGDB
+5868,benzomethamine,0,DRUGDB
+5869,tinofedrine,0,DRUGDB
+5870,amodiaquine,0,DRUGDB
+5871,bithionol,0,DRUGDB
+5872,pipobroman,0,DRUGDB
+5873,thiamphenicol,0,DRUGDB
+5874,sulindac,0,DRUGDB
+5875,fluanisone,0,DRUGDB
+5876,niaprazine,0,DRUGDB
+5877,pioglitazone,0,DRUGDB
+5878,quinestradol,0,DRUGDB
+5879,estradiol valerate,0,DRUGDB
+5880,dopexamine,0,DRUGDB
+5881,tevenel,0,DRUGDB
+5882,balsalazide,0,DRUGDB
+5883,droxicam,0,DRUGDB
+5884,tolrestat,0,DRUGDB
+5885,cafedrine,0,DRUGDB
+5886,cinacalcet,0,DRUGDB
+5887,rosiglitazone,0,DRUGDB
+5888,nalbuphine,0,DRUGDB
+5889,oxybutynin,0,DRUGDB
+5890,cinolazepam,0,DRUGDB
+5891,indomethacin,0,DRUGDB
+5892,clometacin,0,DRUGDB
+5893,setastine,0,DRUGDB
+5894,bendamustine,0,DRUGDB
+5895,prednisone,0,DRUGDB
+5896,itopride,0,DRUGDB
+5897,cimetropium,0,DRUGDB
+5898,cilastatin,0,DRUGDB
+5899,dimethoxanate,0,DRUGDB
+5900,potassium canrenoate,0,DRUGDB
+5901,etoricoxib,0,DRUGDB
+5902,capecitabine,0,DRUGDB
+5903,phentetramine,0,DRUGDB
+5904,grepafloxacin,0,DRUGDB
+5905,enrofloxacin,0,DRUGDB
+5906,adicillin,0,DRUGDB
+5907,rabeprazole,0,DRUGDB
+5908,cyclomethycaine,0,DRUGDB
+5909,captodiame,0,DRUGDB
+5910,triclabendazole,0,DRUGDB
+5911,methylclothiazide,0,DRUGDB
+5912,nitrendipine,0,DRUGDB
+5913,(S)-nitrendipine,0,DRUGDB
+5914,nadifloxacin,0,DRUGDB
+5915,prednisolone,0,DRUGDB
+5916,cortisone,0,DRUGDB
+5917,aldosterone,0,DRUGDB
+5918,butylscopolamine,0,DRUGDB
+5919,iloprost,0,DRUGDB
+5920,drostanolone propionate,0,DRUGDB
+5921,ethyl loflazepate,0,DRUGDB
+5922,fenofibrate,0,DRUGDB
+5923,ofloxacin,0,DRUGDB
+5924,levofloxacin,0,DRUGDB
+5925,bisacodyl,0,DRUGDB
+5926,haloprogin,0,DRUGDB
+5927,metampicillin,0,DRUGDB
+5928,carbocromen,0,DRUGDB
+5929,octocrylene,0,DRUGDB
+5930,prenoxdiazine,0,DRUGDB
+5931,bezafibrate,0,DRUGDB
+5932,fosphenytoin,0,DRUGDB
+5933,protirelin,0,DRUGDB
+5934,piretanide,0,DRUGDB
+5935,revaprazan,0,DRUGDB
+5936,hydrocortisone,0,DRUGDB
+5937,solifenacin,0,DRUGDB
+5938,dexetimide,0,DRUGDB
+5940,viminol,0,DRUGDB
+5941,cefadroxil,0,DRUGDB
+5942,rufloxacin,0,DRUGDB
+5943,talinolol,0,DRUGDB
+5944,opipramol,0,DRUGDB
+5945,etofibrate,0,DRUGDB
+5946,diaziquone,0,DRUGDB
+5947,pheneticillin,0,DRUGDB
+5948,bumetanide,0,DRUGDB
+5949,cyclofenil,0,DRUGDB
+5950,tribuzone,0,DRUGDB
+5951,quinestrol,0,DRUGDB
+5952,benzoxonium chloride,0,DRUGDB
+5953,suclofenide,0,DRUGDB
+5954,clostebol acetate,0,DRUGDB
+5955,fludarabine phosphate,0,DRUGDB
+5956,clofoctol,0,DRUGDB
+5957,cefroxadine,0,DRUGDB
+5958,amoxicillin,0,DRUGDB
+5959,caroverine,0,DRUGDB
+5960,periciazine,0,DRUGDB
+5961,trimetaphan,0,DRUGDB
+5962,clinafloxacin,0,DRUGDB
+5963,metolazone,0,DRUGDB
+5964,indapamide,0,DRUGDB
+5965,ridogrel,0,DRUGDB
+5966,cyclovalone,0,DRUGDB
+5967,dehydrocorydaline,0,DRUGDB
+5968,ilaprazole,0,DRUGDB
+5969,glibornuride,0,DRUGDB
+5970,drospirenone,0,DRUGDB
+5971,piminodine,0,DRUGDB
+5972,bepridil,0,DRUGDB
+5973,atovaquone,0,DRUGDB
+5974,pitofenone,0,DRUGDB
+5975,dioxyline,0,DRUGDB
+5976,bambuterol,0,DRUGDB
+5977,tiracizine,0,DRUGDB
+5978,phenoperidine,0,DRUGDB
+5979,fenbutrazate,0,DRUGDB
+5980,propiverine,0,DRUGDB
+5981,blonanserin,0,DRUGDB
+5982,cefaclor,0,DRUGDB
+5983,prucalopride,0,DRUGDB
+5984,diacerein,0,DRUGDB
+5985,perindopril,0,DRUGDB
+5986,pyritinol,0,DRUGDB
+5987,prasterone sulfate,0,DRUGDB
+5988,propantheline,0,DRUGDB
+5989,carboprost,0,DRUGDB
+5990,cinnarizine,0,DRUGDB
+5991,cethexonium bromide,0,DRUGDB
+5992,ketazolam,0,DRUGDB
+5993,etofenamate,0,DRUGDB
+5994,fleroxacin,0,DRUGDB
+5995,lansoprazole,0,DRUGDB
+5996,sulfadiasulfone,0,DRUGDB
+5997,trimetrexate,0,DRUGDB
+5998,bulaquine,0,DRUGDB
+5999,cilostazol,0,DRUGDB
+6000,amisulpride,0,DRUGDB
+6001,norgestimate,0,DRUGDB
+6002,diprafenone,0,DRUGDB
+6003,prajmalium,0,DRUGDB
+6004,flavodic acid,0,DRUGDB
+6005,parecoxib,0,DRUGDB
+6006,nomegestrol acetate,0,DRUGDB
+6007,oxypendyl,0,DRUGDB
+6008,rimexolone,0,DRUGDB
+6009,penmesterol,0,DRUGDB
+6010,thioridazine,0,DRUGDB
+6011,rebamipide,0,DRUGDB
+6012,azosemide,0,DRUGDB
+6013,lorcainide,0,DRUGDB
+6014,remoxipride,0,DRUGDB
+6015,azaribine,0,DRUGDB
+6016,nedocromil,0,DRUGDB
+6017,isradipine,0,DRUGDB
+6018,tamoxifen,0,DRUGDB
+6019,arotinolol,0,DRUGDB
+6020,camazepam,0,DRUGDB
+6021,lornoxicam,0,DRUGDB
+6022,trazodone,0,DRUGDB
+6023,medroxalol,0,DRUGDB
+6024,aminoquinuride,0,DRUGDB
+6025,prednylidene,0,DRUGDB
+6026,meprednisone,0,DRUGDB
+6027,desoxycorticosterone acetate,0,DRUGDB
+6028,nabilone,0,DRUGDB
+6029,anagestone acetate,0,DRUGDB
+6030,finasteride,0,DRUGDB
+6031,oxametacin,0,DRUGDB
+6032,glafenine,0,DRUGDB
+6033,deferasirox,0,DRUGDB
+6034,sepimostat,0,DRUGDB
+6035,prasugrel,0,DRUGDB
+6036,bunazosin,0,DRUGDB
+6037,clebopride,0,DRUGDB
+6038,prochlorperazine,0,DRUGDB
+6039,trospectomycin,0,DRUGDB
+6040,methylprednisolone,0,DRUGDB
+6041,cicaprost,0,DRUGDB
+6042,cyproterone,0,DRUGDB
+6043,hydroxyzine,0,DRUGDB
+6044,theodrenaline,0,DRUGDB
+6045,gatifloxacin,0,DRUGDB
+6046,azidocillin,0,DRUGDB
+6047,pipamperone,0,DRUGDB
+6048,tiagabine,0,DRUGDB
+6049,haloperidol,0,DRUGDB
+6050,bromhexine,0,DRUGDB
+6051,riboflavin (vit B2),0,DRUGDB
+6052,picotamide,0,DRUGDB
+6053,remifentanil,0,DRUGDB
+6054,enalapril,0,DRUGDB
+6055,fluorometholone,0,DRUGDB
+6056,fluocortolone,0,DRUGDB
+6057,desoximetasone,0,DRUGDB
+6058,estradiol benzoate,0,DRUGDB
+6059,hexcarbacholine,0,DRUGDB
+6060,lauroguadine,0,DRUGDB
+6061,haloxazolam,0,DRUGDB
+6063,morazone,0,DRUGDB
+6064,sulfinalol,0,DRUGDB
+6065,domitroban,0,DRUGDB
+6066,famprofazone,0,DRUGDB
+6067,ronifibrate,0,DRUGDB
+6068,etoperidone,0,DRUGDB
+6069,ambroxol,0,DRUGDB
+6070,mefloquine,0,DRUGDB
+6071,carbenicillin,0,DRUGDB
+6072,fluprednisolone,0,DRUGDB
+6073,propicillin,0,DRUGDB
+6074,doxapram,0,DRUGDB
+6076,droperidol,0,DRUGDB
+6077,donepezil,0,DRUGDB
+6078,celiprolol,0,DRUGDB
+6079,etomidoline,0,DRUGDB
+6080,oxypertine,0,DRUGDB
+6081,cyclopenthiazide,0,DRUGDB
+6082,coumetarol,0,DRUGDB
+6083,meticillin,0,DRUGDB
+6084,fludrocortisone,0,DRUGDB
+6085,amosulalol,0,DRUGDB
+6086,bopindolol,0,DRUGDB
+6087,ecabet,0,DRUGDB
+6088,limaprost,0,DRUGDB
+6089,eprazinone,0,DRUGDB
+6090,trichlormethiazide,0,DRUGDB
+6091,chlorotrianisene,0,DRUGDB
+6092,celecoxib,0,DRUGDB
+6093,fendosal,0,DRUGDB
+6094,benperidol,0,DRUGDB
+6095,micinicate,0,DRUGDB
+6096,econazole,0,DRUGDB
+6097,azelastine,0,DRUGDB
+6098,mebutizide,0,DRUGDB
+6099,tofisopam,0,DRUGDB
+6100,tetrofosmin,0,DRUGDB
+6101,alpiropride,0,DRUGDB
+6102,eletriptan,0,DRUGDB
+6103,pyrvinium,0,DRUGDB
+6104,unoprostone,0,DRUGDB
+6105,misoprostol,0,DRUGDB
+6106,mefruside,0,DRUGDB
+6107,loratadine,0,DRUGDB
+6108,pantoprazole,0,DRUGDB
+6109,ceftizoxime,0,DRUGDB
+6110,veralipride,0,DRUGDB
+6111,meropenem,0,DRUGDB
+6112,tandospirone,0,DRUGDB
+6113,quetiapine,0,DRUGDB
+6114,brinzolamide,0,DRUGDB
+6115,naftidrofuryl,0,DRUGDB
+6116,denaverine,0,DRUGDB
+6117,altizide,0,DRUGDB
+6118,bortezomib,0,DRUGDB
+6119,felodipine,0,DRUGDB
+6120,artesunate,0,DRUGDB
+6121,ticarcillin,0,DRUGDB
+6124,estradiol dipropionate,0,DRUGDB
+6125,zipeprol,0,DRUGDB
+6126,estradiol enanthate,0,DRUGDB
+6127,ibutilide,0,DRUGDB
+6128,nilvadipine,0,DRUGDB
+6129,bamifylline,0,DRUGDB
+6130,racecadotril,0,DRUGDB
+6131,buspirone,0,DRUGDB
+6132,fosfluconazole,0,DRUGDB
+6133,piposulfan,0,DRUGDB
+6134,anecortave,0,DRUGDB
+6135,medibazine,0,DRUGDB
+6137,sufentanil,0,DRUGDB
+6138,mesoridazine,0,DRUGDB
+6139,quazepam,0,DRUGDB
+6140,mebrofenin,0,DRUGDB
+6141,terazosin,0,DRUGDB
+6142,trimebutine,0,DRUGDB
+6143,urapidil,0,DRUGDB
+6144,gusperimus,0,DRUGDB
+6145,tioconazole,0,DRUGDB
+6146,flurazepam,0,DRUGDB
+6147,nemonapride,0,DRUGDB
+6148,oxantel,0,DRUGDB
+6149,aranidipine,0,DRUGDB
+6150,visnadine,0,DRUGDB
+6151,nisoldipine,0,DRUGDB
+6152,trimethobenzamide,0,DRUGDB
+6153,benzalkonium,0,DRUGDB
+6154,zopiclone,0,DRUGDB
+6155,eszopiclone,0,DRUGDB
+6156,fipexide,0,DRUGDB
+6157,levocetirizine,0,DRUGDB
+6158,cetirizine,0,DRUGDB
+6159,bepotastine,0,DRUGDB
+6160,gemifloxacin,0,DRUGDB
+6161,tadalafil,0,DRUGDB
+6162,reproterol,0,DRUGDB
+6163,balofloxacin,0,DRUGDB
+6164,cefprozil,0,DRUGDB
+6165,alfuzosin,0,DRUGDB
+6166,hetacillin,0,DRUGDB
+6167,cyclothiazide,0,DRUGDB
+6168,regadenoson,0,DRUGDB
+6169,treprostinil,0,DRUGDB
+6170,meclozine,0,DRUGDB
+6171,flavoxate,0,DRUGDB
+6172,biriperone,0,DRUGDB
+6173,dimetotiazine,0,DRUGDB
+6174,sparfloxacin,0,DRUGDB
+6175,cinepazet,0,DRUGDB
+6176,paramethasone,0,DRUGDB
+6177,dexamethasone,0,DRUGDB
+6178,betamethasone,0,DRUGDB
+6179,naftopidil,0,DRUGDB
+6180,trospium,0,DRUGDB
+6181,tiotropium bromide,0,DRUGDB
+6182,dextromoramide,0,DRUGDB
+6183,ursodiol,0,DRUGDB
+6184,chloroprednisone,0,DRUGDB
+6185,cloprednol,0,DRUGDB
+6186,rubitecan,0,DRUGDB
+6187,sulfaloxic acid,0,DRUGDB
+6188,erlotinib,0,DRUGDB
+6189,amsacrine,0,DRUGDB
+6190,brotizolam,0,DRUGDB
+6191,metaclazepam,0,DRUGDB
+6192,besifloxacin,0,DRUGDB
+6193,ambuside,0,DRUGDB
+6194,triamcinolone,0,DRUGDB
+6195,diflucortolone,0,DRUGDB
+6196,fluacizine,0,DRUGDB
+6197,gemeprost,0,DRUGDB
+6198,orbifloxacin,0,DRUGDB
+6199,cefdinir,0,DRUGDB
+6200,ketanserin,0,DRUGDB
+6201,vesnarinone,0,DRUGDB
+6202,abanoquil,0,DRUGDB
+6203,spiperone,0,DRUGDB
+6204,ethaverine,0,DRUGDB
+6205,quinagolide,0,DRUGDB
+6206,cloricromen,0,DRUGDB
+6208,cefalotin,0,DRUGDB
+6209,estradiol cypionate,0,DRUGDB
+6210,ergocalciferol,0,DRUGDB
+6211,diiodohydroxyquinoline,0,DRUGDB
+6212,cefetamet,0,DRUGDB
+6213,diperodon,0,DRUGDB
+6214,drotaverine,0,DRUGDB
+6215,timiperone,0,DRUGDB
+6216,sulconazole,0,DRUGDB
+6217,melarsoprol,0,DRUGDB
+6218,sulfasalazine,0,DRUGDB
+6219,camostat,0,DRUGDB
+6220,bisantrene,0,DRUGDB
+6221,sunitinib,0,DRUGDB
+6222,flutropium,0,DRUGDB
+6223,taprostene,0,DRUGDB
+6224,beraprost,0,DRUGDB
+6225,pholcodine,0,DRUGDB
+6226,moveltipril,0,DRUGDB
+6227,dimorpholamine,0,DRUGDB
+6228,pentagestrone,0,DRUGDB
+6229,dihydrotachysterol,0,DRUGDB
+6230,colchicine,0,DRUGDB
+6231,ademetionine,0,DRUGDB
+6232,pipazetate,0,DRUGDB
+6233,epristeride,0,DRUGDB
+6234,thiethylperazine,0,DRUGDB
+6235,mepacrine,0,DRUGDB
+6236,enprostil,0,DRUGDB
+6237,fursultiamine,0,DRUGDB
+6238,tiocarlide,0,DRUGDB
+6239,gefarnate,0,DRUGDB
+6240,calcifediol,0,DRUGDB
+6241,alfacalcidol,0,DRUGDB
+6242,zuclopenthixol,0,DRUGDB
+6243,moxifloxacin,0,DRUGDB
+6244,oxacillin,0,DRUGDB
+6245,amperozide,0,DRUGDB
+6246,bemetizide,0,DRUGDB
+6247,pipamazine,0,DRUGDB
+6248,prednisolone acetate,0,DRUGDB
+6250,cinitapride,0,DRUGDB
+6251,ethinylestradiol sulfonate,0,DRUGDB
+6252,lorajmine,0,DRUGDB
+6253,clocinizine,0,DRUGDB
+6254,roflumilast,0,DRUGDB
+6255,phthalylsulfathiazole,0,DRUGDB
+6256,metergoline,0,DRUGDB
+6257,perphenazine,0,DRUGDB
+6258,alpidem,0,DRUGDB
+6259,tosufloxacin,0,DRUGDB
+6260,bentiromide,0,DRUGDB
+6261,gadoterate meglumine,0,DRUGDB
+6262,nicocodine,0,DRUGDB
+6263,gadoteridol,0,DRUGDB
+6264,aldesulfone,0,DRUGDB
+6265,sulfinpyrazone,0,DRUGDB
+6266,flunarizine,0,DRUGDB
+6267,benzquinamide,0,DRUGDB
+6268,lovastatin,0,DRUGDB
+6269,mepitiostane,0,DRUGDB
+6270,taltirelin,0,DRUGDB
+6271,cefaloglycin,0,DRUGDB
+6272,nebivolol,0,DRUGDB
+6273,imidapril,0,DRUGDB
+6274,febarbamate,0,DRUGDB
+6275,nifekalant,0,DRUGDB
+6276,lisinopril,0,DRUGDB
+6277,mazaticol,0,DRUGDB
+6278,morclofone,0,DRUGDB
+6279,toremifene,0,DRUGDB
+6280,clomifene,0,DRUGDB
+6281,floctafenine,0,DRUGDB
+6282,penamecillin,0,DRUGDB
+6283,carvedilol,0,DRUGDB
+6284,flugestone acetate,0,DRUGDB
+6285,alacepril,0,DRUGDB
+6286,lincomycin,0,DRUGDB
+6287,nandrolone phenpropionate,0,DRUGDB
+6288,hexachlorophene,0,DRUGDB
+6289,sitagliptin,0,DRUGDB
+6290,trifluoperazine,0,DRUGDB
+6291,bidisomide,0,DRUGDB
+6292,ethyl biscoumacetate,0,DRUGDB
+6293,tesaglitazar,0,DRUGDB
+6294,tamsulosin,0,DRUGDB
+6295,omapatrilat,0,DRUGDB
+6296,cholic acid,0,DRUGDB
+6297,quingestanol acetate,0,DRUGDB
+6298,miltefosine,0,DRUGDB
+6299,levamlodipine,0,DRUGDB
+6300,amlodipine,0,DRUGDB
+6302,beclometasone,0,DRUGDB
+6303,trifluperidol,0,DRUGDB
+6304,ezetimibe,0,DRUGDB
+6305,benexate,0,DRUGDB
+6306,butaperazine,0,DRUGDB
+6307,sitafloxacin,0,DRUGDB
+6308,ceftibuten,0,DRUGDB
+6310,risperidone,0,DRUGDB
+6311,ornoprostil,0,DRUGDB
+6312,methestrol dipropionate,0,DRUGDB
+6313,piperacetazine,0,DRUGDB
+6314,tanomastat,0,DRUGDB
+6315,iomazenil (123I),0,DRUGDB
+6316,tasosartan,0,DRUGDB
+6317,fluvastatin,0,DRUGDB
+6318,acetophenazine,0,DRUGDB
+6319,butoconazole,0,DRUGDB
+6320,adapalene,0,DRUGDB
+6321,cinalukast,0,DRUGDB
+6322,calcipotriene,0,DRUGDB
+6323,benzethonium,0,DRUGDB
+6324,doxercalciferol,0,DRUGDB
+6325,nizofenone,0,DRUGDB
+6326,ziprasidone,0,DRUGDB
+6327,thiamphenicol glycinate,0,DRUGDB
+6328,dichlorisone,0,DRUGDB
+6329,noscapine,0,DRUGDB
+6330,talniflumate,0,DRUGDB
+6331,flecainide,0,DRUGDB
+6332,podophyllotoxin,0,DRUGDB
+6333,sancycline,0,DRUGDB
+6334,sulbenicillin,0,DRUGDB
+6335,temocillin,0,DRUGDB
+6336,nafcillin,0,DRUGDB
+6337,eplerenone,0,DRUGDB
+6338,diltiazem,0,DRUGDB
+6339,gestonorone caproate,0,DRUGDB
+6340,desoxycorticosterone pivalate,0,DRUGDB
+6341,sitosterol,0,DRUGDB
+6342,teclothiazide,0,DRUGDB
+6343,thiocolchicine,0,DRUGDB
+6344,salmeterol,0,DRUGDB
+6345,bimatoprost,0,DRUGDB
+6346,halofenate,0,DRUGDB
+6347,acemetacin,0,DRUGDB
+6348,rupatadine,0,DRUGDB
+6349,isoconazole,0,DRUGDB
+6350,miconazole,0,DRUGDB
+6351,tenitramine,0,DRUGDB
+6352,iofendylate,0,DRUGDB
+6353,trovafloxacin,0,DRUGDB
+6354,guaiacol phosphate,0,DRUGDB
+6355,ramatroban,0,DRUGDB
+6356,cefaloridine,0,DRUGDB
+6357,desonide,0,DRUGDB
+6358,methylprednisolone acetate,0,DRUGDB
+6359,ramipril,0,DRUGDB
+6360,distigmine,0,DRUGDB
+6361,alfentanil,0,DRUGDB
+6362,spironolactone,0,DRUGDB
+6363,colecalciferol,0,DRUGDB
+6364,secalciferol,0,DRUGDB
+6365,paricalcitol,0,DRUGDB
+6366,calcitriol,0,DRUGDB
+6367,temafloxacin,0,DRUGDB
+6368,cinepazide,0,DRUGDB
+6369,cilazapril,0,DRUGDB
+6370,nimodipine,0,DRUGDB
+6371,simvastatin,0,DRUGDB
+6372,maxacalcitol,0,DRUGDB
+6373,etodroxizine,0,DRUGDB
+6374,lofepramine,0,DRUGDB
+6375,caldiamide,0,DRUGDB
+6376,bromperidol,0,DRUGDB
+6377,hexoprenaline,0,DRUGDB
+6378,levocabastine,0,DRUGDB
+6379,pipebuzone,0,DRUGDB
+6380,etofylline clofibrate,0,DRUGDB
+6381,bendroflumethiazide,0,DRUGDB
+6382,topotecan,0,DRUGDB
+6383,pitavastatin,0,DRUGDB
+6384,mopidamol,0,DRUGDB
+6385,mosapride,0,DRUGDB
+6386,conivaptan,0,DRUGDB
+6388,nandrolone cyclotate,0,DRUGDB
+6389,losartan,0,DRUGDB
+6390,cefapirin,0,DRUGDB
+6391,gallamine,0,DRUGDB
+6392,omoconazole,0,DRUGDB
+6393,benzbromarone,0,DRUGDB
+6394,cefuroxime,0,DRUGDB
+6395,benazepril,0,DRUGDB
+6396,eprosartan,0,DRUGDB
+6397,pravastatin,0,DRUGDB
+6398,alvimopan,0,DRUGDB
+6399,difenoxin,0,DRUGDB
+6400,unoprostone isopropyl,0,DRUGDB
+6401,clindamycin,0,DRUGDB
+6402,epitizide,0,DRUGDB
+6403,domperidone,0,DRUGDB
+6404,sozoiodolic acid,0,DRUGDB
+6405,garenoxacin,0,DRUGDB
+6406,iloperidone,0,DRUGDB
+6407,fenbenicillin,0,DRUGDB
+6408,cetotiamine,0,DRUGDB
+6409,darifenacin,0,DRUGDB
+6410,oxatomide,0,DRUGDB
+6411,perospirone,0,DRUGDB
+6412,etofamide,0,DRUGDB
+6413,mometasone,0,DRUGDB
+6414,pemetrexed,0,DRUGDB
+6415,salazosulfadimidine,0,DRUGDB
+6416,cefoxitin,0,DRUGDB
+6418,moracizine,0,DRUGDB
+6419,ranolazine,0,DRUGDB
+6420,mozavaptan,0,DRUGDB
+6421,dixyrazine,0,DRUGDB
+6422,fosfestrol,0,DRUGDB
+6423,methargen,0,DRUGDB
+6424,irbesartan,0,DRUGDB
+6425,nandrolone decanoate,0,DRUGDB
+6427,oxiconazole,0,DRUGDB
+6428,altropane,0,DRUGDB
+6429,sarpogrelate,0,DRUGDB
+6431,mebeverine,0,DRUGDB
+6432,zofenopril,0,DRUGDB
+6433,mifepristone,0,DRUGDB
+6434,bicalutamide,0,DRUGDB
+6435,budesonide,0,DRUGDB
+6436,trandolapril,0,DRUGDB
+6437,carbifene,0,DRUGDB
+6438,piritramide,0,DRUGDB
+6439,Vitamin E,0,DRUGDB
+6440,lafutidine,0,DRUGDB
+6441,benzthiazide,0,DRUGDB
+6442,vofopitant,0,DRUGDB
+6443,fluprednidene acetate,0,DRUGDB
+6444,mizolastine,0,DRUGDB
+6445,hydrocortisone butyrate,0,DRUGDB
+6446,latanoprost,0,DRUGDB
+6447,diiodotyrosine,0,DRUGDB
+6448,buclizine,0,DRUGDB
+6449,clometocillin,0,DRUGDB
+6450,brovincamine,0,DRUGDB
+6451,mycophenolate mofetil,0,DRUGDB
+6452,belotecan,0,DRUGDB
+6453,sivelestat,0,DRUGDB
+6454,triamcinolone acetonide,0,DRUGDB
+6456,flunisolide,0,DRUGDB
+6457,betamethasone acetate,0,DRUGDB
+6458,niperotidine,0,DRUGDB
+6459,glisolamide,0,DRUGDB
+6460,flupentixol,0,DRUGDB
+6461,chlorbenzoxamine,0,DRUGDB
+6462,etravirine,0,DRUGDB
+6463,aztreonam,0,DRUGDB
+6464,exatecan,0,DRUGDB
+6465,trimazosin,0,DRUGDB
+6467,valsartan,0,DRUGDB
+6468,cloxotestosterone,0,DRUGDB
+6469,cloxacillin,0,DRUGDB
+6470,fludroxycortide,0,DRUGDB
+6471,docusate sodium,0,DRUGDB
+6472,tianeptine,0,DRUGDB
+6473,tigemonam,0,DRUGDB
+6474,pazopanib,0,DRUGDB
+6475,fluphenazine,0,DRUGDB
+6476,sertaconazole,0,DRUGDB
+6477,triparanol,0,DRUGDB
+6478,suxibuzone,0,DRUGDB
+6479,quinapril,0,DRUGDB
+6480,flusalan,0,DRUGDB
+6481,pivmecillinam,0,DRUGDB
+6482,polythiazide,0,DRUGDB
+6483,estramustine,0,DRUGDB
+6484,aminopterin,0,DRUGDB
+6486,ceftezole,0,DRUGDB
+6487,ifetroban,0,DRUGDB
+6488,tirofiban,0,DRUGDB
+6489,pentagestrone acetate,0,DRUGDB
+6490,estradiol undecylate,0,DRUGDB
+6491,sertindole,0,DRUGDB
+6492,picumast,0,DRUGDB
+6493,folic acid,0,DRUGDB
+6494,deflazacort,0,DRUGDB
+6495,troglitazone,0,DRUGDB
+6496,dofetilide,0,DRUGDB
+6497,metacycline,0,DRUGDB
+6498,mazipredone,0,DRUGDB
+6499,thiothixene,0,DRUGDB
+6500,raltegravir,0,DRUGDB
+6501,tetracycline,0,DRUGDB
+6502,doxycycline,0,DRUGDB
+6503,mitoxantrone,0,DRUGDB
+6504,prednival,0,DRUGDB
+6505,menatetrenone,0,DRUGDB
+6506,halometasone,0,DRUGDB
+6507,glisentide,0,DRUGDB
+6508,glipizide,0,DRUGDB
+6509,metopimazine,0,DRUGDB
+6510,thiopropazate,0,DRUGDB
+6512,fluocortin butyl,0,DRUGDB
+6513,carpipramine,0,DRUGDB
+6514,thioproperazine,0,DRUGDB
+6515,gefitinib,0,DRUGDB
+6516,propyliodone,0,DRUGDB
+6517,tioclomarol,0,DRUGDB
+6518,ampiroxicam,0,DRUGDB
+6519,sisomicin,0,DRUGDB
+6520,aripiprazole,0,DRUGDB
+6521,algestone acetophenide,0,DRUGDB
+6522,tolvaptan,0,DRUGDB
+6523,clentiazem,0,DRUGDB
+6524,glisoxepide,0,DRUGDB
+6525,sofalcone,0,DRUGDB
+6526,tiomesterone,0,DRUGDB
+6527,phytomenadione,0,DRUGDB
+6528,doxazosin,0,DRUGDB
+6529,dibekacin,0,DRUGDB
+6530,cabergoline,0,DRUGDB
+6531,fluocinolone acetonide,0,DRUGDB
+6532,delapril,0,DRUGDB
+6533,repaglinide,0,DRUGDB
+6534,diphenoxylate,0,DRUGDB
+6535,butropium,0,DRUGDB
+6536,cefixime,0,DRUGDB
+6537,floxacillin,0,DRUGDB
+6538,methotrexate,0,DRUGDB
+6539,ribostamycin,0,DRUGDB
+6540,carfecillin,0,DRUGDB
+6541,cefazolin,0,DRUGDB
+6542,verapamil,0,DRUGDB
+6543,sitaxentan,0,DRUGDB
+6544,fenticonazole,0,DRUGDB
+6545,cefotaxime,0,DRUGDB
+6546,lacidipine,0,DRUGDB
+6547,clevidipine,0,DRUGDB
+6548,delavirdine,0,DRUGDB
+6549,xenytropium,0,DRUGDB
+6550,detajmium,0,DRUGDB
+6551,testosterone undecanoate,0,DRUGDB
+6552,minocycline,0,DRUGDB
+6553,ormeloxifene,0,DRUGDB
+6554,azimilide,0,DRUGDB
+6555,raltitrexed,0,DRUGDB
+6556,fumagillin,0,DRUGDB
+6557,astemizole,0,DRUGDB
+6558,prednisolone tebutate,0,DRUGDB
+6559,fluazacort,0,DRUGDB
+6560,cerivastatin,0,DRUGDB
+6561,fenoverine,0,DRUGDB
+6562,oxytetracycline,0,DRUGDB
+6563,prednisolone succinate,0,DRUGDB
+6564,hydrocortisone aceponate,0,DRUGDB
+6565,loxiglumide,0,DRUGDB
+6566,dexloxiglumide,0,DRUGDB
+6567,morphine glucuronide,0,DRUGDB
+6568,prulifloxacin,0,DRUGDB
+6569,lenampicillin,0,DRUGDB
+6570,cinnoxicam,0,DRUGDB
+6571,azlocillin,0,DRUGDB
+6572,pimozide,0,DRUGDB
+6573,tobuterol,0,DRUGDB
+6574,bitolterol,0,DRUGDB
+6575,perflunafene,0,DRUGDB
+6576,cefatrizine,0,DRUGDB
+6577,cefamandole,0,DRUGDB
+6578,chondroitin sulfate,0,DRUGDB
+6579,tafenoquine,0,DRUGDB
+6580,pivampicillin,0,DRUGDB
+6581,micronomicin,0,DRUGDB
+6582,asulacrine,0,DRUGDB
+6583,sorafenib,0,DRUGDB
+6584,demeclocycline,0,DRUGDB
+6585,loprazolam,0,DRUGDB
+6586,bacampicillin,0,DRUGDB
+6587,sulprostone,0,DRUGDB
+6588,cisapride,0,DRUGDB
+6589,carumonam,0,DRUGDB
+6590,benfotiamine,0,DRUGDB
+6591,calcium iodobehenate,0,DRUGDB
+6592,spirapril,0,DRUGDB
+6593,loteprednol etabonate,0,DRUGDB
+6595,edatrexate,0,DRUGDB
+6596,tobramycin,0,DRUGDB
+6597,buprenorphine,0,DRUGDB
+6598,oxetacaine,0,DRUGDB
+6599,tiropramide,0,DRUGDB
+6600,cromoglicic acid,0,DRUGDB
+6601,tartrazine,0,DRUGDB
+6602,lamifiban,0,DRUGDB
+6603,lomerizine,0,DRUGDB
+6604,ruboxistaurin,0,DRUGDB
+6605,clinofibrate,0,DRUGDB
+6606,ivabradine,0,DRUGDB
+6607,diethylaminoethoxyhexestrol,0,DRUGDB
+6608,simfibrate,0,DRUGDB
+6609,bucladesine,0,DRUGDB
+6610,ebastine,0,DRUGDB
+6611,nefazodone,0,DRUGDB
+6612,dibrompropamidine,0,DRUGDB
+6613,adamexine,0,DRUGDB
+6614,dicloxacillin,0,DRUGDB
+6615,docarpamine,0,DRUGDB
+6616,enoxolone,0,DRUGDB
+6618,cefmetazole,0,DRUGDB
+6619,terfenadine,0,DRUGDB
+6620,methylprednisolone aceponate,0,DRUGDB
+6621,clofazimine,0,DRUGDB
+6622,leucovorin,0,DRUGDB
+6623,ximelagatran,0,DRUGDB
+6624,raloxifene,0,DRUGDB
+6625,prednisolamate,0,DRUGDB
+6626,proreside,0,DRUGDB
+6627,methylprednisolone succinate,0,DRUGDB
+6628,sildenafil,0,DRUGDB
+6629,tibezonium,0,DRUGDB
+6630,rilmazafone,0,DRUGDB
+6631,picloxydine,0,DRUGDB
+6632,ertapenem,0,DRUGDB
+6633,fluspirilene,0,DRUGDB
+6634,netilmicin,0,DRUGDB
+6635,hydrocortamate,0,DRUGDB
+6636,pipotiazine,0,DRUGDB
+6637,dexamethasone valerate,0,DRUGDB
+6638,betamethasone valerate,0,DRUGDB
+6639,temocapril,0,DRUGDB
+6640,meclocycline,0,DRUGDB
+6641,feclobuzone,0,DRUGDB
+6642,loperamide,0,DRUGDB
+6644,ebrotidine,0,DRUGDB
+6645,pralatrexate,0,DRUGDB
+6646,almitrine,0,DRUGDB
+6647,ritanserin,0,DRUGDB
+6648,suriclone,0,DRUGDB
+6649,triamcinolone diacetate,0,DRUGDB
+6650,cefcanel,0,DRUGDB
+6651,tribenoside,0,DRUGDB
+6652,dihydroemetine,0,DRUGDB
+6653,lymecycline,0,DRUGDB
+6654,chlortetracycline,0,DRUGDB
+6655,mosapramine,0,DRUGDB
+6656,nicardipine,0,DRUGDB
+6657,(S)-nicardipine,0,DRUGDB
+6658,emetine,0,DRUGDB
+6659,clocapramine,0,DRUGDB
+6660,pranlukast,0,DRUGDB
+6661,stallimycin,0,DRUGDB
+6662,talampicillin,0,DRUGDB
+6663,rosuvastatin,0,DRUGDB
+6664,cefepime,0,DRUGDB
+6665,silymarin,0,DRUGDB
+6666,amrubicin,0,DRUGDB
+6667,bekanamycin,0,DRUGDB
+6668,otilonium bromide,0,DRUGDB
+6669,uridine triphosphate,0,DRUGDB
+6670,nicergoline,0,DRUGDB
+6671,kanamycin,0,DRUGDB
+6672,fentonium,0,DRUGDB
+6673,gallopamil,0,DRUGDB
+6674,ulobetasol propionate,0,DRUGDB
+6675,imiclopazine,0,DRUGDB
+6676,prednisolone valerate acetate,0,DRUGDB
+6677,hydrocortisone cypionate,0,DRUGDB
+6678,fenoxedil,0,DRUGDB
+6679,fluclorolone acetonide,0,DRUGDB
+6680,riodoxol,0,DRUGDB
+6681,dasatinib,0,DRUGDB
+6682,neltenexine,0,DRUGDB
+6683,estriol succinate,0,DRUGDB
+6684,prednicarbate,0,DRUGDB
+6685,vardenafil,0,DRUGDB
+6686,israpafant,0,DRUGDB
+6687,citicoline,0,DRUGDB
+6688,tipifarnib,0,DRUGDB
+6689,cefamandole nafate,0,DRUGDB
+6690,glimepiride,0,DRUGDB
+6691,sulisatin,0,DRUGDB
+6692,barnidipine,0,DRUGDB
+6693,lidoflazine,0,DRUGDB
+6694,cilnidipine,0,DRUGDB
+6695,bezitramide,0,DRUGDB
+6696,loperamide oxide,0,DRUGDB
+6697,aspoxicillin,0,DRUGDB
+6698,imatinib,0,DRUGDB
+6699,glibenclamide,0,DRUGDB
+6700,pheniodol sodium,0,DRUGDB
+6701,fluocinonide,0,DRUGDB
+6703,carindacillin,0,DRUGDB
+6704,flumetasone pivalate,0,DRUGDB
+6706,nicomorphine,0,DRUGDB
+6707,mibefradil,0,DRUGDB
+6708,orlistat,0,DRUGDB
+6709,idarubicin,0,DRUGDB
+6710,tebipenem pivoxil,0,DRUGDB
+6711,moexipril,0,DRUGDB
+6712,binifibrate,0,DRUGDB
+6713,perflubron,0,DRUGDB
+6714,halofantrine,0,DRUGDB
+6715,tritoqualine,0,DRUGDB
+6716,travoprost,0,DRUGDB
+6717,fluticasone propionate,0,DRUGDB
+6718,mupirocin,0,DRUGDB
+6719,adefovir dipivoxil,0,DRUGDB
+6720,fexofenadine,0,DRUGDB
+6721,teclozan,0,DRUGDB
+6722,amcinonide,0,DRUGDB
+6723,hexafluronium,0,DRUGDB
+6724,icodextrin,0,DRUGDB
+6725,dipyridamole,0,DRUGDB
+6726,chlorhexidine,0,DRUGDB
+6727,benidipine,0,DRUGDB
+6728,hepronicate,0,DRUGDB
+6729,amprenavir,0,DRUGDB
+6730,tropesin,0,DRUGDB
+6732,ixabepilone,0,DRUGDB
+6733,adenosine triphosphate,0,DRUGDB
+6734,difluprednate,0,DRUGDB
+6735,argatroban,0,DRUGDB
+6736,alexidine,0,DRUGDB
+6737,clomocycline,0,DRUGDB
+6738,landiolol,0,DRUGDB
+6739,atrasentan,0,DRUGDB
+6740,pinaverium,0,DRUGDB
+6741,cefmenoxime,0,DRUGDB
+6742,flomoxef,0,DRUGDB
+6743,acetoxolone,0,DRUGDB
+6744,carubicin,0,DRUGDB
+6745,maraviroc,0,DRUGDB
+6746,sobuzoxane,0,DRUGDB
+6747,telmisartan,0,DRUGDB
+6748,cefpirome,0,DRUGDB
+6750,taranabant,0,DRUGDB
+6751,cynarine,0,DRUGDB
+6752,cefozopran,0,DRUGDB
+6753,muraglitazar,0,DRUGDB
+6754,fusidic acid,0,DRUGDB
+6755,probucol,0,DRUGDB
+6756,piperacillin,0,DRUGDB
+6757,retapamulin,0,DRUGDB
+6758,benziodarone,0,DRUGDB
+6759,gossypol,0,DRUGDB
+6760,glucametacin,0,DRUGDB
+6761,tenofovir disoproxil,0,DRUGDB
+6762,ceforanide,0,DRUGDB
+6763,cefminox,0,DRUGDB
+6764,estramustine phosphate,0,DRUGDB
+6765,latamoxef,0,DRUGDB
+6768,perfluamine,0,DRUGDB
+6770,apalcillin,0,DRUGDB
+6771,cefoselis,0,DRUGDB
+6772,penfluridol,0,DRUGDB
+6773,cefotiam,0,DRUGDB
+6774,protoverine,0,DRUGDB
+6775,pirozadil,0,DRUGDB
+6776,daunorubicin,0,DRUGDB
+6777,gadoxetic acid,0,DRUGDB
+6778,rolitetracycline,0,DRUGDB
+6779,gliquidone,0,DRUGDB
+6780,dutasteride,0,DRUGDB
+6781,lumefantrine,0,DRUGDB
+6782,nilotinib,0,DRUGDB
+6783,rocuronium,0,DRUGDB
+6784,proscillaridin,0,DRUGDB
+6785,cortivazol,0,DRUGDB
+6786,ketoconazole,0,DRUGDB
+6787,terconazole,0,DRUGDB
+6788,cefsulodin,0,DRUGDB
+6789,aprepitant,0,DRUGDB
+6790,betacarotene,0,DRUGDB
+6791,ambenonium,0,DRUGDB
+6792,nafiverine,0,DRUGDB
+6793,mezlocillin,0,DRUGDB
+6794,ciclesonide,0,DRUGDB
+6795,romidepsin,0,DRUGDB
+6796,cefonicid,0,DRUGDB
+6797,epirubicin,0,DRUGDB
+6798,doxorubicin,0,DRUGDB
+6799,prednisolone sulfobenzoate,0,DRUGDB
+6800,octotiamine,0,DRUGDB
+6801,ceftazidime,0,DRUGDB
+6802,cefazedone,0,DRUGDB
+6803,peruvoside,0,DRUGDB
+6804,fluphenazine enanthate,0,DRUGDB
+6805,octenidine,0,DRUGDB
+6806,bufeniode,0,DRUGDB
+6807,bosentan,0,DRUGDB
+6808,aliskiren,0,DRUGDB
+6809,arbekacin,0,DRUGDB
+6810,ceftriaxone,0,DRUGDB
+6811,pantethine,0,DRUGDB
+6812,niceritrol,0,DRUGDB
+6813,dronedarone,0,DRUGDB
+6814,demecarium,0,DRUGDB
+6815,acetrizoic acid,0,DRUGDB
+6816,cefpodoxime proxetil,0,DRUGDB
+6817,vecuronium,0,DRUGDB
+6818,phenobutiodil,0,DRUGDB
+6819,alatrofloxacin,0,DRUGDB
+6820,olmesartan medoxomil,0,DRUGDB
+6821,atorvastatin,0,DRUGDB
+6822,halopredone,0,DRUGDB
+6823,sulfamazone,0,DRUGDB
+6824,deferoxamine,0,DRUGDB
+6825,ecamsule,0,DRUGDB
+6826,fosinopril,0,DRUGDB
+6827,dihydroergocornine,0,DRUGDB
+6828,enocitabine,0,DRUGDB
+6829,desoxymycin,0,DRUGDB
+6830,nelfinavir,0,DRUGDB
+6831,brovanexine,0,DRUGDB
+6832,cefuroxime pivoxetil,0,DRUGDB
+6833,formocortal,0,DRUGDB
+6834,isepamicin,0,DRUGDB
+6835,diathymosulfone,0,DRUGDB
+6836,carbenoxolone,0,DRUGDB
+6837,iopanoic acid,0,DRUGDB
+6838,iophenoic acid,0,DRUGDB
+6839,pancuronium,0,DRUGDB
+6840,cytarabine ocfosfate,0,DRUGDB
+6841,cefotetan,0,DRUGDB
+6842,zafirlukast,0,DRUGDB
+6843,oleandrin,0,DRUGDB
+6844,beta-Ergocryptine,0,DRUGDB
+6845,alpha-Ergocryptine,0,DRUGDB
+6846,deserpidine,0,DRUGDB
+6847,difebarbamate,0,DRUGDB
+6848,prednisolone farnesylate,0,DRUGDB
+6849,lapatinib,0,DRUGDB
+6850,streptomycin,0,DRUGDB
+6851,ergotamine,0,DRUGDB
+6852,azelnidipine,0,DRUGDB
+6853,porfimer,0,DRUGDB
+6854,dihydrostreptomycin,0,DRUGDB
+6855,dihydroergotamine,0,DRUGDB
+6856,ouabain,0,DRUGDB
+6857,cefodizime,0,DRUGDB
+6858,amikacin,0,DRUGDB
+6859,fosamprenavir,0,DRUGDB
+6860,tigecycline,0,DRUGDB
+6861,montelukast,0,DRUGDB
+6862,hidrosmin,0,DRUGDB
+6863,penimepicycline,0,DRUGDB
+6864,irinotecan,0,DRUGDB
+6865,antrafenine,0,DRUGDB
+6866,etoposide,0,DRUGDB
+6867,pentigetide,0,DRUGDB
+6868,fluphenazine decanoate,0,DRUGDB
+6869,hexobendine,0,DRUGDB
+6870,sultamicillin,0,DRUGDB
+6871,keracyanin,0,DRUGDB
+6872,rapacuronium,0,DRUGDB
+6873,iopodic acid,0,DRUGDB
+6874,hematoporphyrin,0,DRUGDB
+6875,nicofuranose,0,DRUGDB
+6876,pentosan polysulfate,0,DRUGDB
+6877,tipranavir,0,DRUGDB
+6878,pipecuronium,0,DRUGDB
+6879,benzonatate,0,DRUGDB
+6880,dilazep,0,DRUGDB
+6881,tezosentan,0,DRUGDB
+6882,fulvestrant,0,DRUGDB
+6883,diosmin,0,DRUGDB
+6884,reserpine,0,DRUGDB
+6885,methoserpidine,0,DRUGDB
+6886,dexniguldipine,0,DRUGDB
+6887,tubocurarine,0,DRUGDB
+6888,rutoside,0,DRUGDB
+6889,candesartan cilexetil,0,DRUGDB
+6890,manidipine,0,DRUGDB
+6891,dihydroergocristine,0,DRUGDB
+6892,novobiocin,0,DRUGDB
+6893,cefpiramide,0,DRUGDB
+6894,indinavir,0,DRUGDB
+6895,iotalamic acid,0,DRUGDB
+6896,diatrizoate,0,DRUGDB
+6897,iomeglamic acid,0,DRUGDB
+6898,iocetamic acid,0,DRUGDB
+6899,framycetin,0,DRUGDB
+6900,paromomycin,0,DRUGDB
+6901,cefditoren pivoxil,0,DRUGDB
+6902,tiratricol,0,DRUGDB
+6903,triamcinolone benetonide,0,DRUGDB
+6904,tirilazad,0,DRUGDB
+6905,guamecycline,0,DRUGDB
+6906,tocofibrate,0,DRUGDB
+6907,pirarubicin,0,DRUGDB
+6908,cefbuperazone,0,DRUGDB
+6909,dabigatran etexilate,0,DRUGDB
+6910,bemotrizinol,0,DRUGDB
+6911,metrizoic acid,0,DRUGDB
+6912,iodamide,0,DRUGDB
+6913,lopinavir,0,DRUGDB
+6914,dexamethasone palmitate,0,DRUGDB
+6915,rescinnamine,0,DRUGDB
+6916,thyropropic acid,0,DRUGDB
+6917,bunamiodyl,0,DRUGDB
+6918,nicomol,0,DRUGDB
+6919,tyropanoate,0,DRUGDB
+6920,amiodarone,0,DRUGDB
+6921,acarbose,0,DRUGDB
+6922,zorubicin,0,DRUGDB
+6923,cefoperazone,0,DRUGDB
+6924,prednimustine,0,DRUGDB
+6925,liothyronine,0,DRUGDB
+6926,methylprednisolone suleptanate,0,DRUGDB
+6927,metocurine,0,DRUGDB
+6929,monoxerutin,0,DRUGDB
+6930,bromocriptine,0,DRUGDB
+6931,teniposide,0,DRUGDB
+6932,bisoctrizole,0,DRUGDB
+6933,zinostatin,0,DRUGDB
+6934,iobenzamic acid,0,DRUGDB
+6935,clindamycin palmitate,0,DRUGDB
+6936,natamycin,0,DRUGDB
+6937,syrosingopine,0,DRUGDB
+6938,alcuronium,0,DRUGDB
+6939,etoposide phosphate,0,DRUGDB
+6940,capreomycin,0,DRUGDB
+6941,pentamycin,0,DRUGDB
+6942,saquinavir,0,DRUGDB
+6943,cefpimizole,0,DRUGDB
+6944,iopronic acid,0,DRUGDB
+6945,thymopentin,0,DRUGDB
+6946,temoporfin,0,DRUGDB
+6947,prednisolone steaglate,0,DRUGDB
+6948,enviomycin,0,DRUGDB
+6949,viomycin,0,DRUGDB
+6950,oleandomycin,0,DRUGDB
+6951,dalfopristin,0,DRUGDB
+6952,glucosaminylmuramyl dipeptide,0,DRUGDB
+6953,posaconazole,0,DRUGDB
+6954,sulbutiamine,0,DRUGDB
+6955,atazanavir,0,DRUGDB
+6956,itraconazole,0,DRUGDB
+6957,lucimycin,0,DRUGDB
+6958,bietaserpine,0,DRUGDB
+6959,talaporfin,0,DRUGDB
+6960,verteporfin,0,DRUGDB
+6961,ritonavir,0,DRUGDB
+6962,valrubicin,0,DRUGDB
+6963,petrichloral,0,DRUGDB
+6964,erythromycin,0,DRUGDB
+6965,colfosceril palmitate,0,DRUGDB
+6966,gadofosveset,0,DRUGDB
+6967,troxerutin,0,DRUGDB
+6968,Streptomycin B,0,DRUGDB
+6969,clarithromycin,0,DRUGDB
+6970,azithromycin,0,DRUGDB
+6971,flurithromycin,0,DRUGDB
+6972,benzquercin,0,DRUGDB
+6973,vindesine,0,DRUGDB
+6974,indocyanine green,0,DRUGDB
+6975,lividomycin,0,DRUGDB
+6976,digitoxin,0,DRUGDB
+6977,pentagastrin,0,DRUGDB
+6978,bisbentiamine,0,DRUGDB
+6979,hyaluronic acid,0,DRUGDB
+6980,levothyroxine sodium,0,DRUGDB
+6981,dextrothyroxine,0,DRUGDB
+6982,iopamidol,0,DRUGDB
+6983,iomeprol,0,DRUGDB
+6984,vinorelbine,0,DRUGDB
+6985,digoxin,0,DRUGDB
+6986,polyestradiol phosphate,0,DRUGDB
+6987,rifaximin,0,DRUGDB
+6988,canfosfamide,0,DRUGDB
+6989,estradiol mustard,0,DRUGDB
+6990,metrizamide,0,DRUGDB
+6991,erythromycin propionate,0,DRUGDB
+6992,ioxilan,0,DRUGDB
+6993,iopromide,0,DRUGDB
+6994,sulfobromophthalein,0,DRUGDB
+6995,metildigoxin,0,DRUGDB
+6996,tacrolimus,0,DRUGDB
+6997,acetyldigitoxin,0,DRUGDB
+6998,ioversol,0,DRUGDB
+6999,docetaxel,0,DRUGDB
+7000,pimecrolimus,0,DRUGDB
+7001,inositol nicotinate,0,DRUGDB
+7002,vinblastine,0,DRUGDB
+7003,aclarubicin,0,DRUGDB
+7004,telithromycin,0,DRUGDB
+7005,sorbinicate,0,DRUGDB
+7006,troleandomycin,0,DRUGDB
+7007,mydecamycin,0,DRUGDB
+7008,vinflunine,0,DRUGDB
+7009,pralmorelin,0,DRUGDB
+7010,etiroxate,0,DRUGDB
+7011,iohexol,0,DRUGDB
+7012,glycyrrhizic acid,0,DRUGDB
+7013,rifampicin,0,DRUGDB
+7014,acetyldigoxin,0,DRUGDB
+7015,virginiamycin,0,DRUGDB
+7016,vincristine,0,DRUGDB
+7017,rokitamycin,0,DRUGDB
+7018,josamycin,0,DRUGDB
+7019,eptifibatide,0,DRUGDB
+7020,dirithromycin,0,DRUGDB
+7021,iopentol,0,DRUGDB
+7022,iobitridol,0,DRUGDB
+7023,roxithromycin,0,DRUGDB
+7024,Spiramycin I,0,DRUGDB
+7025,proglumetacin,0,DRUGDB
+7026,rifabutin,0,DRUGDB
+7027,paclitaxel,0,DRUGDB
+7028,erythromycin ethyl succinate,0,DRUGDB
+7029,pristinamycin,0,DRUGDB
+7030,ivermectin,0,DRUGDB
+7031,rifapentine,0,DRUGDB
+7032,Spiramycin II,0,DRUGDB
+7033,romurtide,0,DRUGDB
+7034,miocamycin,0,DRUGDB
+7035,Spiramycin III,0,DRUGDB
+7036,saralasin,0,DRUGDB
+7037,sirolimus,0,DRUGDB
+7038,cargutocin,0,DRUGDB
+7039,gitoformate,0,DRUGDB
+7040,amphotericin B,0,DRUGDB
+7041,nystatin,0,DRUGDB
+7042,cisatracurium,0,DRUGDB
+7043,atracurium,0,DRUGDB
+7044,deslanoside,0,DRUGDB
+7045,everolimus,0,DRUGDB
+7046,sucralfate,0,DRUGDB
+7047,alprostadil alfadex,0,DRUGDB
+7048,zotarolimus,0,DRUGDB
+7049,ceruletide,0,DRUGDB
+7050,lanatoside C,0,DRUGDB
+7051,carbetocin,0,DRUGDB
+7052,atosiban,0,DRUGDB
+7053,oxytocin,0,DRUGDB
+7054,demoxytocin,0,DRUGDB
+7055,octreotide,0,DRUGDB
+7056,quinupristin,0,DRUGDB
+7057,mivacurium,0,DRUGDB
+7058,doxacurium,0,DRUGDB
+7059,desmopressin,0,DRUGDB
+7060,vasopressin,0,DRUGDB
+7061,plicamycin,0,DRUGDB
+7062,lypressin,0,DRUGDB
+7063,lanreotide,0,DRUGDB
+7064,caspofungin,0,DRUGDB
+7065,ioglycamic acid,0,DRUGDB
+7066,heparin,0,DRUGDB
+7067,piroxicam betadex,0,DRUGDB
+7068,adipiodone,0,DRUGDB
+7069,dapaglifozin,0,DRUGDB
+7070,lentinan,0,DRUGDB
+7071,gonadorelin,0,DRUGDB
+7072,teicoplanin aglycone,0,DRUGDB
+7073,ciclosporin,0,DRUGDB
+7074,leuprorelin,0,DRUGDB
+7075,valspodar,0,DRUGDB
+7076,iotroxic acid,0,DRUGDB
+7077,terlipressin,0,DRUGDB
+7078,mifamurtide,0,DRUGDB
+7079,buserelin,0,DRUGDB
+7080,iocarmic acid,0,DRUGDB
+7081,dactinomycin,0,DRUGDB
+7082,ioxaglic acid,0,DRUGDB
+7083,goserelin,0,DRUGDB
+7084,micafungin,0,DRUGDB
+7085,deslorelin,0,DRUGDB
+7086,iodoxamic acid,0,DRUGDB
+7087,suramin,0,DRUGDB
+7088,triptorelin,0,DRUGDB
+7090,nafarelin,0,DRUGDB
+7091,histrelin,0,DRUGDB
+7092,depreotide,0,DRUGDB
+7093,dermatan sulfate,0,DRUGDB
+7094,abarelix,0,DRUGDB
+7095,bacitracin,0,DRUGDB
+7096,cetrorelix,0,DRUGDB
+7097,vancomycin,0,DRUGDB
+7098,peplomycin,0,DRUGDB
+7099,fondaparinux,0,DRUGDB
+7100,betadex,0,DRUGDB
+7101,iodixanol,0,DRUGDB
+7102,ganirelix,0,DRUGDB
+7103,daptomycin,0,DRUGDB
+7104,iotrolan,0,DRUGDB
+7105,somatostatin,0,DRUGDB
+7106,colistimethate sodium,0,DRUGDB
+7107,telavancin,0,DRUGDB
+7108,dalbavancin,0,DRUGDB
+7109,teicoplanin,0,DRUGDB
+7110,alsactide,0,DRUGDB
+7111,bivalirudin,0,DRUGDB
+7112,ziconotide,0,DRUGDB
+7113,secretin human,0,DRUGDB
+7114,carperitide,0,DRUGDB
+7115,lixisenatide,0,DRUGDB
+7116,thymalfasin,0,DRUGDB
+7117,sermorelin,0,DRUGDB
+7118,elcatonin,0,DRUGDB
+7119,calcitonin (salmon synthetic),0,DRUGDB
+7120,calcitonin (pork natural),0,DRUGDB
+7121,calcium acetate and magnesium carbonate,0,DRUGDB
+7122,calcium alginate,0,DRUGDB
+7123,calcium carbimide,0,DRUGDB
+7124,calcium glucoheptonate,0,DRUGDB
+7125,calcium glycerylphosphate,0,DRUGDB
+7126,nesiritide,0,DRUGDB
+7127,glucagon,0,DRUGDB
+7128,ruxolitinib,0,DRUGDB
+7129,fesoterodine,0,DRUGDB
+7130,tafamidis,0,DRUGDB
+7131,piperaquine,0,DRUGDB
+7132,artenimol,0,DRUGDB
+7133,pramlintide,0,DRUGDB
+7134,exenatide,0,DRUGDB
+7135,enfuvirtide,0,DRUGDB
+7136,cyanocobalamin,0,DRUGDB
+7137,vitamin A palmitate,0,DRUGDB
+7138,sodium chloride,0,DRUGDB
+7139,potassium chloride,0,DRUGDB
+7140,magnesium chloride,0,DRUGDB
+7141,calcium chloride,0,DRUGDB
+7142,sodium lactate,0,DRUGDB
+7143,sodium acetate,0,DRUGDB
+7144,sodium bicarbonate,0,DRUGDB
+7145,desirudin,0,DRUGDB
+7146,lithium carbonate,0,DRUGDB
+7147,diatrizoate meglumine,0,DRUGDB
+7148,prazosin,0,DRUGDB
+7149,oxaliplatin,0,DRUGDB
+7150,acetic acid,0,DRUGDB
+7151,sodium sulfate,0,DRUGDB
+7152,hydrocortisone acetate,0,DRUGDB
+7153,sodium gluconate,0,DRUGDB
+7154,isopropanol,0,DRUGDB
+7155,lepirudin,0,DRUGDB
+7156,dexfosfoserine,0,DRUGDB
+7157,auranofin,0,DRUGDB
+7158,lubiprostone,0,DRUGDB
+7159,vorinostat,0,DRUGDB
+7160,proline,0,DRUGDB
+7161,carboplatin,0,DRUGDB
+7162,lisdexamfetamine,0,DRUGDB
+7163,paliperidone,0,DRUGDB
+7164,nadide,0,DRUGDB
+7165,udenafil,0,DRUGDB
+7166,sulfadiazine silver,0,DRUGDB
+7167,darunavir,0,DRUGDB
+7168,sodium lauryl sulfate,0,DRUGDB
+7169,lutein,0,DRUGDB
+7170,testosterone propionate,0,DRUGDB
+7171,gadoversetamide,0,DRUGDB
+7172,epicriptine,0,DRUGDB
+7173,doripenem,0,DRUGDB
+7174,silodosin,0,DRUGDB
+7175,permethrin,0,DRUGDB
+7176,rimonabant,0,DRUGDB
+7177,sodium stibogluconate,0,DRUGDB
+7178,cabazitaxel,0,DRUGDB
+7179,edaravone,0,DRUGDB
+7180,lercanidipine,0,DRUGDB
+7181,cefcapene,0,DRUGDB
+7182,carbocisteine,0,DRUGDB
+7183,temsirolimus,0,DRUGDB
+7184,dexlansoprazole,0,DRUGDB
+7185,dalfampridine,0,DRUGDB
+7186,potassium acetate,0,DRUGDB
+7187,sodium phosphate,0,DRUGDB
+7188,liraglutide,0,DRUGDB
+7189,alcaftadine,0,DRUGDB
+7190,ulipristal acetate,0,DRUGDB
+7191,fingolimod,0,DRUGDB
+7192,lurasidone,0,DRUGDB
+7193,ceftaroline fosamil,0,DRUGDB
+7194,tesamorelin,0,DRUGDB
+7195,eribulin,0,DRUGDB
+7196,boceprevir,0,DRUGDB
+7197,telaprevir,0,DRUGDB
+7198,rilpivirine,0,DRUGDB
+7199,linagliptin,0,DRUGDB
+7200,abiraterone,0,DRUGDB
+7201,gabapentin enacarbil,0,DRUGDB
+7202,vandetanib,0,DRUGDB
+7203,gadobutrol,0,DRUGDB
+7204,fidaxomicin,0,DRUGDB
+7205,ezogabine,0,DRUGDB
+7206,rivaroxaban,0,DRUGDB
+7207,indacaterol,0,DRUGDB
+7208,ticagrelor,0,DRUGDB
+7209,vemurafenib,0,DRUGDB
+7210,vismodegib,0,DRUGDB
+7211,ivacaftor,0,DRUGDB
+7212,lucinactant,0,DRUGDB
+7213,sugammadex,0,DRUGDB
+7214,peginesatide,0,DRUGDB
+7215,neomycin,0,DRUGDB
+7216,pyrithione zinc,0,DRUGDB
+7217,povidone-iodine,0,DRUGDB
+7218,algeldrate,0,DRUGDB
+7219,nitrogen,0,DRUGDB
+7220,sodium monofluorophosphate,0,DRUGDB
+7221,macrogol,0,DRUGDB
+7222,carbon dioxide,0,DRUGDB
+7223,cineole,0,DRUGDB
+7224,sulfur,0,DRUGDB
+7225,ferrous fumarate,0,DRUGDB
+7226,helium,0,DRUGDB
+7227,carbamide,0,DRUGDB
+7228,gentamicin,0,DRUGDB
+7229,phenol,0,DRUGDB
+7230,allantoin,0,DRUGDB
+7231,zinc acetate,0,DRUGDB
+7232,stannous fluoride,0,DRUGDB
+7233,selenium sulfide,0,DRUGDB
+7234,zinc sulfate,0,DRUGDB
+7235,crospovidone,0,DRUGDB
+7236,tocofersolan,0,DRUGDB
+7237,magnesium citrate,0,DRUGDB
+7238,copper sulfate,0,DRUGDB
+7239,tapentadol,0,DRUGDB
+7240,Florbetapir F-18,0,DRUGDB
+7241,magnesium carbonate,0,DRUGDB
+7242,magnesium sulfate,0,DRUGDB
+7243,enzacamene,0,DRUGDB
+7244,magnesium oxide,0,DRUGDB
+7246,potassium iodide,0,DRUGDB
+7247,apixaban,0,DRUGDB
+7248,cobicistat,0,DRUGDB
+7249,elvitegravir,0,DRUGDB
+7250,Flutemetamol (18F),0,DRUGDB
+7251,glycopyrronium bromide,0,DRUGDB
+7252,eslicarbazepine acetate,0,DRUGDB
+7253,avanafil,0,DRUGDB
+7254,lasofoxifene,0,DRUGDB
+7255,hydroxocobalamin,0,DRUGDB
+7256,lacosamide,0,DRUGDB
+7257,olaflur,0,DRUGDB
+7258,4-dimethylaminophenol,0,DRUGDB
+7259,aceclidine,0,DRUGDB
+7260,acefylline piperazine,0,DRUGDB
+7261,acetylglycinamide chloral hydrate,0,DRUGDB
+7262,euflavine,0,DRUGDB
+7263,afatinib,0,DRUGDB
+7264,alanyl glutamine,0,DRUGDB
+7265,alaproclate,0,DRUGDB
+7266,alginic acid,0,DRUGDB
+7267,azilsartan medoxomil,0,DRUGDB
+7268,UREA C-13,0,DRUGDB
+7269,sevelamer,0,DRUGDB
+7270,alum,0,DRUGDB
+7271,laropiprant,0,DRUGDB
+7272,(2-benzhydryloxyethyl)diethyl-methylammonium iodide,0,DRUGDB
+7273,2-(4-chlorphenoxy)-ethanol,0,DRUGDB
+7274,pasireotide,0,DRUGDB
+7275,pixantrone,0,DRUGDB
+7276,sevelamer carbonate,0,DRUGDB
+7277,ammonia,0,DRUGDB
+7278,trinitrophenol,0,DRUGDB
+7279,sincalide,0,DRUGDB
+7280,propanol,0,DRUGDB
+7281,prethcamide,0,DRUGDB
+7282,bazedoxifene,0,DRUGDB
+7283,clofezone,0,DRUGDB
+7284,amifampridine,0,DRUGDB
+7285,ambrisentan,0,DRUGDB
+7286,angiotensinamide,0,DRUGDB
+7287,pyronaridine,0,DRUGDB
+7288,alogliptin,0,DRUGDB
+7289,almasilate,0,DRUGDB
+7290,zucapsaicin,0,DRUGDB
+7291,zinc gluconate,0,DRUGDB
+7292,zinc chloride,0,DRUGDB
+7293,barbexaclone,0,DRUGDB
+7294,benzathine benzylpenicillin,0,DRUGDB
+7295,calcium gluconate,0,DRUGDB
+7296,aurothioglucose,0,DRUGDB
+7297,ammonium chloride,0,DRUGDB
+7298,betanidin,0,DRUGDB
+7299,bibrocathol,0,DRUGDB
+7300,bilastine,0,DRUGDB
+7301,bioallethrin,0,DRUGDB
+7302,bismuth subcitrate,0,DRUGDB
+7303,bisoxatin,0,DRUGDB
+7304,anidulafungin,0,DRUGDB
+7305,arginine glutamate,0,DRUGDB
+7306,bosutinib,0,DRUGDB
+7307,cetrimide,0,DRUGDB
+7308,chenodiol,0,DRUGDB
+7309,chiniofon,0,DRUGDB
+7310,chloroform,0,DRUGDB
+7312,vernakalant,0,DRUGDB
+7313,voclosporin,0,DRUGDB
+7314,xaliproden,0,DRUGDB
+7315,xantinol nicotinate,0,DRUGDB
+7316,xenon,0,DRUGDB
+7317,xenon (127Xe) gas,0,DRUGDB
+7318,xenon (133Xe) gas,0,DRUGDB
+7319,triaziquone,0,DRUGDB
+7320,sodium benzoate,0,DRUGDB
+7321,lorcaserin,0,DRUGDB
+7322,demecolcine,0,DRUGDB
+7323,dequalinium,0,DRUGDB
+7324,desaspidin,0,DRUGDB
+7325,decamethrin,0,DRUGDB
+7326,degarelix,0,DRUGDB
+7327,desvenlafaxine,0,DRUGDB
+7328,dapoxetine,0,DRUGDB
+7329,mirabegron,0,DRUGDB
+7330,calcium lactate,0,DRUGDB
+7331,levofolinic acid,0,DRUGDB
+7332,calcium pangamate,0,DRUGDB
+7334,carbasalate calcium,0,DRUGDB
+7335,choline salicylate,0,DRUGDB
+7336,choline theophyllinate,0,DRUGDB
+7337,chondroitin sulfate-iron complex,0,DRUGDB
+7338,cisplatin,0,DRUGDB
+7339,clefamide,0,DRUGDB
+7340,clevudine,0,DRUGDB
+7341,clodantoin,0,DRUGDB
+7342,clofenotane,0,DRUGDB
+7343,clopenthixol,0,DRUGDB
+7344,tegafur,0,DRUGDB
+7345,eltrombopag,0,DRUGDB
+7346,carisbamate,0,DRUGDB
+7347,casopitant,0,DRUGDB
+7348,ceftobiprole medocaril,0,DRUGDB
+7349,cerium oxalate,0,DRUGDB
+7350,cobamamide,0,DRUGDB
+7351,colesevelam,0,DRUGDB
+7353,cyfluthrin,0,DRUGDB
+7354,cymarin,0,DRUGDB
+7355,cypermethrin,0,DRUGDB
+7356,plerixafor,0,DRUGDB
+7357,dexchlorpheniramine,0,DRUGDB
+7358,diamorphine,0,DRUGDB
+7359,dibromotyrosine,0,DRUGDB
+7360,dibutylphthalate,0,DRUGDB
+7361,dibutylsuccinate,0,DRUGDB
+7362,didecyldimethylammonium chloride,0,DRUGDB
+7363,diethyl ether,0,DRUGDB
+7364,diethyltoluamide,0,DRUGDB
+7365,difetarsone,0,DRUGDB
+7366,dihydroergocryptine,0,DRUGDB
+7367,diiodohydroxypropane,0,DRUGDB
+7368,etilevodopa,0,DRUGDB
+7369,etybenzatropine,0,DRUGDB
+7370,candicidin,0,DRUGDB
+7371,bufylline,0,DRUGDB
+7372,colistin,0,DRUGDB
+7373,calcitonin (human synthetic),0,DRUGDB
+7374,almagate,0,DRUGDB
+7375,aluminium chloride,0,DRUGDB
+7376,aluminium clofibrate,0,DRUGDB
+7377,aluminium oxide,0,DRUGDB
+7378,aluminium phosphate,0,DRUGDB
+7379,benzathine phenoxymethylpenicillin,0,DRUGDB
+7380,calcium phosphate,0,DRUGDB
+7381,meradimate,0,DRUGDB
+7382,iodine,0,DRUGDB
+7383,diodone,0,DRUGDB
+7384,diphenadione,0,DRUGDB
+7385,prednisolone sodium phosphate,0,DRUGDB
+7386,clobetasol propionate,0,DRUGDB
+7387,testosterone cypionate,0,DRUGDB
+7388,fludeoxyglucose (18F),0,DRUGDB
+7389,hydrocortisone succinate,0,DRUGDB
+7390,zinc undecylenate,0,DRUGDB
+7391,procaine benzylpenicillin,0,DRUGDB
+7392,menthyl salicylate,0,DRUGDB
+7393,domiphen,0,DRUGDB
+7394,droxypropine,0,DRUGDB
+7395,efaproxiral,0,DRUGDB
+7396,eosin,0,DRUGDB
+7397,epanolol,0,DRUGDB
+7398,esketamine,0,DRUGDB
+7400,fosaprepitant,0,DRUGDB
+7401,gadobenate dimeglumine,0,DRUGDB
+7402,AMMONIA N-13,0,DRUGDB
+7403,prepopik,0,DRUGDB
+7404,ammonium lactate,0,DRUGDB
+7405,sodium citrate,0,DRUGDB
+7406,phosphoric acid,0,DRUGDB
+7407,calcium citrate,0,DRUGDB
+7408,corbadrine,0,DRUGDB
+7409,carfilzomib,0,DRUGDB
+7410,aclidinium bromide,0,DRUGDB
+7411,diflorasone diacetate,0,DRUGDB
+7412,taurine,0,DRUGDB
+7413,sodium polystyrene sulfonate,0,DRUGDB
+7414,iothalamate meglumine,0,DRUGDB
+7415,ferrous gluconate,0,DRUGDB
+7416,alclometasone dipropionate,0,DRUGDB
+7417,gadodiamide,0,DRUGDB
+7418,aluminium chlorohydrate,0,DRUGDB
+7419,haloperidol decanoate,0,DRUGDB
+7420,estradiol acetate,0,DRUGDB
+7421,amiloxate,0,DRUGDB
+7422,armodafinil,0,DRUGDB
+7423,silver nitrate,0,DRUGDB
+7424,isosulfan blue,0,DRUGDB
+7425,hydrocortisone valerate,0,DRUGDB
+7426,choline fenofibrate,0,DRUGDB
+7428,halcinonide,0,DRUGDB
+7429,racepinefrine,0,DRUGDB
+7431,magnesium silicate,0,DRUGDB
+7432,tetracosactide,0,DRUGDB
+7433,magnesium aspartate,0,DRUGDB
+7434,teriparatide,0,DRUGDB
+7435,magnesium gluconate,0,DRUGDB
+7436,sodium thiosulfate,0,DRUGDB
+7437,potassium citrate,0,DRUGDB
+7438,potassium hydrogencarbonate,0,DRUGDB
+7439,manganese chloride,0,DRUGDB
+7440,carbaldrate,0,DRUGDB
+7441,quinine,0,DRUGDB
+7442,potassium gluconate,0,DRUGDB
+7443,aluminum carbonate,0,DRUGDB
+7444,ferrous sulfate,0,DRUGDB
+7445,ferric sulfate,0,DRUGDB
+7446,cupric chloride,0,DRUGDB
+7447,bismuth subgallate,0,DRUGDB
+7448,mangafodipir,0,DRUGDB
+7449,samarium (153Sm) lexidronam,0,DRUGDB
+7450,etanautine,0,DRUGDB
+7451,fazadinium,0,DRUGDB
+7452,fenbendazole,0,DRUGDB
+7453,ferric (59Fe) citrate,0,DRUGDB
+7454,ferric citrate,0,DRUGDB
+7455,ferric hydroxide,0,DRUGDB
+7456,ferrous ascorbate,0,DRUGDB
+7457,ferrous aspartate,0,DRUGDB
+7458,ferrous carbonate,0,DRUGDB
+7459,ferrous chloride,0,DRUGDB
+7460,ferrous succinate,0,DRUGDB
+7461,ferrous tartrate,0,DRUGDB
+7462,fluclorolone,0,DRUGDB
+7463,flumedroxone,0,DRUGDB
+7464,flumetasone,0,DRUGDB
+7466,fluorodopa (18F),0,DRUGDB
+7467,fluoroethylcholine (18F),0,DRUGDB
+7469,fluprednidene,0,DRUGDB
+7470,fluticasone furoate,0,DRUGDB
+7471,fosfonet,0,DRUGDB
+7472,fosfructose,0,DRUGDB
+7473,gadobenic acid,0,DRUGDB
+7474,gadopentetate dimeglumine,0,DRUGDB
+7475,gadoteric acid,0,DRUGDB
+7476,gallium (67Ga) citrate,0,DRUGDB
+7477,gedocarnil,0,DRUGDB
+7478,gepirone,0,DRUGDB
+7479,gestonorone,0,DRUGDB
+7480,guanoclor,0,DRUGDB
+7481,hematin,0,DRUGDB
+7482,sodium oxybate,0,DRUGDB
+7483,nomegestrol,0,DRUGDB
+7484,hydrochloric acid,0,DRUGDB
+7485,hydrocortisone probutate,0,DRUGDB
+7486,hydroquinine,0,DRUGDB
+7487,hydroxyethylpromethazine,0,DRUGDB
+7488,ibacitabine,0,DRUGDB
+7489,iclaprim,0,DRUGDB
+7490,idanpramine,0,DRUGDB
+7491,indigo carmine,0,DRUGDB
+7492,inosine pranobex,0,DRUGDB
+7493,iobenguane (131I),0,DRUGDB
+7494,iodocholesterol (131I),0,DRUGDB
+7495,iodoform,0,DRUGDB
+7496,ioglicic acid,0,DRUGDB
+7497,iopydol,0,DRUGDB
+7498,ioxitalamic acid,0,DRUGDB
+7499,itramin tosilate,0,DRUGDB
+7500,krypton (81mKr) gas,0,DRUGDB
+7501,lanthanum carbonate,0,DRUGDB
+7502,levomethadone,0,DRUGDB
+7503,levoverbenone,0,DRUGDB
+7504,linopirdine,0,DRUGDB
+7505,linsidomine,0,DRUGDB
+7506,lithium succinate,0,DRUGDB
+7508,magnesium lactate,0,DRUGDB
+7509,magnesium levulinate,0,DRUGDB
+7510,magnesium orotate,0,DRUGDB
+7511,magnesium peroxide,0,DRUGDB
+7512,magnesium phosphate,0,DRUGDB
+7513,magnesium pidolate,0,DRUGDB
+7514,mannosulfan,0,DRUGDB
+7515,maribavir,0,DRUGDB
+7516,mecobalamin,0,DRUGDB
+7517,diosmetin,0,DRUGDB
+7518,cobalamin,0,DRUGDB
+7519,xylitol,0,DRUGDB
+7520,tonzonium,0,DRUGDB
+7521,clocortolone pivalate,0,DRUGDB
+7522,ubidecarenone,0,DRUGDB
+7523,trypan blue,0,DRUGDB
+7524,testosterone enantate,0,DRUGDB
+7525,sucrose,0,DRUGDB
+7526,stearic acid,0,DRUGDB
+7527,protocatechualdehyde,0,DRUGDB
+7528,pieceid,0,DRUGDB
+7529,polidocanol,0,DRUGDB
+7530,N-Acetylglucosamine,0,DRUGDB
+7531,methylnaltrexone,0,DRUGDB
+7532,lycopene,0,DRUGDB
+7533,linolenic acid,0,DRUGDB
+7534,levomenol,0,DRUGDB
+7535,levomefolic acid,0,DRUGDB
+7536,linaclotide,0,DRUGDB
+7537,spinosad,0,DRUGDB
+7538,enzalutamide,0,DRUGDB
+7539,sodium tetrachloroaurate,0,DRUGDB
+7540,nitroprusside,0,DRUGDB
+7541,trabectedin,0,DRUGDB
+7542,teriflunomide,0,DRUGDB
+7543,Choline C-11,0,DRUGDB
+7544,sodium hydroxide,0,DRUGDB
+7545,rose bengal,0,DRUGDB
+7546,eugenol,0,DRUGDB
+7547,dipyrithione,0,DRUGDB
+7548,dimyristoylphosphatidylglycerol,0,DRUGDB
+7549,Padimate A,0,DRUGDB
+7550,oftasceine,0,DRUGDB
+7551,octyltriethoxysilane,0,DRUGDB
+7552,levmetamfetamine,0,DRUGDB
+7553,dodecanoic acid,0,DRUGDB
+3848,lithium,1,DRUGDB
+7554,ibuprofen lysine,0,DRUGDB
+7555,hydroxocobalamin acetate,0,DRUGDB
+7556,glycolic acid,0,DRUGDB
+7557,gadoxetate,0,DRUGDB
+7558,fluorometholone acetate,0,DRUGDB
+7559,diazolidinylurea,0,DRUGDB
+7560,chloramphenicol succinate,0,DRUGDB
+7561,benzoic acid,0,DRUGDB
+7562,brilliant green,0,DRUGDB
+7563,betiatide,0,DRUGDB
+7564,betamethasone phosphate,0,DRUGDB
+7565,1-Octacosanol,0,DRUGDB
+7567,methylrosaniline,0,DRUGDB
+7568,metizoline,0,DRUGDB
+7569,morniflumate,0,DRUGDB
+7570,nalfurafine,0,DRUGDB
+7571,naproxcinod,0,DRUGDB
+7572,nicofetamide,0,DRUGDB
+7573,obidoxime,0,DRUGDB
+7574,omacetaxine mepesuccinate,0,DRUGDB
+7575,oritavancin,0,DRUGDB
+7576,ornipressin,0,DRUGDB
+7577,ornithine oxoglurate,0,DRUGDB
+7578,oxabolone cipionate,0,DRUGDB
+7579,panobinostat,0,DRUGDB
+7580,paraoxon,0,DRUGDB
+7581,perampanel,0,DRUGDB
+7582,perflenapent,0,DRUGDB
+7583,phenothrin,0,DRUGDB
+7584,phenylmercuric borate,0,DRUGDB
+7585,phenylmercuric nitrate,0,DRUGDB
+7586,picodralazine,0,DRUGDB
+7587,pleconaril,0,DRUGDB
+7588,policresulen,0,DRUGDB
+7589,polihexanide,0,DRUGDB
+7590,polynoxylin,0,DRUGDB
+7591,potassium bitartrate,0,DRUGDB
+7592,potassium lactate,0,DRUGDB
+7593,remikiren,0,DRUGDB
+7594,ritiometan,0,DRUGDB
+7595,potassium perchlorate,0,DRUGDB
+7596,potassium permanganate,0,DRUGDB
+7597,pyrethrum,0,DRUGDB
+7599,s-atenolol,0,DRUGDB
+7600,satraplatin,0,DRUGDB
+7601,semustine,0,DRUGDB
+7602,sodium apolate,0,DRUGDB
+7603,sodium aurothiomalate,0,DRUGDB
+7604,sodium aurotiosulfate,0,DRUGDB
+7605,sodium edetate,0,DRUGDB
+7606,sodium feredetate,0,DRUGDB
+7607,tofacitinib,0,DRUGDB
+7608,strontium ranelate,0,DRUGDB
+7609,cabozantinib,0,DRUGDB
+7610,ponatinib,0,DRUGDB
+7611,benzylpenicilloyl polylysine,0,DRUGDB
+7612,somatorelin,0,DRUGDB
+7613,spiramycin,0,DRUGDB
+7614,stibophen,0,DRUGDB
+7615,teduglutide,0,DRUGDB
+7616,daunorubicinol,0,DRUGDB
+7617,tricaprylin,0,DRUGDB
+7618,lomitapide,0,DRUGDB
+7619,streptoduocin,0,DRUGDB
+7620,succinimide,0,DRUGDB
+7621,sulfatolamide,0,DRUGDB
+7622,sulglicotide,0,DRUGDB
+7623,sulodexide,0,DRUGDB
+7624,tacalcitol,0,DRUGDB
+7625,tenidap,0,DRUGDB
+7626,trimethyldiphenylpropylamine,0,DRUGDB
+7627,tyloxapol,0,DRUGDB
+7628,tyrothricin,0,DRUGDB
+7630,tetragalacturonic acid hydroxymethylester,0,DRUGDB
+7631,tetramethrin,0,DRUGDB
+7632,thiocolchicoside,0,DRUGDB
+7633,thioctic acid,0,DRUGDB
+7634,thiomersal,0,DRUGDB
+7635,ticlatone,0,DRUGDB
+7636,tidiacic arginine,0,DRUGDB
+7637,trimegestone,0,DRUGDB
+7638,bedaquiline,0,DRUGDB
+7639,bleomycin,0,DRUGDB
+7640,etallobarbital,0,DRUGDB
+7641,crofelemer,0,DRUGDB
+7642,mipomersen,0,DRUGDB
+7643,aluminium acetotartrate,0,DRUGDB
+7644,aluminium glycinate,0,DRUGDB
+7645,aluminium nicotinate,0,DRUGDB
+7646,amino(diphenylhydantoin) valeric acid,0,DRUGDB
+7647,aurotioprol,0,DRUGDB
+7648,biphenylol,0,DRUGDB
+7649,dimethylaminopropionylphenothiazine,0,DRUGDB
+7650,dimethylcarbate,0,DRUGDB
+7651,dimethylphthalate,0,DRUGDB
+7652,dipiperonylaminoethanol,0,DRUGDB
+7653,ethyl hydroxybenzoate,0,DRUGDB
+7654,etohexadiol,0,DRUGDB
+7655,fluoromethylcholine (18F),0,DRUGDB
+7656,mepartricin,0,DRUGDB
+7657,sodium perborate,0,DRUGDB
+7658,ridaforolimus,0,DRUGDB
+7659,mercuric iodide,0,DRUGDB
+7660,sodium hypochlorite,0,DRUGDB
+7661,masitinib,0,DRUGDB
+7662,vilanterol,0,DRUGDB
+7663,radium Ra 223 dichloride,0,DRUGDB
+7664,dabrafenib,0,DRUGDB
+7665,trametinib,0,DRUGDB
+7666,sequifenadine,0,DRUGDB
+7667,oblimersen,0,DRUGDB
+7668,nabiximols,0,DRUGDB
+7669,gramicidin,0,DRUGDB
+7670,sodium borate,0,DRUGDB
+7671,sodium propionate,0,DRUGDB
+7672,sodium nitrite,0,DRUGDB
+7673,polystyrene sulfonate,0,DRUGDB
+7674,palifermin,0,DRUGDB
+7675,seractide,0,DRUGDB
+7676,metreleptin,0,DRUGDB
+7677,afamelanotide,0,DRUGDB
+7678,calcium silicate,0,DRUGDB
+7679,bismuth subnitrate,0,DRUGDB
+7680,calcium glubionate,0,DRUGDB
+7681,aprotinin,0,DRUGDB
+7682,bemiparin,0,DRUGDB
+7683,calcium lactate gluconate,0,DRUGDB
+7684,calcium levulinate,0,DRUGDB
+7685,chromium (51Cr) edetate,0,DRUGDB
+7686,ecallantide,0,DRUGDB
+7687,cyanocobalamin (57Co),0,DRUGDB
+7688,somatropin,0,DRUGDB
+7689,glycobiarsol,0,DRUGDB
+7690,ranitidine bismuth citrate,0,DRUGDB
+7691,colestilan,0,DRUGDB
+7692,colextran,0,DRUGDB
+7693,cridanimod,0,DRUGDB
+7694,crilanomer,0,DRUGDB
+7695,conjugated estrogens,0,DRUGDB
+7696,thiosalicylic acid,0,DRUGDB
+7697,estropipate,0,DRUGDB
+7698,iron,1,DRUGDB
+7699,magnesium salicylate,0,DRUGDB
+7700,bismuth subsalicylate,0,DRUGDB
+7701,potassium phosphate,0,DRUGDB
+7702,calcium acetate,0,DRUGDB
+7703,oxymorphone,0,DRUGDB
+7704,quercetin,0,DRUGDB
+7705,ethinamate,0,DRUGDB
+7706,alphaprodine,0,DRUGDB
+7707,Strong CYP3A4 Inducers,1,LEXICOMP
+7708,Moderate CYP3A4 Inducers,1,LEXICOMP
+7709,CYP3A4 Substrates,1,LEXICOMP
+7710,Strong CYP3A4 Inhibitors,1,LEXICOMP
+7711,CYP2D6 Substrates,1,LEXICOMP
+7712,Strong CYP2D6 Inhibitors,1,LEXICOMP
+7713,Strong CYP1A2 Inhibitors,1,LEXICOMP
+7714,Strong CYP1A2 Inducers,1,LEXICOMP
+7715,CYP1A2 Substrates,1,LEXICOMP
+7717,CYP2C19 Substrates,1,LEXICOMP
+7718,Strong CYP2C19 Inhibitors,1,LEXICOMP
+7719,Strong CYP2C19 Inducers,1,LEXICOMP
+7720,CYP2C9 Substrates,1,LEXICOMP
+7721,Strong CYP2C9 Inhibitors,1,LEXICOMP
+7722,Strong CYP2C9 Inducers,1,LEXICOMP
+7723,CYP2B6 Substrates,1,LEXICOMP
+7724,Strong CYP2B6 Inhibitors,0,LEXICOMP
+7725,Strong CYP2B6 Inducers,1,LEXICOMP
+7726,CYP2C8 Substrates,1,LEXICOMP
+7727,Strong CYP2C8 Inhibitors,1,LEXICOMP
+7728,Strong CYP2C8 Inducers,1,LEXICOMP
+7729,CYP2E1 Substrates,1,LEXICOMP
+7730,Strong CYP2E1 Inhibitors,0,LEXICOMP
+7732,Strong CYP2A6 Inhibitors,1,LEXICOMP
+7733,Strong CYP2A6 Inducers,1,LEXICOMP
+7734,CYP2A6 Substrates,1,LEXICOMP
+7735,P-glycoprotein Inhibitors,1,LEXICOMP
+7736,P-glycoprotein Inducers,1,LEXICOMP
+7737,P-glycoprotein Substrates,1,LEXICOMP
+7738,SLCO1B1 Inhibitors,1,LEXICOMP
+7739,SLCO1B1 Substrates,1,LEXICOMP
+9696,CYP1A1 Substrates,0,LEXICOMP

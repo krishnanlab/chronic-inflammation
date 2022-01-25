@@ -1,0 +1,774 @@
+---
+title: "drug_repurposing_analysis"
+author: "Stephanie Hickey"
+date: "1/13/2022"
+output: html_document
+fontsize: 12pt
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+source("../src/chronic_inflammation_functions.R")
+```
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir=normalizePath(".."))
+```
+## Drug repurposing results
+
+Our method associates a drug with a disease if the target gene of the drug is in a disease cluster that significantly overlaps with a chronic inflammation cluster.
+
+The "score" for every predicted drug-disease pair is the number of genes targeted by the drug within the disease cluster(s) that significantly overlap with a chronic inflammation cluster divided by the total number of genes target by the drug. For example, if drugX has target genes A, B, and C, and A and B are both included in clusters from diseaseY that significantly overlap chronic inflammation clusters, the score for the drugX-diseaseY association is 0.66.
+
+We made a null distribution of scores in order to calculate a p-value for every score. Here, the null distribution was built using the each of 5000 random gene lists with degree distributions matching those in one of the real disease gene lists (seeds + predicted genes from GenePlexus). If a disease seed gene was the only gene with that particular degree, a random gene with the closest degree was chosen instead. Drug target genes within each random network cluster were identified and scored analogously to the real drug target genes. The score for each drug-disease pair found using the real disease seed genes was compared to the scores for the same drug found in any of the random gene clusters.
+
+#### Tally the number of significant (FDR < .01) drug-disease pairs from our method
+```{r echo=T, message=FALSE}
+
+drugs = read.delim("./results/GenePlexus_Drugs.tsv")
+
+# add TraitType
+# get complex vs ai labels
+c_v_ai = read.csv("./data/diseases_used_in_study.csv", row.names = 1)
+
+ai = 
+  c_v_ai %>%
+  filter(TraitType == "Autoimmune Disease") %>%
+  pull(Disease)
+
+complex = 
+  c_v_ai %>%
+  filter(TraitType == "Complex Disease") %>%
+  pull(Disease)
+
+drugs = 
+  drugs %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+
+# remove colitis, it's not an autoimmune disease or complex disease, really
+drugs = 
+  drugs %>%
+  filter(!Disease == "Colitis")
+
+# Tally number of significant drug-disease pairs 
+# set FDR threshold
+cutoff = .05
+
+# tally all drug-disease pairs we found for ai's and complex disease
+tally_drugs = 
+  drugs %>%
+  filter(FDR <= cutoff) %>%
+  group_by(TraitType) %>%
+  tally
+colnames(tally_drugs)[2] = "nDrugs" 
+
+# tally all drug-disease pairs we found for each disease
+tally_drugs_disease = 
+  drugs %>%
+  filter(FDR <= cutoff) %>%
+  group_by(TraitType, 
+           Disease) %>%
+  tally
+colnames(tally_drugs_disease)[3] = "nDrugs" 
+
+# filter for significant drug disease pairs
+sig_drugs = 
+  drugs %>% 
+  filter(FDR < cutoff) %>% 
+  arrange(FDR)
+
+knitr::kable(tally_drugs_disease %>% arrange(desc(nDrugs)))
+```
+
+### Check for previous drug/disease associations
+
+**Match indications in Drug Central with disease concept id and naive grepping for the disease name**
+
+First, use the disease concept id to exactly match diseases in our data to diseases/Neoplastic process in drug central. This is strict in that it if we associate a drug to "Psoriasis" and drug central has an indication for "Plaque Psoriasis" it will not be marked as previously indicated. However, this method is consistant across our diseases.
+
+```{r echo=T, message=FALSE}
+
+# filter for diseases with significant results
+disease_sig  = 
+  c_v_ai %>%
+  filter(Disease %in% unique(sig_drugs$Disease)) %>%
+  select(diseaseId, Disease)
+
+colnames(disease_sig) = c("umls_cui", "Disease")
+  
+# load drug central indication data
+indications = read.delim("./data/drugcentral/databasecsvs/indications.tsv")
+
+# drug struct_ids from expert curated drug-gene interactions from DGIdb
+# we only want to include drugs with known gene targets
+struct_ids = read.delim("./data/drugcentral/structid_drugnames.tsv")
+
+# filter indications by curated struct_ids
+# and add the drug_names
+indications = merge(indications, 
+                    struct_ids, 
+                    by = "struct_id")
+
+# filter for indication or off-label use
+# filter for diseases and syndromes T047 and Neoplastic process T191
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450611/
+indications = 
+  indications %>%
+  filter(relationship_name %in% c("indication","off-label use"),
+         cui_semantic_type %in% c("T047", "T191"))
+
+# select cols of interest from drug_sig
+sig_drugs_oi = 
+  sig_drugs %>%
+  select(Disease,
+         pvals,
+         FDR,
+         STRUCT_ID,
+         Drugs)
+
+# add cuid for matching disease
+sig_drugs_oi = left_join(sig_drugs_oi, 
+                         disease_sig, 
+                         by = "Disease")
+
+# select cols of interest from indications
+indications_oi = 
+  indications %>%
+  select(struct_id, 
+         umls_cui, 
+         relationship_name)
+
+# match the name of the STRUCT_ID col in  indications
+colnames(sig_drugs_oi) = gsub("STRUCT_ID", 
+                              "struct_id", 
+                              colnames(sig_drugs_oi))
+
+# add indications to sig_drugs_oi
+sig_drugs_oi = left_join(sig_drugs_oi, 
+                         indications_oi,
+                         by = c("umls_cui", 
+                               "struct_id"))
+
+colnames(sig_drugs_oi) = gsub("relationship_name", 
+                              "Known_Relationship", 
+                               colnames(sig_drugs_oi))
+
+# if the relationship is <NA> put "none"
+sig_drugs_oi$Known_Relationship[is.na(sig_drugs_oi$Known_Relationship)] = "none"
+
+# Make a logical column for whether the indication is indictaed of off-label
+sig_drugs_oi$Previously_indicated_umls_cui = 
+  ifelse(sig_drugs_oi$Known_Relationship == "indication" |
+           sig_drugs_oi$Known_Relationship == "off-label use",
+         TRUE,
+         FALSE)
+
+# tally the number previously indicated disease-drug pairs in our results
+# matched through the umls cui id
+umls_match = 
+  sig_drugs_oi %>%
+  filter(Previously_indicated_umls_cui == TRUE) %>%
+  group_by(Disease) %>%
+  tally()
+
+colnames(umls_match) = gsub("^n", 
+                            "n previous drug associations",
+                            colnames(umls_match))
+```
+
+The output dataframe of the drug repurposing pipeline includes a column of previous indications for each drug. I grepped this column for the disease name in the Disease column to see if the disease is previously associated (name matching rather than ID matching). This way, if we associate a drug to "Psoriasis" and drug central has an indication for "Plaque Psoriasis" it **will** be marked as previously indicated. However, this method only works for diseases in which the disease name is part of another disease name.
+
+```{r echo=T, message=FALSE}
+# function for seeing if the disease name is present in the previous indications column
+checkIndication <- function(row,
+                            df,
+                            Disease,
+                            indications){
+  d = df$Disease[row]
+  d = gsub("_", " ", d)
+  Indicated_for_disease = grepl(d, 
+                                indications[row], 
+                                ignore.case = TRUE)
+  return(Indicated_for_disease)
+}
+
+rowtoget=1:nrow(drugs)
+ifd_vec = unlist(lapply(rowtoget,
+                        df = drugs,
+                        Disease = drugs$Disease,
+                        indications = drugs$indications,
+                        checkIndication))
+
+# add a column for this result
+drugs$Previously_indicated_grep = ifd_vec
+
+colnames(drugs) = gsub("STRUCT_ID",
+                       "struct_id",
+                       colnames(drugs))
+# add Previously_indicated_grep result to sig_drugs_oi
+add_grep_indications = 
+  drugs %>%
+  select(Disease, 
+         struct_id, 
+         Previously_indicated_grep)
+
+sig_drugs_oi = left_join(sig_drugs_oi, 
+                         add_grep_indications,
+                         by = c("Disease", "struct_id"))
+
+# filter for pairs with a grep match
+# tally for each disease
+grep_match = 
+  sig_drugs_oi %>%
+  filter(Previously_indicated_grep == TRUE) %>%
+  group_by(Disease) %>%
+  tally()
+
+colnames(grep_match) = gsub("n",
+                            "n_grep_match",
+                            colnames(grep_match))
+
+# join with the direct umls_match table
+colnames(umls_match) = gsub("n",
+                            "n_id_match", 
+                            colnames(umls_match))
+
+n_previous = full_join(umls_match, grep_match)
+n_previous[is.na(n_previous)] = 0
+colnames(n_previous) = c("Disease",
+                         "previous drug associations ID match",
+                         "previous drug associations name match")
+knitr::kable(n_previous)
+```
+
+Grep matching gets us many more previous indications for Psoriasis. We lose previously indicated Crohn's disease drugs, likely because disgenet calls it "Crohn Disease". Ultimately, unless we do a ton of synonym matching or we find related IDs in the disease ontology, I think it's most fair to use direct ID matching.
+
+### Are our results enriched for drugs previously indicated to a disease?
+
+To check for an enrichment of predicted drug-disease pairs among previously indicated drug-disease pairs for each disease, we tallied the total number of unique drugs previously indicated to any disease, the number of previously drugs indicated to the disease of interest, the number of drugs predicted to treat the disease by our method, and the number of drugs predicted to treat the disease by our method that were also previously indicated for that disease. We calculated a p-value using a one tailed Fisher’s exact test, and corrected for multiple comparisons within each disease across drugs using the Benjamini-Hochberg procedure.
+
+```{r echo=T, message=FALSE}
+# find all diseases in our curated indications df
+# that match the diseases we have results for
+# using the umls cuis
+
+# fisher per disease
+fisher_vec = {}
+fisher_ids = {}
+ndrugs_indicated_vec = {}
+ndrugs_NOT_indicated_vec = {}
+ndrugs_ours_indicated_vec = {}
+ndrugs_ours_NOT_indicated_vec = {}
+
+# find all drugs indicated to any disease
+all_drugs = unique(indications$struct_id)
+
+for(d in disease_sig$umls_cui){
+
+  # pull the drugs indicated to the disease d
+  drugs_DOI = 
+    indications %>%
+    filter(umls_cui == d) %>%
+    select(struct_id) %>%
+    distinct() %>%
+    pull
+  # count how many drugs are indicated to d
+  ndrugs_DOI = length(drugs_DOI)
+  # count how many drugs are NOT indicated to d
+  ndrugs_NOT_DOI = length(all_drugs) - ndrugs_DOI
+
+  # make a df tallying how many of our disease-drug pairs
+  # are indicated (TRUE)
+  # or not (FALSE)
+  # pull the "n" column for the fisher matrix
+  for_fisher_our_results = 
+    sig_drugs_oi %>%
+    filter(umls_cui == d) %>%
+    group_by(Previously_indicated_umls_cui) %>%
+    tally() %>%
+    pull(n)
+  
+  # make the fisher matrix
+  for_fisher = c(ndrugs_NOT_DOI, ndrugs_DOI, for_fisher_our_results)
+  # if there are no previoud indications for this disease in our results, skip 
+  if(length(for_fisher)<4) {next}
+  # do the fisher test  
+  fish = fisher.test(matrix(for_fisher, 2, 2),
+                     alternative = "greater")$p.value
+  
+  # save the umls cui
+  fisher_ids = c(fisher_ids, d)
+  # save the pval
+  fisher_vec = c(fisher_vec, fish)
+  # save ndrugs_DOI
+  ndrugs_indicated_vec = c(ndrugs_indicated_vec, ndrugs_DOI)
+  # save ndrugs_NOT_DOI
+  ndrugs_NOT_indicated_vec = c(ndrugs_NOT_indicated_vec, ndrugs_NOT_DOI)
+  # save n indicated in our results 
+  ndrugs_ours_indicated_vec = c(ndrugs_ours_indicated_vec, for_fisher_our_results[2])
+  # save n NOT indicated in our results
+  ndrugs_ours_NOT_indicated_vec = c(ndrugs_ours_NOT_indicated_vec, for_fisher_our_results[1])
+}
+
+# bind the results df
+fisher_res = data.frame(umls_cui = fisher_ids,
+                        nDrugs_indicated = ndrugs_indicated_vec,
+                        nDrugs_associated_by_our_method = ndrugs_ours_indicated_vec +
+                          ndrugs_ours_NOT_indicated_vec,
+                        nDrugs_both = ndrugs_ours_indicated_vec,
+                        pval = fisher_vec)
+
+# add disease name
+fisher_res = left_join(fisher_res, disease_sig)
+
+# arrange by pval
+fisher_res = 
+  fisher_res %>% 
+  arrange(pval)
+
+# calculate FDR
+fisher_res$FDR = p.adjust(fisher_res$pval, method = "BH")
+
+knitr::kable(fisher_res %>% select(Disease, everything()))
+```
+
+Out of the three diseases that have at least one previously indicated drug in our results, drugs associated with Rheumatoid Arthritis and Ulcerative_Colitis using our method are enriched for previously associated drugs.
+
+### Check for active/recruiting trials among disease-drug pairs
+
+To determine if our predicted disease-drug pairs were enriched among disease-drug pairs tested in a clinical trial, we used the database for Aggregate Analysis of Clinical Trials (AACT). AACT reports the Medical Subject Headings (MeSH) vocabulary names for diseases. We used disease vocabulary mapping provided by DisGeNET to translate UMLS CUI ids for our diseases to MeSH vocabulary names, further restricted to only those that were present in AACT. 
+
+```{r echo=T, message=FALSE}
+
+# find disease mesh names
+# using the disgenet disease mappings file
+dis_ids = read.delim("./data/disease_mappings.tsv")
+
+msh_ids = 
+  dis_ids %>%
+  filter(vocabulary == "MSH",
+         diseaseId %in% disease_sig$umls_cui)
+
+colnames(msh_ids) = gsub("diseaseId", 
+                         "umls_cui", 
+                         colnames(msh_ids))
+
+# add mesh names to sig_drugs_oi by umls_cui
+to_add = 
+  msh_ids %>%
+  select(umls_cui,
+         vocabularyName)
+
+# use this df for the rest of the clinical trial analysis
+sig_drugs_for_ct = left_join(sig_drugs_oi, to_add)
+```
+
+#### Hypergeometric test: significant Disease-drug pairs -- any Phase 
+
+We filtered AACT for trials with “Active, not recruiting”, “Enrolling by invitation”, “Recruiting”, or “Completed” status. For the background number for the hypergeometric test, we calculated all possible disease-gene pairs by multiplying the number of unique diseases (by MeSH name) studied in any clinical trial by the unique number of drugs studied in any clinical trial that also had expert-curated target genes. 
+```{r echo=T, message=FALSE}
+# and check for disease/drug pairs in the
+# clinical trial DB
+# load ct
+load("./data_Zenodo/clinical_trials/20211004/basic_clinical_trial_info.rdata")
+ct$intervention_mesh_term_lower = tolower(ct$intervention_mesh_term)
+
+status_oi = c("Active, not recruiting",
+              "Enrolling by invitation",
+              "Recruiting",
+              "Completed")
+
+# statuses of interest
+status_oi = c("Active, not recruiting",
+              "Enrolling by invitation",
+              "Recruiting",
+             "Completed")
+# find all disease mesh terms in a trial with a status of interest
+bg_diseases = 
+  ct %>%
+  filter(overall_status %in% status_oi) %>%
+  pull(condition_mesh_term)
+
+bg_diseases = unique(bg_diseases)
+
+# find all drugs in a trial with a status of interest
+ct_drug = 
+  ct %>%
+  filter(overall_status %in% status_oi) %>%
+  pull(intervention_mesh_term)
+  
+ct_drug = unique(ct_drug)
+ct_drug = ct_drug[!is.na(ct_drug)]
+
+# make it lowercase to match drugs with a known gene target df
+ct_drug = tolower(ct_drug)
+
+# filter for drugs with known gene targets
+struct_drug = struct_ids$drug_name
+bg_drugs = ct_drug[ct_drug %in% struct_drug]
+
+# calculate possible gene drug pairs
+bg_number = length(bg_drugs)*length(bg_diseases)
+
+# set1 = number of drug-disease pair in a trial
+# drugs and genes also in background
+set1 = 
+  ct %>%
+  filter(overall_status %in% status_oi,
+         intervention_mesh_term_lower %in% bg_drugs,
+         condition_mesh_term %in% bg_diseases) %>%
+  select(condition_mesh_term, 
+         intervention_mesh_term_lower) %>%
+  distinct()
+
+nSet1 = nrow(set1)
+
+# set2 = number of drug gene pairs we found
+# drugs and disease also in background
+# add in drug names
+set2 = 
+  sig_drugs_for_ct %>%
+  filter(vocabularyName %in% bg_diseases,
+         Drugs %in% bg_drugs) %>%
+  select(vocabularyName, 
+         Drugs) %>%
+  distinct()
+         
+nSet2 = nrow(set2)
+
+# overlap between set1 and set2
+colnames(set1) = c("vocabularyName",
+                   "Drugs")
+
+# make a col in set1 that states that 
+# every pair in set2 is in a clinical trial 
+set1$ClinicalTrial = TRUE
+
+# merge set2 and set1 to see which pairs in set1
+# are in a clinical trial
+set2 = left_join(set2, set1)
+set2$ClinicalTrial[is.na(set2$ClinicalTrial)] = FALSE
+
+# count the number in set2 in a clinical trial
+nOL = sum(set2$ClinicalTrial)
+
+# perform a hypergeometric test
+p = phyper(nOL-1, 
+       nSet2, 
+       bg_number-nSet2, 
+       nSet1, 
+       lower.tail= FALSE)
+
+# make a data frame with the data
+all_ct_hypergeo = data.frame( Diseases_in_trials = length(bg_diseases),
+                              Drugs_in_trials = length(bg_drugs),
+                              Possible_disease_drug_pairs = bg_number,
+                              Actual_disease_drug_pairs_in_trial = nSet1,
+                              Current_method_disease_drug_pairs = nSet2,
+                              Current_method_disease_drug_pairs_in_trial = nOL,
+                              pvalue = p)
+
+```
+
+**Disease-drug pairs associated by our method (pval < .01) are enriched for Disease-drug pairs in active/recruiting/completed clinical trials**
+
+* background = any possible drug-disease pair (`r bg_number`)
+    + diseases from the clinical trial data (`r length(bg_diseases)`)
+    + drugs in Alex's struct_ids (expert curated) files intersected with drugs in clinical trial data (`r length(bg_drugs)`)
+* set1 = number of active/recruiting/completed drug-disease pairs trials (`r nSet1`)
+* set2 = number of drug gene pairs we found with FDR < .05  (`r nSet2`)
+* overlap between these two (`r nOL`)
+* percent of our significant drug-disease pairs in an active or recruiting trial = `r 100*(nOL/nSet2)`
+* hypergeometric pvalue = `r p`
+
+#### Hypergeometric test: significant Disease-drug pairs -- restrict to phase4
+
+We performed the same analysis filtering for drug-disease pairs that made it to a Phase IV trial.
+
+```{r echo=T, message=FALSE}
+
+# background = any possible phase4 drug-disease pair 
+# diseases in the clinical trial data
+bg_diseases = 
+  ct %>%
+  filter(overall_status %in% status_oi,
+         phase == "Phase 4") %>%
+  pull(condition_mesh_term)
+
+bg_diseases = unique(bg_diseases)
+
+# find all drugs in a Phase IV trial with a status of interest
+ct_drug = 
+  ct %>%
+  filter(overall_status %in% status_oi,
+         phase == "Phase 4") %>%
+  pull(intervention_mesh_term_lower)
+
+ct_drug = unique(ct_drug)
+ct_drug = ct_drug[!is.na(ct_drug)]
+
+# make it lowercase to match drugs with a known gene target df
+ct_drug = tolower(ct_drug)
+
+# filter for drugs with known gene targets
+struct_drug = struct_ids$drug_name
+bg_drugs = ct_drug[ct_drug %in% struct_drug]
+
+# calculate possible gene drug pairs
+bg_number = length(bg_drugs)*length(bg_diseases)
+
+# set1 = number of drug-disease pair in a Phase IV trial
+# drugs and genes also in background
+
+set1 = 
+  ct %>%
+  filter(overall_status %in% status_oi,
+         intervention_mesh_term_lower %in% bg_drugs,
+         condition_mesh_term %in% bg_diseases,
+         phase == "Phase 4") %>%
+  select(condition_mesh_term, 
+         intervention_mesh_term_lower) %>%
+  distinct()
+
+nSet1 = nrow(set1)
+
+# set2 = number of drug gene pairs we found
+# drugs and disease also in background
+# add in drug names
+set2 = 
+  sig_drugs_for_ct %>%
+  filter(vocabularyName %in% bg_diseases,
+         Drugs %in% bg_drugs) %>%
+  select(vocabularyName, 
+         Drugs) %>%
+  distinct()
+         
+nSet2 = nrow(set2)
+
+# overlap between set1 and set2
+colnames(set1) = c("vocabularyName",
+                   "Drugs")
+
+# make a col in set1 that states that 
+# every pair in set2 is in a clinical trial 
+set1$ClinicalTrial = TRUE
+
+# merge set2 and set1 to see which pairs in set1
+# are in a clinical trial
+set2 = left_join(set2, set1)
+set2$ClinicalTrial[is.na(set2$ClinicalTrial)] = FALSE
+
+# count the number in set2 in a clinical trial
+nOL = sum(set2$ClinicalTrial)
+
+# perform a hypergeometric test
+p = phyper(nOL-1, 
+       nSet2, 
+       bg_number-nSet2, 
+       nSet1, 
+       lower.tail= FALSE)
+
+# make a data frame with the data
+phase4_ct_hypergeo = data.frame( Diseases_in_trials = length(bg_diseases),
+                              Drugs_in_trials = length(bg_drugs),
+                              Possible_disease_drug_pairs = bg_number,
+                              Actual_disease_drug_pairs_in_trial = nSet1,
+                              Current_method_disease_drug_pairs = nSet2,
+                              Current_method_disease_drug_pairs_in_trial = nOL,
+                              pvalue = p)
+```
+
+**Are our drug disease pairs enriched for drug disease pairs that made it to phase 4 clinical trials?**
+
+* background = any possible drug-disease pair that could make it to phase4 (`r bg_number`)
+    + diseases from the clinical trial data that made it to phase4 with any drug (`r length(bg_diseases)`)
+    + drugs in Alex's struct_ids (expert curated) files intersected with drugs that made it to phase4 for any disease (`r length(bg_drugs)`)
+* set1 = number of active/recruiting/completed drug-disease pairs trials in phase4 (`r nSet1`)
+* set2 = number of drug gene pairs in the background set that we found with p < .05  (`r nSet2`)
+* overlap between these two (`r nOL`)
+* percent of our significant drug-disease pairs that made it to a phase 4 trial = `r 100*(nOL/nSet2)`
+* hypergeometric pvalue = `r p`
+
+**Disease-drug pairs associated by our method (pval < .01) are enriched for Disease-drug pairs in active/recruiting/completed phase 4 clinical trials, but probably only because the background, even when restricted to phase4 diseases and drugs, is huge**
+
+Write out the clinical trial hypergeometric test results to a csv
+```{r echo=T, message=FALSE}
+
+ct_res = rbind(all_ct_hypergeo, phase4_ct_hypergeo)
+ct_res = t(ct_res)
+colnames(ct_res) = c("All.Trials", "Phase4.Trails")
+write.csv(ct_res, file = "./results/GenePlexus_String_Adjacency/clinical_trial_hypergeometric_results.csv", quote = F)
+```
+
+### Show the top complex drugs-disease pairs and their associated genes for complex diseases by FDR 
+```{r echo=T, message=FALSE}
+
+# filter drug results and separate gene target column
+FDR_df = 
+  drugs %>%
+  select(Disease,
+         Drugs, 
+         SymbolFound,
+         Score,
+         FDR) %>%
+  filter(FDR < .05) %>%
+  separate_rows(SymbolFound)
+
+# add a Trait Type column
+FDR_df = 
+  FDR_df %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+
+# Get the top drug-complex-disease pairs by FDR
+top_FDR_df = 
+  FDR_df %>%
+  filter(TraitType == "Complex Disease") %>%
+  group_by(Disease) %>%
+  arrange(FDR) %>%
+  top_n(-1, FDR)
+
+# add gene cluster assignments
+# load the cluster assignment files
+# output of filterSignificantOverlaps_GenePlexus
+clust_assign = read.csv("./results/relevant_gene_cluster_assigments.csv", row.names = 1)
+
+# entrez to gene symbol 
+ids = clust_assign$Gene
+symb = entrez2symbol(as.character(ids))
+clust_assign$GeneSymbol =  symb
+
+unloadNamespace("org.Hs.eg.db")
+
+add_cluster = 
+  clust_assign %>%
+  select(Disease,
+         Cluster,
+         GeneSymbol)
+
+colnames(add_cluster) = c("Disease", 
+                          "Cluster",
+                          "SymbolFound")
+
+top_FDR_df = 
+  left_join(top_FDR_df, add_cluster)
+
+# add indication info
+add_ind = 
+  sig_drugs_oi %>%
+  select(Disease,
+         Drugs,
+         Known_Relationship)
+
+top_score_df = 
+  left_join(top_FDR_df, add_ind)
+
+knitr::kable(top_FDR_df)
+
+write.csv(top_FDR_df, file = "./results/GenePlexus_String_Adjacency/top_gene_drug_complex_disease_by_FDR.csv")
+```
+
+#### Make files for visualizing the top complex drugs-disease pairs and their associated genes with Cytoscape
+
+Take top_FDR_df and make an edge file for Cytoscape with:
+
+* disease cluster to gene edges
+* gene to drug edges
+* and drug to indication edges
+
+```{r echo=T, message=FALSE}
+
+# edges for cytoscape
+top_FDR_df = 
+  top_score_df %>%
+  ungroup()
+
+disease2gene_edges = 
+  top_FDR_df %>%
+  select(Cluster, 
+         SymbolFound) %>%
+  distinct()
+
+gene2drug_edges = 
+  top_FDR_df %>%
+  select(SymbolFound, 
+         Drugs) %>%
+  distinct()
+
+# need drug2indications edges
+cyto_drugs = unique(top_FDR_df$Drugs)
+
+drug2indications_edges = 
+  indications %>%
+  filter(drug_name %in% cyto_drugs) %>%
+  select(drug_name, concept_name) %>%
+  distinct()
+
+# put them all together  
+edge_lists = list(disease2gene_edges,
+                  gene2drug_edges,
+                  drug2indications_edges)
+
+edge_lists = lapply(edge_lists, 
+                    function(x) {
+                    colnames(x) = c("node1", "node2");
+                    x})
+
+edges_for_ctyo = unique(do.call(rbind, edge_lists))
+write.csv(edges_for_ctyo, 
+          file = "./results/GenePlexus_String_Adjacency/top_gene_drug_complex_disease_by_FDR_edges_for_cyto.csv",
+          row.names = F, 
+          quote = F)
+```
+
+Take top_FDR_df and make node metadata for Cytoscape
+```{r echo=T, message=FALSE}
+# node metadata
+disease_nodes = 
+  top_FDR_df %>%
+  select(Cluster) %>%
+  mutate(meta = "Disease") %>%
+  distinct()
+
+gene_nodes = 
+  top_FDR_df %>%
+  select(SymbolFound) %>%
+  mutate(meta = "Gene") %>%
+  distinct()
+
+drug_nodes = 
+  top_FDR_df %>%
+  select(Drugs) %>%
+  mutate(meta = "Drug") %>%
+  distinct()
+
+indication_nodes = 
+  drug2indications_edges %>%
+  select(concept_name) %>%
+  mutate(meta = "Indication") %>%
+  distinct()
+
+# put the meta data together
+node_meta_list = list(disease_nodes,
+                  gene_nodes,
+                  drug_nodes,
+                  indication_nodes)
+
+node_meta_list = lapply(node_meta_list, 
+                    function(x) {
+                    colnames(x) = c("node", "meta");
+                    x})
+
+node_meta = do.call(rbind, node_meta_list)
+
+write.csv(node_meta, 
+          file = "./results/GenePlexus_String_Adjacency/top_gene_drug_complex_disease_by_FDR_node_meta.csv", 
+          row.names = F, 
+          quote = F)
+```

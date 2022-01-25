@@ -9,7 +9,6 @@
 #SBATCH --job-name id2index     # you can give your job a name for easier identification (same as -J)
 #SBATCH -o ./%j.out
 #SBATCH -e ./%j.err
-#SBATCH --account=wang-krishnan
 ########## Command Lines to Run ##########
 
 ml -* GCC/8.3.0 OpenMPI/3.1.4 R/4.0.2

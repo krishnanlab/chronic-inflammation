@@ -8,12 +8,12 @@ if(!dir.exists(dirname)){
 
 # path to background genes
 #background = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/biogrid/BioGrid_genes.csv"
-background = "../Zenodo/biogrid/BioGrid_genes.csv"
+background = "../data_Zenodo/biogrid/BioGrid_genes.csv"
 
 #outdir
 outdir = "../results/GenePlexus_output/GOBP_enrichment"
 
-cluster_dir = "../results/GenePlexus_output/clusters"
+cluster_dir = "../results/GenePlexus_output/clusters_threshold.80"
 cluster_files = list.files(cluster_dir, full.names = TRUE, pattern = ".csv")
   
   for(file in cluster_files){
@@ -30,8 +30,6 @@ cluster_files = list.files(cluster_dir, full.names = TRUE, pattern = ".csv")
                  "#SBATCH --time=2:00:00",
                  "#SBATCH --nodes=1",
                  "#SBATCH --cpus-per-task=1",
-                 "#SBATCH --exclude=qml-000,qml-002,qml-003",
-                 "#SBATCH --account=wang-krishnan",
                  "",
                  "cd ../src",
                  "",

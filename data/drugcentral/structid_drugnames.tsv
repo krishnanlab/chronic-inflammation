@@ -1,0 +1,1306 @@
+struct_id	drug_name
+4	levobupivacaine
+25	azacitidine
+26	fluorouracil
+35	abarelix
+38	acamprosate
+39	acarbose
+40	acebutolol
+52	paracetamol
+56	acetazolamide
+57	acetohexamide
+59	acetophenazine
+65	acetylcholine
+67	acetyldigitoxin
+74	acetylsalicylic acid
+78	acitretin
+82	acrivastine
+87	adapalene
+90	adenosine
+99	agomelatine
+105	salbutamol
+112	alendronic acid
+114	alfentanil
+115	alfuzosin
+119	aliskiren
+124	allopurinol
+128	almotriptan
+129	alosetron
+136	alprazolam
+137	alprenolol
+138	alprostadil
+143	alvimopan
+144	amantadine
+146	ambenonium
+150	amcinonide
+158	amiloride
+163	aminocaproic acid
+164	aminoglutethimide
+176	amiodarone
+179	amisulpride
+180	amitriptyline
+182	amlexanox
+183	amlodipine
+191	amoxapine
+195	amfetamine
+201	amrinone
+209	anagrelide
+210	anastrozole
+220	anileridine
+222	anisindione
+223	octatropine methylbromide
+224	antazoline
+228	apomorphine
+229	apraclonidine
+230	aprepitant
+231	aprindine
+237	arbutamine
+239	argatroban
+242	aripiprazole
+244	arsenic trioxide
+249	astemizole
+255	atenolol
+256	atomoxetine
+257	atorvastatin
+259	atracurium
+260	atropine
+268	azatadine
+271	azelastine
+282	baclofen
+284	balsalazide
+294	beclometasone dipropionate
+299	benazepril
+305	bendroflumethiazide
+313	diphenidol
+323	benzocaine
+326	benzonatate
+329	benzphetamine
+331	benzquinamide
+332	benzthiazide
+333	benzatropine
+341	bepotastine
+342	bepridil
+343	beraprost
+348	betamethasone
+349	betamethasone acetate
+351	betamethasone benzoate
+353	betamethasone dipropionate
+354	betamethasone valerate
+356	betaxolol
+357	betazole
+358	bethanechol
+359	betanidine
+360	bevantolol
+361	bexarotene
+362	bezafibrate
+367	bicalutamide
+371	bimatoprost
+374	biperiden
+380	bisoprolol
+384	bitolterol
+385	bivalirudin
+391	bortezomib
+392	bosentan
+395	brimonidine
+396	brinzolamide
+399	bromazepam
+401	bromfenac
+403	bromocriptine
+404	bromazine
+408	brompheniramine
+416	buclizine
+419	budesonide
+427	bumetanide
+431	levobunolol
+432	bupivacaine
+434	buprenorphine
+435	bupropion
+437	buspirone
+439	secbutabarbital
+441	butalbital
+454	butorphanol
+460	cabergoline
+463	caffeine
+464	calcifediol
+465	calcipotriene
+466	calcitriol
+475	candesartan cilexetil
+480	capecitabine
+484	captopril
+488	carbachol
+489	carbamazepine
+495	carbetocin
+496	carbidopa
+497	carbimazole
+499	carbinoxamine
+502	carboprost
+512	carmustine
+516	carfenazine
+518	carprofen
+520	carteolol
+522	carvedilol
+568	celecoxib
+577	cerivastatin
+579	ceruletide
+581	cetirizine
+583	cetrorelix
+584	cevimeline
+594	chlordiazepoxide
+605	chloroprocaine
+609	chlorothiazide
+610	chlorotrianisene
+616	chlorphenamine
+621	chlorpromazine
+622	chlorpropamide
+623	chlorprothixene
+625	chlortalidone
+626	chlorzoxazone
+633	ciclesonide
+640	cilastatin
+644	cilostazol
+645	cimetidine
+647	cinacalcet
+660	cisapride
+661	cisatracurium
+663	citalopram
+671	clemastine
+674	clevidipine
+676	clidinium
+682	clobazam
+691	clofarabine
+694	clofibrate
+700	clomifene
+701	clomipramine
+703	clonazepam
+704	clonidine
+708	clopidogrel
+711	clorazepate
+722	clozapine
+723	cocaine
+725	codeine
+726	colchicine
+732	conivaptan
+734	cortisone acetate
+749	cyclizine
+751	cyclobenzaprine
+757	cyclopentolate
+760	ciclosporin
+761	cyclothiazide
+763	cycrimine
+765	cyproheptadine
+770	cytarabine
+776	dabigatran etexilate
+779	danazol
+780	dantrolene
+781	dapiprazole
+784	darifenacin
+785	dasatinib
+786	daunorubicin
+789	decamethonium
+790	decitabine
+801	demecarium
+810	deserpidine
+811	desflurane
+812	desipramine
+813	deslanoside
+814	desloratadine
+817	desmopressin
+818	desogestrel
+819	desoximetasone
+821	desoxycorticosterone acetate
+822	desoxycorticosterone pivalate
+824	dexamethasone
+826	dexamethasone acetate
+830	dexbrompheniramine
+832	dexfenfluramine
+835	dexmedetomidine
+836	dexmethylphenidate
+841	dexamfetamine
+842	dextromethorphan
+844	dextropropoxyphene
+846	dextrothyroxine
+847	dezocine
+852	diazepam
+854	diazoxide
+859	cinchocaine
+864	dichlorphenamide
+865	diclofenac
+867	dicoumarol
+868	dicycloverine
+870	dienestrol
+871	dienogest
+874	diethylpropion
+875	diethylstilbestrol
+878	difenoxin
+880	diflunisal
+881	digitoxin
+882	digoxin
+886	dihydrocodeine
+888	dihydroergotamine
+897	diltiazem
+901	dimenhydrinate
+908	dimethyltubocurarinium
+912	dinoprost
+913	dinoprostone
+915	diphemanil
+916	diphenhydramine
+918	diphenoxylate
+920	diphenylpyraline
+922	dipivefrine
+924	dipyridamole
+926	disopyramide
+928	disulfiram
+934	levomenthol
+937	dobutamine
+939	docetaxel
+942	dofetilide
+945	domperidone
+946	donepezil
+947	dopamine
+949	dorzolamide
+953	doxapram
+954	doxazosin
+956	doxepin
+957	doxercalciferol
+960	doxorubicin
+961	doxycycline
+962	doxylamine
+965	drostanolone propionate
+966	droperidol
+968	drospirenone
+971	droxidopa
+972	duloxetine
+973	dutasteride
+974	dyclonine
+975	dydrogesterone
+976	diprophylline
+982	echothiophate
+988	edrophonium
+990	eflornithine
+995	eletriptan
+999	emedastine
+1005	enalapril
+1007	encainide
+1009	enflurane
+1014	enoximone
+1018	entacapone
+1027	epinastine
+1028	epinephrine
+1032	eplerenone
+1034	epoprostenol
+1037	eprosartan
+1040	eptifibatide
+1043	ergotamine
+1045	erlotinib
+1053	escitalopram
+1054	esmolol
+1055	esomeprazole
+1056	estazolam
+1057	estradiol
+1059	estradiol cypionate
+1064	estradiol valerate
+1066	estramustine phosphate
+1068	eszopiclone
+1071	ethacrynic acid
+1078	ethchlorvynol
+1082	ethinylestradiol
+1086	profenamine
+1087	ethosuximide
+1088	ethotoin
+1089	ethoxzolamide
+1094	ethylestrenol
+1095	etynodiol
+1097	etidocaine
+1103	etodolac
+1109	etomidate
+1110	etonogestrel
+1112	etoposide
+1113	etoricoxib
+1116	etretinate
+1118	everolimus
+1122	exemestane
+1123	exenatide
+1125	ezetimibe
+1129	famotidine
+1137	febuxostat
+1140	felbamate
+1142	felodipine
+1152	fenofibrate
+1153	fenoldopam
+1154	fenoprofen
+1155	fenoterol
+1164	fentanyl
+1170	fexofenadine
+1171	finasteride
+1175	flavoxate
+1176	flecainide
+1184	floxuridine
+1189	fludarabine phosphate
+1191	fludrocortisone acetate
+1195	flumazenil
+1198	flumetasone pivalate
+1201	flunisolide
+1202	flunitrazepam
+1204	fluocinolone acetonide
+1205	fluocinonide
+1208	fluorometholone
+1209	fluoxetine
+1210	fluoxymesterone
+1212	fluphenazine
+1213	fluphenazine decanoate
+1214	fluphenazine enanthate
+1216	fluprednisolone
+1217	fludroxycortide
+1218	flurazepam
+1219	flurbiprofen
+1223	flutamide
+1225	fluticasone propionate
+1229	fluvastatin
+1230	fluvoxamine
+1232	leucovorin
+1233	fomepizole
+1236	fondaparinux
+1239	formoterol
+1245	fosinopril
+1247	fosphenytoin
+1251	frovatriptan
+1255	fulvestrant
+1258	furosemide
+1264	gabapentin
+1272	galantamine
+1273	gallamine
+1279	ganirelix
+1282	gefitinib
+1283	gemcitabine
+1285	gemfibrozil
+1293	gimeracil
+1300	glimepiride
+1301	glipizide
+1313	glutethimide
+1314	glibenclamide
+1327	goserelin
+1329	granisetron
+1342	guanethidine
+1343	guanfacine
+1344	guanidine
+1348	halazepam
+1349	ulobetasol propionate
+1353	haloperidol
+1356	halothane
+1358	heparin
+1365	hexafluronium
+1369	hexobarbital
+1371	hexocyclium
+1373	hexylcaine
+1375	histamine
+1385	hydrochlorothiazide
+1386	hydrocodone
+1387	hydrocortamate
+1388	hydrocortisone
+1390	hydrocortisone cypionate
+1392	hydroflumethiazide
+1393	hydromorphone
+1395	hydroxychloroquine
+1399	hydroxycarbamide
+1400	hydroxyzine
+1404	ibandronic acid
+1406	ibudilast
+1407	ibuprofen
+1412	ibutilide
+1414	idarubicin
+1422	iloprost
+1423	imatinib
+1427	imipramine
+1429	imiquimod
+1433	indapamide
+1434	indecainide
+1440	indomethacin
+1475	ipratropium
+1481	irbesartan
+1482	irinotecan
+1490	isocarboxazid
+1491	isoetarine
+1493	isoflurane
+1494	fluostigmine
+1499	isoprenaline
+1500	isopropamide
+1505	isosorbide dinitrate
+1506	isosorbide mononitrate
+1508	isotretinoin
+1511	isradipine
+1517	ixabepilone
+1523	ketamine
+1528	ketoprofen
+1529	ketorolac
+1530	ketotifen
+1531	labetalol
+1540	lamotrigine
+1546	lanreotide
+1547	lansoprazole
+1548	lapatinib
+1551	latanoprost
+1552	leflunomide
+1556	letrozole
+1559	leuprorelin
+1560	levallorphan
+1563	levetiracetam
+1564	levocabastine
+1566	levocetirizine
+1567	levodopa
+1571	levomethadyl acetate
+1572	levonorgestrel
+1574	levorphanol
+1575	levosalbutamol
+1579	lidocaine
+1585	liothyronine
+1587	lisinopril
+1593	lofexidine
+1599	loperamide
+1605	loratadine
+1606	lorazepam
+1610	losartan
+1611	loteprednol etabonate
+1612	lovastatin
+1613	loxapine
+1618	lumiracoxib
+1634	maprotiline
+1635	maraviroc
+1640	mazindol
+1646	mecamylamine
+1649	meclozine
+1650	meclofenamic acid
+1659	medroxyprogesterone
+1662	medrysone
+1663	mefenamic acid
+1667	megestrol acetate
+1672	melatonin
+1676	meloxicam
+1679	memantine
+1689	mepenzolate
+1690	pethidine
+1694	mephentermine
+1695	mephenytoin
+1696	methylphenobarbital
+1700	mepivacaine
+1702	meprednisone
+1704	meprobamate
+1708	mercaptopurine
+1710	mesalazine
+1712	mesoridazine
+1714	mestranol
+1720	orciprenaline
+1721	metaraminol
+1725	metformin
+1726	methacholine
+1728	methadone
+1732	methamphetamine
+1736	methanthelinium
+1740	metharbital
+1741	methazolamide
+1742	methdilazine
+1745	thiamazole
+1747	methocarbamol
+1748	methohexital
+1751	methotrexate
+1752	levomepromazine
+1753	methoxamine
+1754	methoxyflurane
+1757	methscopolamine
+1758	methsuximide
+1759	methylclothiazide
+1762	methyldopa
+1764	methylergometrine
+1765	naltrexone
+1767	methylphenidate
+1768	methylprednisolone
+1770	methylprednisolone acetate
+1771	methylprednisolone succinate
+1774	methyprylon
+1775	methysergide
+1779	metipranolol
+1780	metixene
+1782	metoclopramide
+1783	metolazone
+1786	metoprolol
+1791	metyrapone
+1792	metirosine
+1794	mexiletine
+1796	mianserin
+1797	mibefradil
+1802	midazolam
+1803	midodrine
+1805	mifepristone
+1806	miglitol
+1807	miglustat
+1808	milnacipran
+1809	milrinone
+1814	minoxidil
+1816	mirtazapine
+1817	misoprostol
+1818	mitiglinide
+1820	mitotane
+1821	mitoxantrone
+1822	mivacurium
+1825	moclobemide
+1826	modafinil
+1827	moexipril
+1830	molindone
+1832	mometasone furoate
+1834	monobenzone
+1836	montelukast
+1842	moracizine
+1845	morphine
+1848	mosapride
+1859	mycophenolate mofetil
+1860	mycophenolic acid
+1862	nabilone
+1863	nabumetone
+1865	nadolol
+1868	nafarelin
+1874	nalbuphine
+1876	nalmefene
+1878	naloxone
+1881	nandrolone decanoate
+1882	nandrolone phenpropionate
+1883	naproxen
+1884	naratriptan
+1886	nateglinide
+1887	nebivolol
+1889	nedocromil
+1890	nefazodone
+1897	neostigmine
+1899	nepafenac
+1901	nesiritide
+1909	nicardipine
+1920	nicotine
+1922	nifedipine
+1932	nilotinib
+1933	nilutamide
+1937	nimodipine
+1942	nisoldipine
+1944	nitisinone
+1948	nitric oxide
+1952	glyceryl trinitrate
+1955	nizatidine
+1959	norelgestromin
+1960	norepinephrine
+1962	norethisterone
+1963	norethindrone acetate
+1965	norethynodrel
+1968	norgestimate
+1971	nortriptyline
+1980	octreotide
+1982	olanzapine
+1985	olmesartan medoxomil
+1986	olopatadine
+1988	olsalazine
+1990	omeprazole
+1992	ondansetron
+1996	orlistat
+1999	orphenadrine
+2004	ouabain
+2011	oxandrolone
+2013	oxaprozin
+2015	oxazepam
+2017	oxcarbazepine
+2026	oxyphencyclimine
+2027	oxprenolol
+2028	oxybutynin
+2029	oxycodone
+2032	oxymetazoline
+2033	oxymetholone
+2034	oxymorphone
+2036	oxyphenbutazone
+2039	oxyphenonium
+2042	oxytocin
+2044	paclitaxel
+2046	palonosetron
+2048	pamidronic acid
+2050	aminosalicylic acid
+2052	pancuronium
+2054	pantoprazole
+2056	papaverine
+2059	paramethadione
+2063	parecoxib
+2065	pargyline
+2066	paricalcitol
+2068	paroxetine
+2073	pemetrexed
+2078	penbutolol
+2088	pentagastrin
+2095	pentobarbital
+2096	pentolonium
+2098	pentostatin
+2099	pentoxifylline
+2105	pergolide
+2108	perindopril
+2113	perphenazine
+2114	phenacemide
+2120	phenazopyridine
+2122	phendimetrazine
+2123	phenelzine
+2130	phenindione
+2132	pheniramine
+2133	phenmetrazine
+2134	phenobarbital
+2136	phenoxybenzamine
+2138	phenprocoumon
+2139	phensuximide
+2140	phentermine
+2142	phentolamine
+2145	phenylbutazone
+2146	phenylephrine
+2149	phenylpropanolamine
+2152	phenytoin
+2159	physostigmine
+2166	pilocarpine
+2168	pimecrolimus
+2172	pimozide
+2173	pinacidil
+2176	pindolol
+2179	pioglitazone
+2183	pipecuronium
+2199	pirbuterol
+2210	piroxicam
+2214	pitavastatin
+2228	polythiazide
+2231	pralidoxime
+2233	pramipexole
+2236	pramlintide
+2237	pranlukast
+2239	pravastatin
+2240	prazepam
+2243	prednicarbate
+2245	prednisolone
+2247	prednisolone acetate
+2251	prednisolone tebutate
+2253	prednisone
+2255	pregabalin
+2265	prilocaine
+2267	primidone
+2268	probenecid
+2269	probucol
+2270	procainamide
+2271	procaine
+2274	prochlorperazine
+2276	procyclidine
+2278	progabide
+2279	progesterone
+2284	promazine
+2286	promethazine
+2291	propafenone
+2293	propantheline
+2294	proparacaine
+2298	propiomazine
+2302	propofol
+2303	propranolol
+2308	propylthiouracil
+2316	protirelin
+2318	protokylol
+2320	protriptyline
+2326	pseudoephedrine
+2330	pyridostigmine
+2331	mepyramine
+2336	quazepam
+2337	quetiapine
+2340	quinapril
+2342	quinestrol
+2343	quinethazone
+2346	quinidine
+2350	rabeprazole
+2351	raloxifene
+2353	raltitrexed
+2355	ramelteon
+2356	ramipril
+2358	ranitidine
+2359	ranolazine
+2362	regadenoson
+2363	remifentanil
+2365	remoxipride
+2366	repaglinide
+2369	rescinnamine
+2370	reserpine
+2373	ribavirin
+2382	riluzole
+2384	rimexolone
+2387	risedronic acid
+2389	risperidone
+2390	ritodrine
+2392	rivastigmine
+2393	rizatriptan
+2396	rocuronium
+2397	rofecoxib
+2402	ropinirole
+2403	ropivacaine
+2405	rosiglitazone
+2406	rosuvastatin
+2407	rotigotine
+2419	salmeterol
+2424	scopolamine
+2428	secobarbital
+2429	selegiline
+2433	sermorelin
+2435	sertindole
+2436	sertraline
+2439	sevoflurane
+2440	sibutramine
+2441	sildenafil
+2445	simvastatin
+2446	sirolimus
+2448	sitagliptin
+2452	sivelestat
+2457	solifenacin
+2459	sorafenib
+2464	sotalol
+2474	spirapril
+2475	spironolactone
+2477	stanozolol
+2489	suxamethonium
+2491	sufentanil
+2525	sulfasalazine
+2528	sulfinpyrazone
+2534	sulindac
+2537	sulpiride
+2543	sumatriptan
+2544	sunitinib
+2546	suprofen
+2548	secretin human
+2551	tacrine
+2552	tacrolimus
+2553	tadalafil
+2556	talbutal
+2561	tamoxifen
+2562	tamsulosin
+2571	tazarotene
+2579	tegaserod
+2583	telmisartan
+2585	temazepam
+2590	teniposide
+2595	tenoxicam
+2598	terbutaline
+2600	terfenadine
+2601	terguride
+2606	testolactone
+2607	testosterone
+2608	testosterone undecanoate
+2609	tetrabenazine
+2610	tetracaine
+2612	sapropterin
+2616	thalidomide
+2620	theophylline
+2626	thiamylal
+2630	thiethylperazine
+2632	thioguanine
+2633	thiopental
+2637	thioridazine
+2639	thiothixene
+2646	levothyroxine
+2648	tiagabine
+2657	ticlopidine
+2666	tiludronic acid
+2677	tiotropium bromide
+2680	tirofiban
+2683	tizanidine
+2686	tocainide
+2694	tolazamide
+2695	tolazoline
+2696	tolbutamide
+2697	tolcapone
+2699	tolmetin
+2705	tolterodine
+2706	topiramate
+2707	topotecan
+2708	torsemide
+2709	toremifene
+2711	tramadol
+2712	trandolapril
+2713	tranexamic acid
+2715	tranylcypromine
+2716	travoprost
+2717	trazodone
+2720	treprostinil
+2722	tretinoin
+2725	triamcinolone
+2726	triamcinolone acetonide
+2727	triamcinolone diacetate
+2728	triamterene
+2729	triazolam
+2733	trichlormethiazide
+2735	triclofos
+2737	tridihexethyl
+2740	trifluoperazine
+2742	triflupromazine
+2745	trihexyphenidyl
+2746	trilostane
+2749	alimemazine
+2751	trimethadione
+2752	trimetaphan
+2757	trimetrexate
+2758	trimipramine
+2762	tripelennamine
+2763	triprolidine
+2767	troglitazone
+2774	tropicamide
+2776	trospium
+2781	tubocurarine
+2797	ursodiol
+2799	valdecoxib
+2803	valproic acid
+2805	valrubicin
+2806	valsartan
+2808	varenicline
+2809	vardenafil
+2810	vasopressin
+2811	vecuronium
+2813	venlafaxine
+2815	verapamil
+2819	vigabatrin
+2823	vinblastine
+2825	vincristine
+2827	vinorelbine
+2835	nicotinic acid
+2838	ergocalciferol
+2840	colecalciferol
+2847	warfarin
+2852	ximelagatran
+2855	zafirlukast
+2857	zaleplon
+2862	zileuton
+2865	ziprasidone
+2868	zoledronic acid
+2869	zolmitriptan
+2870	zolpidem
+2872	zonisamide
+2873	zopiclone
+2877	zuclopenthixol
+2878	ziconotide
+2958	gonadorelin
+2959	lypressin
+2960	mifamurtide
+2968	triptorelin
+2974	doxacurium
+2975	histrelin
+2989	calcitonin (salmon synthetic)
+2990	desirudin
+2994	glucagon
+2995	lepirudin
+3016	oxybuprocaine
+3064	capsaicin
+3068	carglumic acid
+3070	articaine
+3135	desonide
+3142	difluprednate
+3188	estrone
+3248	fosfestrol
+3249	fospropofol
+3294	iloperidone
+3312	ivabradine
+3317	lenalidomide
+3356	methyltestosterone
+3369	naphazoline
+3424	pentazocine
+3482	polyestradiol phosphate
+3496	propoxycaine
+3502	prucalopride
+3520	rapacuronium
+3521	rasagiline
+3531	roflumilast
+3534	rufinamide
+3542	saralasin
+3548	sitaxentan
+3580	tamibarotene
+3584	terazosin
+3591	tetryzoline
+3642	vildagliptin
+3862	alitretinoin
+3920	dexamethasone phosphate
+3931	dolasetron
+3944	etoposide phosphate
+3952	guanabenz
+3959	hydrocortisone butyrate
+4061	timolol
+4106	sucralfate
+4109	dronabinol
+4110	tolvaptan
+4112	dronedarone
+4113	prasugrel
+4114	saxagliptin
+4115	asenapine
+4117	pralatrexate
+4118	pazopanib
+4119	romidepsin
+4123	lubiprostone
+4124	vorinostat
+4135	lisdexamfetamine
+4137	paliperidone
+4141	udenafil
+4146	testosterone propionate
+4150	rimonabant
+4151	silodosin
+4153	cabazitaxel
+4161	temsirolimus
+4162	dexlansoprazole
+4163	fampridine
+4164	liraglutide
+4165	alcaftadine
+4166	ulipristal
+4167	fingolimod
+4168	lurasidone
+4170	tesamorelin
+4171	eribulin
+4175	linagliptin
+4176	abiraterone acetate
+4177	gabapentin enacarbil
+4178	vandetanib
+4181	retigabine
+4182	rivaroxaban
+4183	indacaterol
+4184	ticagrelor
+4185	vemurafenib
+4186	icatibant
+4187	crizotinib
+4189	hydroxyprogesterone caproate
+4190	ruxolitinib
+4191	fesoterodine
+4192	tafamidis
+4207	lithium carbonate
+4209	prazosin
+4213	hydrocortisone acetate
+4218	methyldopate
+4221	mequinol
+4223	vilazodone
+4225	axitinib
+4227	vismodegib
+4228	ivacaftor
+4229	tafluprost
+4234	peginesatide
+4257	bismuth subsalicylate
+4283	tapentadol
+4298	apixaban
+4299	cobicistat
+4302	glycopyrronium bromide
+4303	eslicarbazepine acetate
+4304	dapagliflozin
+4305	avanafil
+4308	lasofoxifene
+4310	lacosamide
+4318	afatinib
+4322	azilsartan medoxomil
+4329	pasireotide
+4334	bazedoxifene
+4337	ambrisentan
+4340	alogliptin
+4359	bosutinib
+4361	chenodiol
+4374	lorcaserin
+4379	degarelix
+4380	desvenlafaxine
+4382	mirabegron
+4390	choline theophyllinate
+4392	cisplatin
+4399	eltrombopag
+4410	plerixafor
+4411	dexchlorpheniramine
+4427	calcitonin human
+4451	prednisolone sodium phosphate
+4452	clobetasol propionate
+4454	testosterone cypionate
+4456	hydrocortisone succinate
+4482	corbadrine
+4483	carfilzomib
+4484	aclidinium bromide
+4485	diflorasone diacetate
+4493	alclometasone dipropionate
+4496	haloperidol decanoate
+4497	estradiol acetate
+4501	armodafinil
+4504	hydrocortisone valerate
+4505	choline fenofibrate
+4507	halcinonide
+4512	lithium citrate
+4514	teriparatide
+4516	tetracosactide
+4554	fluticasone furoate
+4566	sodium oxybate
+4569	hydrocortisone probutate
+4606	clocortolone pivalate
+4609	testosterone enantate
+4616	methylnaltrexone
+4622	linaclotide
+4628	enzalutamide
+4631	nitroprusside
+4634	teriflunomide
+4647	fluorometholone acetate
+4654	regorafenib
+4667	betamethasone phosphate
+4673	nalfurafine
+4682	panobinostat
+4684	perampanel
+4713	tofacitinib
+4715	cabozantinib
+4716	ponatinib
+4718	teduglutide
+4721	lomitapide
+4744	crofelemer
+4746	pomalidomide
+4749	ospemifene
+4752	levobetaxolol
+4757	dimethyl fumarate
+4758	canagliflozin
+4799	vilanterol
+4801	dabrafenib
+4802	trametinib
+4804	palifermin
+4806	vortioxetine
+4809	macitentan
+4810	ibrutinib
+4814	olodaterol
+4815	lixisenatide
+4816	umeclidinium
+4820	tasimelteon
+4821	seractide
+4826	metreleptin
+4829	apremilast
+4830	empagliflozin
+4832	naloxegol
+4834	eliglustat
+4836	afamelanotide
+4839	aprotinin
+4848	somatropin
+4855	conjugated estrogens
+4857	estrone sulphate
+4864	levomilnacipran
+4866	ceritinib
+4870	vorapaxar
+4876	belinostat
+4878	idelalisib
+4879	enoxaparin sodium
+4881	suvorexant
+4882	istradefylline
+4885	dulaglutide
+4886	cetilistat
+4890	ipragliflozin
+4892	tofogliflozin
+4893	tipiracil
+4897	edoxaban
+4900	diquafosol
+4901	insulin glargine
+4903	nintedanib
+4904	adalimumab
+4905	pegaptanib
+4907	olaparib
+4908	acotiamide
+4909	alemtuzumab
+4915	blinatumomab
+4916	aflibercept
+4917	ramucirumab
+4921	safinamide
+4923	nivolumab
+4924	pembrolizumab
+4925	becaplermin
+4927	albiglutide
+4928	follitropin
+4929	lutropin alfa
+4930	thyrotropin alfa
+4931	corticotropin
+4933	tocilizumab
+4934	secukinumab
+4936	parathyroid hormone
+4937	alectinib
+4940	basiliximab
+4941	palbociclib
+4942	lenvatinib
+4943	arformoterol
+4949	belimumab
+4950	abciximab
+4951	ofatumumab
+4952	canakinumab
+4953	daclizumab
+4954	cetuximab
+4955	panitumumab
+4956	bevacizumab
+4957	pertuzumab
+4958	ipilimumab
+4959	efalizumab
+4960	insulin degludec
+4964	brentuximab vedotin
+4965	denosumab
+4966	ustekinumab
+4967	golimumab
+4968	certolizumab pegol
+4969	eculizumab
+4970	natalizumab
+4971	ranibizumab
+4972	omalizumab
+4973	chidamide
+4974	infliximab
+4975	rituximab
+4976	triamcinolone hexacetonide
+4977	siltuximab
+4978	etanercept
+4979	trastuzumab
+4980	gemtuzumab ozogamicin
+4981	insulin aspart
+4982	vedolizumab
+4983	obinutuzumab
+4984	ibritumomab tiuxetan
+4985	insulin detemir
+4986	pegfilgrastim
+4987	filgrastim
+4990	trastuzumab emtansine
+4991	lipegfilgrastim
+4995	epoetin alfa
+4996	romiplostim
+5000	evolocumab
+5001	eluxadoline
+5002	insulin lispro
+5003	insulin human
+5006	cangrelor
+5008	sonidegib
+5009	mecasermin
+5010	lumacaftor
+5011	aldesleukin
+5012	sacubitril
+5013	trelagliptin
+5014	brexpiprazole
+5015	pegvisomant
+5016	alirocumab
+5017	anakinra
+5022	flibanserin
+5025	sargramostim
+5026	oprelvekin
+5031	mogamulizumab
+5037	cariprazine
+5042	somatrem
+5044	reteplase
+5046	cobimetinib
+5048	pitolisant
+5052	aripiprazole lauroxil
+5054	omarigliptin
+5057	insulin glulisine
+5061	mepolizumab
+5062	osimertinib
+5063	daratumumab
+5066	tenecteplase
+5067	ixazomib
+5068	brivaracetam
+5071	necitumumab
+5072	elotuzumab
+5075	lesinurad
+5077	selexipag
+5083	ixekizumab
+5087	denileukin diftitox
+5088	alefacept
+5089	abatacept
+5091	belatacept
+5093	reslizumab
+5105	rilonacept
+5109	urokinase
+5110	migalastat
+5133	venetoclax
+5137	peginterferon beta-1a
+5139	interferon beta-1a
+5140	interferon beta-1b
+5141	alteplase
+5142	pimavanserin
+5149	choriogonadotropin alfa
+5151	atezolizumab
+5155	obeticholic acid
+5157	darbepoetin alfa
+5158	peginterferon alfa-2a
+5160	epoetin beta
+5164	peginterferon alfa-2b
+5169	eldecalcitol
+5174	lifitegrast
+5177	muromonab-CD3
+5179	brodalumab
+5181	etelcalcetide
+5183	olaratumab
+5201	crisaborole
+5202	baricitinib
+5203	rucaparib
+5208	plecanatide
+5209	icotinib
+5210	olmutinib
+5211	apatinib
+5214	telotristat ethyl
+5218	ribociclib
+5220	naldemedine
+5221	avelumab
+5222	niraparib
+5223	ocrelizumab
+5224	dupilumab
+5227	valbenazine
+5229	forodesine
+5231	midostaurin
+5233	brigatinib
+5234	durvalumab
+5237	sarilumab
+5240	polmacoxib
+5241	betrixaban
+5246	guselkumab
+5247	inotuzumab ozogamicin
+5248	pemafibrate
+5251	enasidenib
+5252	neratinib
+5256	copanlisib
+5258	tivozanib
+5259	abemaciclib
+5261	latanoprostene bunod
+5263	benralizumab
+5267	semaglutide
+5270	ertugliflozin
+5271	macimorelin
+5276	tezacaftor
+5277	elobixibat
+5278	apalutamide
+5279	ibalizumab
+5280	fostamatinib
+5281	tildrakizumab
+5282	burosumab
+5284	erenumab
+5285	avatrombopag
+5289	encorafenib
+5290	binimetinib
+5292	ivosidenib
+5293	elagolix
+5296	duvelisib
+5297	dacomitinib
+5300	talazoparib tosylate
+5302	lorlatinib
+5304	glasdegib
+5305	larotrectinib
+5306	gilteritinib
+5308	caplacizumab
+5311	vibegron
+5314	moxetumomab pasudotox
+5325	solriamfetol
+5326	siponimod
+5327	erdafitinib
+5328	alpelisib
+5329	bremelanotide
+5330	selinexor
+5334	darolutamide
+5339	sotagliflozin
+5341	quizartinib
+5343	pexidartinib
+5345	entrectinib
+5347	fedratinib
+5349	tenapanor
+5351	lasmiditan
+5358	lumateperone
+5360	lemborexant
+5361	ubrogepant
+5362	romosozumab
+5363	brolucizumab
+5365	crizanlizumab
+5366	enfortumab vedotin
+5371	roxadustat
+5379	avapritinib
+5381	rimegepant
+5383	ozanimod
+5386	eptinezumab
+5387	teprotumumab
+5388	selumetinib
+5389	tucatinib
+5390	pemigatinib
