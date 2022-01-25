@@ -17,7 +17,7 @@ expertcurated$gene_name=toupper(expertcurated$gene_name)
 
 #now join
 expertcurated2=left_join(expertcurated,symentrez,by="gene_name")
-write_tsv(expertcurated2,"./../data/dgidb/expertcurated_entrez.tsv",col_names=T)
+write_tsv(expertcurated2,"expertcurated_entrez.tsv",col_names=T)
 
 #17 genes don't have an entrez
 table(filter(expertcurated2,is.na(Entrez))$Entrez)
