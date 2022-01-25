@@ -16,6 +16,6 @@ module load GCC/8.3.0  OpenMPI/3.1.4  R/4.0.2
 cd ../src
 
 Rscript getNegativeControls.R \
- ../Zenodo/our_ukbb_traits_description.tsv \
- ../Zenodo/pascal_out \
+ ../data_Zenodo/our_ukbb_traits_description.tsv \
+ ../data_Zenodo/pascal_out \
  ../data/
