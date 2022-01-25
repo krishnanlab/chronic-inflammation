@@ -4,7 +4,7 @@ the manuscript "**A network-based drug repurposing approach identifies new treat
 
 This markdown documents will provide instructions on how to run the code for a sample disease and how to recreate the results.
 
-#### General requirements
+### General requirements
 
 1. unix or unix-like OS
 2. Anaconda3 distribution
@@ -20,7 +20,7 @@ R libraries needed:
 5. org.Hs.eg.db
 6. igraph
 
-#### Zenodo Download
+### Zenodo Download
 Required data, as well as copies of pertinent results, are included at the zenodo [here] (Get link)
 
 Note that this record contains ~45 GB.
@@ -37,7 +37,7 @@ This folder, `data_Zenodo`, will include:
 - `clinical_trials`: Clinical trial data for analysis
 - `biogrid`: Biogrid network
 
-#### data directory
+### data directory
 The 'data' directory has some required data. This includes:
 
 - `disease_gene_files`: Seed gene lists, generated in the pipeline,
@@ -45,17 +45,17 @@ The 'data' directory has some required data. This includes:
 - `dgidb`: Data from DGIdb and scripts used to download/format it.
 
 
-#### src directory
+### src directory
 Scripts used to run the pipeline are located in `src`. 
 
 Contains ```chronic_inflammation_functions.R```, which contains utility functions used by most scripts in the pipeline.
 
-#### run directory
+### run directory
 `run` contains slurm submission scripts that were used to do our analysis.
 This readme has instructions for how to run each script without use of slurm
 for a sample disease
 
-#### figures directory
+### figures directory
 `figures` contains Markdown notebooks used to analyze final results. Output
 can be found in the Zenodo record
 
@@ -64,7 +64,7 @@ The instructions in this readme will be how to run the pipeline with one sample
 disease. Running with all traits used in this project requires the use of slurm
 workload manager and is impractical without it.
 
-##### Format seed genes
+### Format seed genes
 __Script__:  
 `prep_disease_gene_dfs.R`
 
@@ -85,7 +85,7 @@ Rscript prep_disease_gene_dfs.R \
 ```
 
 
-##### Getting UK Biobank seed genes
+### Getting UK Biobank seed genes
 __Script__:  
 `getNegativeControls.R`
 
@@ -109,7 +109,7 @@ Rscript getNegativeControls.R \
 
 
 
-##### Running Geneplexus
+### Running Geneplexus
 __Script__:  
 `bin/GenePlexus/example_run.py`
 
@@ -139,7 +139,7 @@ python example_run.py \
  -fl local
 ```
 
-##### Summarize Geneplexus output
+### Summarize Geneplexus output
 __Script__:  
 `summarizeGeneplexusPredictions.R`
 
@@ -163,7 +163,7 @@ Rscript summarizeGeneplexusPredictions.R \
 ```
 
 
-##### Clustering Geneplexus results
+### Clustering Geneplexus results
 __Script__:  
 `filterAndClusterGeneplexusPredictions.R`
 
@@ -193,7 +193,7 @@ Rscript filterAndClusterGeneplexusPredications.R \
 ```
 
 
-##### Clustering random genes
+### Clustering random genes
 __Script__:  
 `clusterRandomGenes.R`
 
@@ -223,7 +223,7 @@ Rscript clusterRandomGenes.R \
 ```
 
 
-##### Get GOBP enriched clusters
+### Get GOBP enriched clusters
 __Script__:  
 `find_GOBP_enriched_clusters_GenePlexus.R`
 
@@ -247,7 +247,7 @@ Rscript find_GOBP_enriched_clusters_GenePlexus.R \
 
 
 
-##### Cluster overlap scores
+### Cluster overlap scores
 __Script__:  
 `scoreClusterOverlaps_GenePlexus.R`
 
@@ -279,7 +279,7 @@ Rscript scoreClusterOverlaps_GenePlexus.R \
 
 ```
 
-##### FDR calculation
+### FDR calculation
 __Script__:  
 `calculatePermutedFDR.R`
 
@@ -302,7 +302,7 @@ Rscript calculatePermutedFDR.R \
 ```
 
 
-##### Retrieve significant overlaps
+### Retrieve significant overlaps
 __Script__:  
 `filterSignificantOverlaps_GenePlexus.R`
 
@@ -330,7 +330,7 @@ Rscript filterSignificantOverlaps_GenePlexus.R \
 ```
 
 
-##### Finding drugs
+### Finding drugs
 __Script__:  
 `getAllDrugsExpert_GenePlexus.R`
 
