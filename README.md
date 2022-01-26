@@ -8,17 +8,17 @@ This markdown documents will provide instructions on how to run the code for a s
 
 1. unix or unix-like OS
 2. Anaconda3 distribution
-3. R version 4.x.x
+3. R version 4.0.0 or later
 4. Slurm workload manager (To recreate project results)
 
 R libraries needed:
 
-1. tidyverse
-2. parallel
-3. mccf1
+1. tidyverse 1.3.1
+2. parallel 
+3. mccf1 1.1
 4. grid
-5. org.Hs.eg.db
-6. igraph
+5. org.Hs.eg.db 3.12.0
+6. igraph 1.2.9
 
 ### Zenodo Download
 Required data, as well as copies of pertinent results, are included at the zenodo [here] (Get link)
