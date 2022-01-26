@@ -8,7 +8,7 @@ This markdown documents will provide instructions on how to run the code for a s
 
 1. unix or unix-like OS
 2. Anaconda3 distribution
-3. R version 4.0.0 or later
+3. R version >=4.0.0 
 4. Slurm workload manager (To recreate project results)
 
 R libraries needed:
@@ -234,7 +234,7 @@ __Arguments__:
 
 1. Path to cluster file
 2. Background genes from network
-3. Out directory
+3. Output directory
 
 __Run__:
 ```bash
