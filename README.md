@@ -19,14 +19,15 @@ R libraries needed:
 4. grid
 5. org.Hs.eg.db 3.12.0
 6. igraph 1.2.9
+7. topGO 2.42.0
 
 ### Zenodo Download
-Required data, as well as copies of pertinent results, are included at the zenodo [here] (Get link)
+Required data, as well as copies of pertinent results, are included on our [Zenodo record](https://zenodo.org/record/5919086/)
 
 Note that this record contains ~45 GB.
 
-These can be downloaded with the script `insert script here`. Run this script in
-the repo so the Zenodo folder appears in this filepath.
+These can be downloaded with the script `get_data.sh`. Run this script in
+the repo so the Zenodo folder appears in this default filepath.
 
 This folder, `data_Zenodo`, will include:
 
