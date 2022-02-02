@@ -15,6 +15,8 @@ pred_files = list.files(args[1],
 
 #out_dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_parameter_checks"
 out_dir = args[2]
+if(!dir.exists(out_dir)) {dir.create(out_dir)}
+
 
 getGeneplexusSummary <- function(pred_file){
   
