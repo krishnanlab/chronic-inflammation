@@ -7,10 +7,8 @@ library(tidyverse)
 library(parallel)
 real_only_logical = as.logical(args[3])
 
-#path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency/scores"
 path = args[1]
-setwd(path)
-files = list.files(path, pattern = ".csv")
+files = list.files(path, pattern = ".csv",full.names=T)
 
 temp = mclapply(files, 
                 read.csv, 
