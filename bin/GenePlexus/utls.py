@@ -179,18 +179,18 @@ def save_files(fp_save,jobname,df_probs,avgps):
 '''
 Below is code to load the various data files
 '''
-fp_HPCC = '/mnt/research/compbio/krishnanlab/projects/GenePlexus/repos/GenePlexusBackend/'
+fp_HPCC = '/mnt/research/compbio/krishnanlab/tmp/to_alex_from_Chris/inflammation/chronic-inflammation/data_Zenodo/GenePlexus/'
 def load_txtfile(file_type,file_loc,dtype_=str,net_type_=None,GSC_=None,target_set_=None):
     if file_type == 'net_genes':
         if file_loc == 'local':
             output_txt = np.loadtxt('../../data_Zenodo/GenePlexus/Node_Orders/%s_nodelist.txt'%net_type_,dtype=dtype_)
         elif file_loc == 'HPCC':
-            output_txt = np.loadtxt(fp_HPCC + 'data_backend2/Node_Orders/%s_nodelist.txt'%net_type_,dtype=dtype_)
+            output_txt = np.loadtxt(fp_HPCC + 'Node_Orders/%s_nodelist.txt'%net_type_,dtype=dtype_)
     elif file_type == 'uni_genes':
         if file_loc == 'local':
             output_txt = np.loadtxt('../../data_Zenodo/GenePlexus/GSCs/%s_%s_universe.txt'%(GSC_,net_type_),dtype=dtype_)
         elif file_loc == 'HPCC':
-            output_txt = np.loadtxt(fp_HPCC + 'data_backend2/GSCs/%s_%s_universe.txt'%(GSC_,net_type_),dtype=dtype_)
+            output_txt = np.loadtxt(fp_HPCC + 'GSCs/%s_%s_universe.txt'%(GSC_,net_type_),dtype=dtype_)
     return output_txt
 
 def load_npyfile(file_type,file_loc,features_=None,net_type_=None,GSC_=None,target_set_=None):
@@ -198,7 +198,7 @@ def load_npyfile(file_type,file_loc,features_=None,net_type_=None,GSC_=None,targ
         if file_loc == 'local':
             output_npy = np.load('../../data_Zenodo/GenePlexus/%s/%s_data.npy'%(features_,net_type_))
         elif file_loc == 'HPCC':
-            output_npy = np.load(fp_HPCC + 'data_backend2/%s/%s_data.npy'%(features_,net_type_))
+            output_npy = np.load(fp_HPCC + '%s/%s_data.npy'%(features_,net_type_))
     return output_npy
         
 def load_dict(file_type,file_loc,anIDtype_=None,GSC_=None,net_type_=None,target_set_=None,features_=None):
@@ -207,28 +207,28 @@ def load_dict(file_type,file_loc,anIDtype_=None,GSC_=None,net_type_=None,target_
             with open('../../data_Zenodo/GenePlexus/ID_conversion/Homo_sapiens__%s-to-Entrez__All-Mappings.pickle'%anIDtype_,'rb') as handle:
                 output_dict = pickle.load(handle)
         elif file_loc == 'HPCC':
-            with open(fp_HPCC + 'data_backend2/ID_conversion/Homo_sapiens__%s-to-Entrez__All-Mappings.pickle'%anIDtype_,'rb') as handle:
+            with open(fp_HPCC + 'ID_conversion/Homo_sapiens__%s-to-Entrez__All-Mappings.pickle'%anIDtype_,'rb') as handle:
                 output_dict = pickle.load(handle)
     elif file_type == 'good_sets':
         if file_loc == 'local':
             with open('../../data_Zenodo/GenePlexus/GSCs/%s_%s_GoodSets.pickle'%(GSC_,net_type_),'rb') as handle:
                 output_dict = pickle.load(handle)
         elif file_loc == 'HPCC':
-            with open(fp_HPCC + 'data_backend2/GSCs/%s_%s_GoodSets.pickle'%(GSC_,net_type_),'rb') as handle:
+            with open(fp_HPCC + 'GSCs/%s_%s_GoodSets.pickle'%(GSC_,net_type_),'rb') as handle:
                 output_dict = pickle.load(handle)
     elif file_type == 'Entrez_to_Symbol':
         if file_loc == 'local':
             with open('../../data_Zenodo/GenePlexus/ID_conversion/Homo_sapiens__Entrez-to-Symbol__All-Mappings.pickle','rb') as handle:
                 output_dict = pickle.load(handle)
         elif file_loc == 'HPCC':
-            with open(fp_HPCC + 'data_backend2/ID_conversion/Homo_sapiens__Entrez-to-Symbol__All-Mappings.pickle','rb') as handle:
+            with open(fp_HPCC + 'ID_conversion/Homo_sapiens__Entrez-to-Symbol__All-Mappings.pickle','rb') as handle:
                 output_dict = pickle.load(handle)
     elif file_type == 'Entrez_to_Name':
         if file_loc == 'local':
             with open('../../data_Zenodo/GenePlexus/ID_conversion/Homo_sapiens__Entrez-to-Name__All-Mappings.pickle','rb') as handle:
                 output_dict = pickle.load(handle)
         elif file_loc == 'HPCC':
-            with open(fp_HPCC + 'data_backend2/ID_conversion/Homo_sapiens__Entrez-to-Name__All-Mappings.pickle','rb') as handle:
+            with open(fp_HPCC + 'ID_conversion/Homo_sapiens__Entrez-to-Name__All-Mappings.pickle','rb') as handle:
                 output_dict = pickle.load(handle)          
     return output_dict
 
