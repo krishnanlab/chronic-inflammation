@@ -1,11 +1,11 @@
 #' @args[1] path to overlap_results.Rdata
 #' @args[2] cutoff
 #' @args[3] output dir
-#' @args[4] path to num_random_clustered
+#' @args[4] path to number_clustered.txt
 #' @args[5] Path to gene cluster assignment files 
 
 args <- commandArgs(TRUE)
-source("chronic_inflammation_functions.R")
+source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
 library(tidyverse)
 library(parallel)
 
@@ -17,16 +17,11 @@ outdir = args[3]
 # cd /mnt/research/compbio/krishnanlab/projects/chronic_inflammation/run/sbatches_clusterRandomGenes
 # grep -hnr --with-filename "number clustered" *.out > number_clustered.txt
 
-#Load files from argument 4 as a tibble
-files=list.files(args[4],full.names=T)
-#print(files)
-loaded=mclapply(files,read_tsv,mc.cores=detectCores()-1)
-nclust=bind_rows(loaded)
-#nclust = read.delim(args[4], header = F, sep = " ")
-#nclust$nFakesClustered = gsub("number clustered = ", "", nclust$V2)
-#nclust$nFakesClustered = as.numeric(nclust$nFakesClustered)
+nclust = read.delim(args[4], header = F, sep = " ")
+nclust$nFakesClustered = gsub("number clustered = ", "", nclust$V2)
+nclust$nFakesClustered = as.numeric(nclust$nFakesClustered)
 
-#nclust$Disease = gsub("_BioGrid.*", "", nclust$V1)
+nclust$Disease = gsub("_BioGrid.*", "", nclust$V1)
 
 remove = 
   nclust %>%
@@ -67,7 +62,7 @@ final_alex =
          PermutedPval,
          PermutedFDR)
 
-write.csv(final_alex, file = paste0(outdir, "/sig_cluster_relations.csv"))
+write.csv(final_alex, file = paste0(outdir, "/final_for_alex.csv"))
 
 # make df with gene assignments from real and fake clusters
 cluster_path = args[5]
@@ -111,3 +106,18 @@ df_filt =
   filter(Cluster %in% greater5)
 
 write.csv(df_filt, file = paste0(outdir, "/relevant_gene_cluster_assigments.csv"))
+          
+    
+          
+          
+
+
+
+
+
+
+
+
+
+
+

@@ -2,14 +2,14 @@
 #' @args[2] path to chronic inflammation prediction file
 #' @args[3] path to output dir
 #' @args[4] disease of interest
-#' @args[5] chronic inflammation prediction threshold
+#' @args[5] chronic inflammation prediction threshold (numeric or "P")
 #' @args[6] genes in network the disease genes were clustered on 
 #' a one column csv file
 
 library(tidyverse)
 library(parallel)
 args <- commandArgs(TRUE)
-source("chronic_inflammation_functions.R")
+source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
 
 output_dir = args[3]
 if(!dir.exists(output_dir)){
@@ -23,15 +23,18 @@ cioi_name = sub("--.*$", "", basename(args[2]))
 # disease clusters --------------------------------------------------------
 print("disease clusters")
 disease_dir = args[1]
-#setwd(disease_dir)
+setwd(disease_dir)
 # dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/leiden_ModularityVertexPartition_b=0.5"
 doi = args[4]
 
 doi_grep = paste0("^", doi)
 doi_fake_grep = paste0("Fake_", doi)
 
-real_files = list.files(disease_dir, pattern = doi_grep,full.names=T)
-fake_files = list.files(disease_dir, pattern = doi_fake_grep,full.names=T)
+real_files = list.files(disease_dir, pattern = doi_grep)
+pred_net = sub(".*?--PredictionGraph--", "", basename(real_files))
+pred_net = sub("--.*", "", pred_net)
+
+fake_files = list.files(disease_dir, pattern = doi_fake_grep)
 files = c(real_files, fake_files)
 
 # read in the cluster files
@@ -67,23 +70,37 @@ dis_filt = dis %>%
 all_diseases = unique(dis_filt$Disease)
 
 # hypergeometric test -----------------------------------------------------
+
 print("hypergeometric test")
 
 network_genes = read.csv(args[6], row.names = 1)
 network_genes = as.character(network_genes[,1])
 
-ci_hyper = 
-  cioi %>%
-  filter(Probability >= as.numeric(args[5]),
-         Entrez %in% network_genes) %>%
-  mutate(Disease = cioi_name) %>%
-  dplyr::select(Entrez, Disease)
+if (args[5] == "P"){
+  
+  ci_hyper = 
+    cioi %>%
+    filter(Class.Label == "P",
+           Entrez %in% network_genes) %>%
+    mutate(Disease = cioi_name) %>%
+    dplyr::select(Entrez, Disease)
+  
+} else {
+  
+  ci_hyper = 
+    cioi %>%
+    filter(Probability >= as.numeric(args[5]),
+           Entrez %in% network_genes) %>%
+    mutate(Disease = cioi_name) %>%
+    dplyr::select(Entrez, Disease)
+  
+}
 
-colnames(ci_hyper) = c("Gene", "Cluster")
+colnames(ci_hyper) = c("Gene", "Disease")
 
-CI_genes  = 
-  ci_hyper %>%
-  pull(Gene)
+#CI_genes  = 
+ #ci_hyper %>%
+ #pull(Gene)
 
 scores = list()
 shared_genes = list()
@@ -101,8 +118,10 @@ for(disease in all_diseases){
     dis %>%
     filter(Disease == disease) %>%
     pull(Gene)
-
-  bg = length(unique(c(CI_genes, dis_genes)))
+  
+  #bg = length(unique(c(CI_genes, dis_genes)))
+  bg = length(network_genes)
+  
   print(paste0("background = ", bg))
   
   overlaps = overlapSets(ci_hyper, dis_hyper, bg)
@@ -111,6 +130,9 @@ for(disease in all_diseases){
   scores[[disease]] = overlaps[[2]]
   scores[[disease]]$Disease = sub("_[^_]+$", "", scores[[disease]]$Group2)
   scores[[disease]]$ChronicInf = sub("_[^_]+$", "", scores[[disease]]$Group1)
+  scores[[disease]]$ChronicInfThreshold = args[[5]]
+  scores[[disease]]$ClusterGraph = graph
+  scores[[disease]]$PredictionNetwork = pred_net
   row.names(scores[[disease]]) = NULL
 
   shared_genes[[disease]] = overlaps[[1]]
@@ -120,6 +142,19 @@ for(disease in all_diseases){
 print("loop done")
 
 score_dir = paste0(output_dir, "/scores")
+if(!dir.exists(score_dir)){
+  dir.create(score_dir)}
+
+score_dir = paste0(score_dir, 
+                   "/", 
+                   cioi_name, 
+                   "_thresh=", 
+                   args[5], 
+                   "_predicted_with_",
+                   pred_net,
+                   "_clusteredOn_", 
+                   graph)
+
 if(!dir.exists(score_dir)){
   dir.create(score_dir)}
 
@@ -137,7 +172,11 @@ write.csv(all_scores, file = paste0(score_dir,
                                 doi,
                                 "_",
                                 cioi_name, 
-                                "_", 
+                                "_thresh=", 
+                                args[5],
+                                "_predicted_with_",
+                                pred_net,
+                                "_clusteredOn_",
                                 graph, 
                                 "_enrichment_scores.csv"))
 
@@ -145,8 +184,12 @@ print(paste0(score_dir,
              "/", 
              doi, 
              "_",
-             cioi_name, 
-             "_", 
+             cioi_name,
+             "_thresh=", 
+             args[5],
+             "_predicted_with_",
+             pred_net,
+             "_clusteredOn_",
              graph, 
              "_enrichment_scores.csv saved"))
 
@@ -154,12 +197,29 @@ shared_dir = paste0(output_dir, "/shared_genes")
 if(!dir.exists(shared_dir)){
   dir.create(shared_dir)}
 
+shared_dir = paste0(shared_dir, 
+                    "/", 
+                    cioi_name, 
+                    "_thresh=", 
+                    args[5],
+                    "_predicted_with_",
+                    pred_net,
+                    "_clusteredOn_",
+                    graph)
+
+if(!dir.exists(shared_dir)){
+  dir.create(shared_dir)}
+
 write.csv(all_shared_genes, file = paste0(shared_dir, 
                                       "/", 
                                       doi,
                                       "_",
-                                      cioi_name, 
-                                      "_", 
+                                      cioi_name,
+                                      "_thresh=", 
+                                      args[5],
+                                      "_predicted_with_",
+                                      pred_net,
+                                      "_clusteredOn_", 
                                       graph, 
                                       "_shared_genes.csv"))
 
@@ -168,7 +228,11 @@ print(paste0(shared_dir,
              doi,
              "_",
              cioi_name, 
-             "_", 
+             "_thresh=", 
+             args[5],
+             "_predicted_with_",
+             pred_net,
+             "_clusteredOn_",
              graph, 
              "_shared_genes.csv saved"))
 

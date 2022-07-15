@@ -200,10 +200,74 @@ findEnrichedGOBP = function(goi,
   return(results)
 }
 
+# findEnrichedGOMF --------------------------------------------------------
+#' @name findEnrichedGOMF
+#' @description uses topGO to find enriched GOMF terms for a list of genes.
+#' ------------ Pvalues from weight01 fisher test
+#' @param goi character vector of genes of interest
+#' @param background character vector of all background genes
+#' @param org.db the org.db for the organism of interest from bioconductor. 
+#' ------------- Must already be installed.
+#' @param id_type gene identifier to use. 
+#' ------------- c("entrez","genbank","alias","ensembl","symbol","genename")
+#' @param min_size smallest number of genes for a GO term to be used
+#' @param max_size largest number of genes for a GO term to be used
+#' @return a data frame with the pvalue and overlapping genes 
+#' ------- between the genes of interest and GOBPs. 
+
+findEnrichedGOMF = function(goi, 
+                            background, 
+                            org.db, 
+                            id_type,
+                            min_size,
+                            max_size){
+  
+  require(paste(org.db), character.only = TRUE)
+  require(tidyverse)
+  require(topGO)
+  
+  submit = factor(ifelse(background %in% goi, 1, 0))
+  names(submit) = background
+  
+  GO = new("topGOdata",
+           ontology = "MF",
+           allGenes = submit,
+           nodeSize = min_size,
+           annot = annFUN.org,
+           mapping = org.db,
+           ID = id_type)
+  
+  nTerms = length(usedGO(GO))
+  
+  Fisher <- runTest(GO,
+                    algorithm = "weight01", 
+                    statistic = "fisher")
+  
+  results = GenTable(GO, 
+                     pval = Fisher, 
+                     topNodes = nTerms,
+                     numChar=1000)
+  
+  results = results %>%
+    filter(Annotated <=  max_size)
+  
+  results$FDR = p.adjust(results$pval, method = "BH")
+  
+  ann.genes = genesInTerm(GO, results$GO.ID)
+  symbol = names(submit)[submit == 1]
+  
+  results$OverlappingGenes = sapply(results$GO.ID, 
+                                    function(x){
+                                      sig = ann.genes[[x]][ann.genes[[x]] %in% symbol]
+                                      sig = paste(sig, collapse = ", ")
+                                      return(sig)}
+  )
+  return(results)
+}
 
 # overlapSets ------------------------------------------------------------
 #' @name overlap_sets
-#' @description performs pairwise hypergeometric tests between mutiple sets 
+#' @description performs pairwise hypergeometric tests between multiple sets 
 #' of genes i.e. cluster marker genes from two different single cell
 #' different single cell data sets
 #' @param table1 a dataframe with two columns, 
@@ -229,7 +293,7 @@ findEnrichedGOBP = function(goi,
 overlapSets <- function(table1, table2, background){
   require(dplyr)
   
-  # make table2 into a list divided by group
+  # make table1 into a list divided by group
   colnames(table1) = c("Gene","Group")
   tab1_groups = unique(table1$Group)
   tab1_list = list()
@@ -326,9 +390,9 @@ entrez2symbol = function(entrez_ids){
   included_oi = entrez_ids[entrez_ids %in% included_entrez]
   xx <- as.list(x[included_oi])
   gene_symbols = unlist(xx)
-  return(gene_symbols)
   unloadNamespace("org.Hs.eg.db")
   detach("package:AnnotationDbi")
+  return(gene_symbols)
 }
 
 # symbol2entrez -----------------------------------------------------------
@@ -339,7 +403,87 @@ symbol2entrez = function(gene_symbols){
   included_oi = gene_symbols[gene_symbols %in% included_symbols]
   xx <- as.list(x[included_oi])
   entrez_ids = unlist(xx)
-  return(entrez_ids)
   unloadNamespace("org.Hs.eg.db")
   detach("package:AnnotationDbi")
+  return(entrez_ids)
 }
+
+# overlapSeedsWithNeighbors -----------------------------------------------
+#' @name overlapSeedsWithNeighbors
+#' @description finds the interection between trait seed genes and first 
+#' neighbors of all nodes in a networl
+#' @param seed_genes a character vector of the trait seed genes
+#' @param neighbor_list the output of makeNodeNeighborhoodList
+#' a list of first degree neighbors of each node in a network
+#' @return a list containing: 
+#' - ol_df (data frame):
+#' --Node column,
+#' --nNeighbors of the node column,
+#' --nINT column giving the number of seed genes included among first neighbors.
+#' - seed_genes_filt: a vector of seed genes that are included in the network
+
+overlapSeedsWithNeighbors <- function(seed_genes,
+                                      neighbor_list){
+  # names of all of the nodes in the network
+  net_genes = names(neighbor_list)
+  # filter seed genes to include only nodes in the network
+  seed_genes = seed_genes[seed_genes %in% net_genes]
+  # get the number of neighbors each node has
+  nNeighbors_vec = unlist(lapply(neighbor_list, length))
+  # intersect the node neighbors with the seed genes
+  INT_list = lapply(neighbor_list, function(x) x[x %in% seed_genes])
+  # number of intersecting genes
+  nINT_vec = unlist(lapply(INT_list, length))
+  
+  ol_df = data.frame(Node = net_genes,
+                     nNeighbors = nNeighbors_vec,
+                     nINT = nINT_vec)
+  
+  output = list(ol_df = ol_df,
+                seed_genes_filt = seed_genes
+  )
+  return(output)
+}
+
+
+# apply_phyper ------------------------------------------------------------
+#' @name apply_phyper
+#' @description applies a hypergeometric test between filtered seed genes and
+#' a given row of ol_df from overlapSeedsWithNeighbors
+#' @param ol_output the output of overlapSeedsWithNeighbors()
+#' @return a hypergeometric pval
+
+apply_phyper = function(node,
+                        ol_output){
+  
+  ol_df = ol_ouput$ol_df
+  seed_genes_filt = ol_ouput$seed_genes_filt
+  
+  nNeighbors = 
+    ol_df %>%
+    filter(Node == node) %>%
+    pull(nNeighbors)
+  
+  nINT = 
+    ol_df %>%
+    filter(Node == node) %>%
+    pull(nINT)
+  
+  bg = nrow(ol_df)
+  
+  if(node %in% seed_genes_filt){
+    p = phyper(nINT, 
+               nNeighbors + 1, 
+               bg-(nNeighbors+1), 
+               length(seed_genes_filt),
+               lower.tail= FALSE)
+  } else {
+    p = phyper(nINT-1, 
+               nNeighbors + 1, 
+               bg-(nNeighbors+1), 
+               length(seed_genes_filt),
+               lower.tail= FALSE)
+  }
+  return(p)
+}
+

@@ -4,6 +4,7 @@
 #' @param args[4] partition type
 #' @param args[5] resolution parameter
 #' @param args[6] results path
+#' @param args[7] weighted T/F
 
 # setup -------------------------------------------------------------------
 library(tidyverse)
@@ -11,7 +12,7 @@ library(mccf1)
 library(igraph)
 # https://github.com/cole-trapnell-lab/leidenbase
 library(leidenbase)
-source("chronic_inflammation_functions.R")
+source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
 args <- commandArgs(TRUE)
 
 # load disease gene predictions
@@ -22,24 +23,24 @@ pred = read.delim(args[1])
 file_sep = str_split(basename(args[1]), pattern = "--")
 file_sep = unlist(file_sep)
 disease = file_sep[1]
-net = file_sep[2]
+pred_net = file_sep[2]
 features = file_sep[3]
 GSC = file_sep[4]
-print(paste0(disease, "--", net, "--", features))
+print(paste0(disease, "--", pred_net, "--", features))
 
 # load network
 g = loadRData(args[3])
-netname = gsub("_igraph.Rdata", "", basename(args[3]))
+clust_net = gsub("_igraph.Rdata", "", basename(args[3]))
 
-#results_path = "/mnt/gs18/scratch/users/hickeys6/chronic_inflammation/results/GenePlexus_SLA_string"
+#results_path = "/mnt/gs18/scratch/users/hickeys6/chronic_inflammation/GenePlexus_SLA_string"
 results_path = args[6]
 if(!dir.exists(results_path)) {dir.create(results_path)}
 
-#added the _threshold.80 here to deal with the real/fake being in the same folder
-#for later in the pipeline
 outdir = paste0(results_path,
-                "/clusters_threshold.80")
+                "/clusters")
+if(!dir.exists(outdir)) {dir.create(outdir)}
 
+outdir = paste0(outdir, "/predicted_with", pred_net, "--clustered_on_", clust_net)
 if(!dir.exists(outdir)) {dir.create(outdir)}
 
 # pick prediction threshold with mccf1 -------------------------------------
@@ -87,19 +88,35 @@ sub.g = induced_subgraph(g, V(g)[name %in% keep_nodes])
 
 # cluster -----------------------------------------------------------------
 print("cluster disease genes")
-clusters = leiden_find_partition(sub.g,
-                                 partition_type = args[4],
-                                 #partition_type = "ModularityVertexPartition",
-                                 resolution_parameter = as.numeric(args[5]),
-                                 #resolution_parameter = .01,
-                                 seed = 1)
 
+if(as.logical(args[7]) == T){
+  
+  clusters = leiden_find_partition(sub.g,
+                                   partition_type = args[4],
+                                   #partition_type = "ModularityVertexPartition",
+                                   resolution_parameter = as.numeric(args[5]),
+                                   #resolution_parameter = .01,
+                                   seed = 1,
+                                   edge_weights = E(sub.g)$weight,
+                                   num_iter = 100
+                                   )
+} else {
+  
+  clusters = leiden_find_partition(sub.g,
+                                   partition_type = args[4],
+                                   #partition_type = "ModularityVertexPartition",
+                                   resolution_parameter = as.numeric(args[5]),
+                                   #resolution_parameter = .01,
+                                   seed = 1,
+                                   num_iter = 100)
+  
+}
 
 # make cluster df ---------------------------------------------------------
 print("build cluster_df")
 cluster_df = data.frame(Gene = as_ids(V(sub.g)), 
                         Disease = disease,
-                        PredictionNetwork = net,
+                        PredictionNetwork = pred_net,
                         PredictionFeatures = features,
                         NegativesFrom = GSC,
                         PredictionThreshold = args[2],
@@ -109,7 +126,7 @@ cluster_df = data.frame(Gene = as_ids(V(sub.g)),
                         ClusterID = clusters$membership,
                         Method = args[4],
                         #Method = "ModularityVertexPartition",
-                        ClusterGraph = netname)
+                        ClusterGraph = clust_net)
 
 if(args[4] == "ModularityVertexPartition"){
   cluster_df$Resolution = "NA"
@@ -133,8 +150,10 @@ write.csv(cluster_df,
                         disease, 
                         "--threshold--",
                         args[2],
+                        "--PredictionGraph--",
+                        pred_net,
                         "--ClusterGraph--",
-                        netname,
+                        clust_net,
                         "_clusters.csv"))
 
 print(paste0(outdir,
@@ -142,6 +161,8 @@ print(paste0(outdir,
              disease, 
              "--threshold--",
              args[2],
+             "--PredictionGraph--",
+             pred_net,
              "--ClusterGraph--",
-             netname,
+             clust_net,
              "_clusters.csv saved"))

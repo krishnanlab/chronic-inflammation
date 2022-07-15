@@ -6,7 +6,7 @@
 library(topGO)
 library(org.Hs.eg.db)
 library(tidyverse)
-source("chronic_inflammation_functions.R")
+source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
 
 args <- commandArgs(TRUE)
 cluster_df = read.csv(args[1], row.names = 1)
@@ -77,12 +77,14 @@ write.csv(all_results, file = paste0(outdir,
                                      meta$NegativesFrom, 
                                      "--prediction_thresh--",
                                      meta$PredictionThreshold,
-                                     "--",
-                                     meta$Method,
-                                     "--",
+                                     "--predictedWith--",
+                                     meta$PredictionNetwork,
+                                     "--clusteredOn--",
                                      meta$ClusterGraph,
-                                     "--resolution--",
-                                     meta$Resolution,
+                                     #"--",
+                                     #meta$Method,
+                                     #"--resolution--",
+                                     #meta$Resolution,
                                      "_GOBP_enrichment.csv"))
 
 print("done")

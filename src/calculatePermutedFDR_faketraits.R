@@ -91,7 +91,6 @@ df =
 
 df = left_join(df, npermutations_df)
 
-#outdir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_String_Adjacency"
 outdir = args[2]
 
 if(real_only_logical == TRUE){
