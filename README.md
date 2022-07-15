@@ -1,6 +1,6 @@
-# A network-based drug repurposing approach identifies new treatment opportunities for the systemic chronic inflammation underlying multiple complex diseases
+# A network-based approach for isolating the chronic inflammation gene signatures underlying complex diseases towards finding new treatment opportunities
 This GitHub repository contains all code used for reproducing results from
-the manuscript "**A network-based drug repurposing approach identifies new treatment opportunities for the systemic chronic inflammation underlying multiple complex diseases**", which can be found [here] (Get link)
+the manuscript "**A network-based approach for isolating the chronic inflammation gene signatures underlying complex diseases towards finding new treatment opportunities**", which can be found [here] (Get link)
 
 This markdown documents will provide instructions on how to run the code for a sample disease and how to recreate the results.
 
@@ -37,6 +37,9 @@ This folder, `data_Zenodo`, will include:
 - `pascal_out`: Pascal output files for UK BioBank traits we used
 - `clinical_trials`: Clinical trial data for analysis
 - `biogrid`: Biogrid network
+- `ConsensusPathDB`: ConsensusPathDB network
+- `string`: String network
+- `string-exp`: String-exp network
 
 ### data directory
 The 'data' directory has some required data. This includes:
@@ -332,23 +335,9 @@ Rscript filterSignificantOverlaps_GenePlexus.R \
 
 
 ### Finding drugs
-__Script__:  
-`getAllDrugsExpert_GenePlexus.R`
+Drugs were obtained using the SAveRUNNER software, located at https://github.com/sportingCode/SAveRUNNER.
 
-__Purpose__:
-Predicts drugs that are related to a disease based on the significant clusters
 
-__Arguments__:
-
-1. Path to significant cluster results
-2. Output directory
-
-__Run__:
-```bash
-Rscript getAllDrugsExpert_GenePlexus.R \
- ../results \
- ../results
-```
 
 ### Analyses and visualizations
 `drug_repurposing_analysis.html` and `figures_and_tables_geneplexus0.80.html` can be recreated with the R notebooks in `figures`
