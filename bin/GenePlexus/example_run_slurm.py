@@ -16,12 +16,12 @@ This script assumes you have all the needed python packages.
 Set some arguments
 '''
 # arguments that should be changed
-net_type = 'STRING'
-features = 'Adjacency'
+net_type = 'ConsensusPathDB'
+features = 'Embedding'
 
 # avoid changing these arguments if possible
 save_path = '../../results/GenePlexus_output/'
-file_loc = 'local'
+file_loc = 'HPCC'
 slurm_dir = '../../results/GenePlexus_slurms/'
 if not os.path.exists(slurm_dir):
     os.makedirs(slurm_dir)
@@ -65,3 +65,4 @@ for idx, afile in enumerate(files_to_do):
         for item in mylist:
             thefile.write("%s\n" % item)
     os.system('sbatch ' + slurm_dir + 'Geneplexus-%s.sb'%jobnames[idx])
+    break
