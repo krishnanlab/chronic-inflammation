@@ -6,7 +6,7 @@
 library(topGO)
 library(org.Hs.eg.db)
 library(tidyverse)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 
 args <- commandArgs(TRUE)
 cluster_df = read.csv(args[1], row.names = 1)

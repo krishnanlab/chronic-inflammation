@@ -11,7 +11,7 @@ library(tidyverse)
 library(igraph)
 # https://github.com/cole-trapnell-lab/leidenbase
 library(leidenbase)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 args <- commandArgs(TRUE)
 
 # load random

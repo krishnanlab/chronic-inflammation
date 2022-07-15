@@ -1,6 +1,6 @@
 # programatically access genes associated with gene ontology terms
 library(org.Hs.eg.db) #org.Hs.eg.db_3.13.0
-disease_gene_dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/disease_gene_files"
+disease_gene_dir = "../data/disease_gene_files"
 
 # experimental evidence codes
 # http://geneontology.org/docs/guide-go-evidence-codes/

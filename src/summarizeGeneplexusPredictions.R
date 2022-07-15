@@ -13,7 +13,6 @@ pred_files = list.files(args[1],
                         pattern = "predictions.tsv", 
                         full.names = TRUE)
 
-#out_dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_parameter_checks"
 out_dir = args[2]
 if(!dir.exists(out_dir)) {dir.create(out_dir)}
 

@@ -13,7 +13,7 @@
 
 library(tidyverse)
 library(igraph)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 args <- commandArgs(TRUE)
 
 # load edgelist

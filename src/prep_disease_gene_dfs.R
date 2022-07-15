@@ -9,7 +9,7 @@
 
 library(tidyverse)
 args <- commandArgs(TRUE)
-source("chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 # load disgenet table
 dg = read.delim("../data/disgenet_2020-10_curated_gene_disease_associations.tsv")
 # load disease ids of interest

@@ -5,7 +5,7 @@
 #' @args[5] Path to gene cluster assignment files 
 
 args <- commandArgs(TRUE)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 library(tidyverse)
 library(parallel)
 
@@ -14,7 +14,6 @@ cutoff = as.numeric(args[2])
 outdir = args[3]
 
 # get rid of traits where there were clustering errors with the fake traits
-# cd /mnt/research/compbio/krishnanlab/projects/chronic_inflammation/run/sbatches_clusterRandomGenes
 # grep -hnr --with-filename "number clustered" *.out > number_clustered.txt
 
 nclust = read.delim(args[4], header = F, sep = " ")

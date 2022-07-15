@@ -9,7 +9,7 @@
 library(tidyverse)
 library(parallel)
 args <- commandArgs(TRUE)
-source("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src/chronic_inflammation_functions.R")
+source("../src/chronic_inflammation_functions.R")
 
 output_dir = args[3]
 if(!dir.exists(output_dir)){
@@ -24,7 +24,6 @@ cioi_name = sub("--.*$", "", basename(args[2]))
 print("disease clusters")
 disease_dir = args[1]
 setwd(disease_dir)
-# dir = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/leiden_ModularityVertexPartition_b=0.5"
 doi = args[4]
 
 doi_grep = paste0("^", doi)
