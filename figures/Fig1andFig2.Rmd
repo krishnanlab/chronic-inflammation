@@ -1,0 +1,639 @@
+---
+title: "Figures and tables Consensus Path DB"
+author: "Stephanie Hickey"
+date: "6/22/2022"
+output: 
+  html_document:
+    code_folding: show
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '..')
+```
+
+## Set up
+```{r, include=TRUE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+library(parallel)
+library(ggprism)
+source("./src/chronic_inflammation_functions.R")
+figure_path = "./results/prediction_clusters_same_graph"
+```
+
+## Figure 1: expansion and clustering
+
+### Figure 1a:Prediction and clustering schematic
+
+Made in Google Slides
+
+### For labeling trait types for the rest of Figure 1
+
+I added the TraitType column to diseases_used_in_study.csv by hand to show whether the disease was categorized as a complex or autoimmune disease in the second column.
+```{r, message=FALSE}
+# get complex vs ai labels
+c_v_ai = read.csv("./data/diseases_used_in_study.csv", row.names = 1)
+
+ai = 
+  c_v_ai %>%
+  filter(TraitType == "Autoimmune Disease") %>%
+  pull(Disease)
+
+complex = 
+  c_v_ai %>%
+  filter(TraitType == "Complex Disease") %>%
+  pull(Disease)
+
+```
+
+### load data for figure1 -- gene cluster assignments
+
+Load the gene cluster assignment files for the real traits. These files are the output of filterAndClusterGeneplexusPredictions.R. 
+
+```{r, message=FALSE}
+files = list.files("./data_Zenodo/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB",
+full.names = T)
+
+remove_files = c("Fake", "inflamm", "Height_gene_shot", "Colitis")
+
+files = files[grep(paste(remove_files,collapse="|"), files, invert = T)]
+
+clust_list = mclapply(files, 
+                   read.csv, 
+                   row.names = 1,
+                   mc.cores = detectCores()-1)
+
+clust_df = do.call(rbind, clust_list)
+
+# add trait type to the cluster df
+clust_df = 
+  clust_df %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+```
+
+### Filter for Diseases with:
+
+- n seed genes >= 15
+- average GenePlexus three-fold CV log_{2}(auPRC/prior) >= 1
+
+```{r message=FALSE}
+load("./data_Zenodo/GenePlexus_parameter_checks/Geneplexus_summary_new_networks.Rdata")
+cv_df =
+  summary_df %>%
+  filter(Network == "ConsensusPathDB") %>%
+  select(Disease, 
+         nSeeds,
+         CVscore) # is average GenePlexus three-fold CV log2(auPRC/prior)
+
+keep_disease = 
+  cv_df %>%
+  filter(nSeeds >= 15,
+         CVscore >= 1,
+         !grepl("inflamm", Disease),
+         Disease != "Colitis") %>%
+  pull(Disease) %>%
+  unique()
+
+clust_df = 
+  clust_df %>%
+  filter(Disease %in% keep_disease)
+```
+
+### Filter out diseases with no clustered fake traits
+
+Grep the number of clustered fake traits for each disease from the output files of submit_clusterRandomGenes.R
+
+```{bash, eval = F}
+cd ./run/sbatches_clusterRandomGenes
+grep -hnr --with-filename "number clustered" *ConsensusPathDB.out > ConsensusPathDB_number_clustered.txt
+```
+
+```{r, message=FALSE}
+nclust = read.delim("./data/ConsensusPathDB_number_clustered.txt", header =F, sep = " ")
+nclust$nFakesClustered = gsub("number clustered = ", "", nclust$V2)
+nclust$nFakesClustered = as.numeric(nclust$nFakesClustered)
+nclust$Disease = gsub(paste0("_ConsensusPathDB",".*"), "", nclust$V1)
+ 
+nclust = 
+  nclust %>%
+  select(nFakesClustered, 
+         Disease)
+
+enough_fakes =  
+  nclust %>%
+  filter(nFakesClustered > 0) %>%
+  pull(Disease)
+
+clust_df =
+  clust_df %>%
+  filter(Disease %in% enough_fakes)
+
+```
+
+### Figure 1b: Number of disease genes (seeds + predicted)
+```{r message=FALSE}
+# plot median n genes per trait type
+
+clust_df$TraitType = factor(clust_df$TraitType, 
+                       levels = c("Autoimmune Disease",
+                                  "Complex Disease",
+                                  "Non-disease Trait"))
+
+nGenes = 
+  clust_df %>%
+  group_by(TraitType,
+           Disease) %>%
+  tally(name = "nGenes")
+
+Fig1b = 
+ nGenes %>%
+  ggplot(aes(x = TraitType, 
+             y = nGenes)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  theme_classic() +
+  #theme(axis.text.x = element_text(angle = 45, 
+                                  # hjust=1)) +
+  #xlab("Trait Type") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank()) +
+  ylab("Number of genes") +
+  ggtitle('(B)')
+```
+
+### Figure 1c: Fraction predicted genes
+```{r message=FALSE}
+#find n predicted genes
+
+nPredicted = 
+  clust_df %>%
+  filter(GeneType == "predicted") %>%
+  group_by(TraitType,
+           Disease) %>%
+  tally(name = "nPredictedGenes")
+
+nGenes = left_join(nGenes, nPredicted)
+nGenes$propPredicted = nGenes$nPredictedGenes/nGenes$nGenes
+
+Fig1c = 
+  nGenes %>%
+  ggplot(aes(x = TraitType, 
+             y = propPredicted)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust=1)) +
+  theme(axis.title.x=element_blank()) +
+  ylab("Proportion predicted genes") +
+  ggtitle('(C)')
+```
+
+### Figure 1d: Number of clusters containing >=5 genes
+```{r message=FALSE}
+
+nGenesPerCluster = 
+  clust_df %>%
+  group_by(Disease,
+           Cluster,
+           TraitType) %>%
+  tally()
+
+nClusters5 = 
+  nGenesPerCluster %>%
+  filter(n >= 5) %>%
+  group_by(Disease,
+           TraitType) %>%
+  tally(name="nClusters5")
+
+Fig1d = 
+  nClusters5 %>%
+  ggplot(aes(x = TraitType, 
+             y = nClusters5)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust=1)) +
+  theme(axis.title.x=element_blank()) +
+  ylab("Clusters size >= 5") +
+  ggtitle('(D)')
+```
+
+### Figure 1e: Fraction of genes in clusters containing >=5 genes
+```{r message=FALSE}
+
+clusters5 = 
+  nGenesPerCluster %>%
+  filter(n >= 5) %>%
+  pull(Cluster)
+
+nGenes5 = 
+  clust_df %>%
+  select(Disease,
+         Cluster,
+         TraitType) %>%
+  filter(Cluster %in% clusters5) %>%
+  group_by(Disease,
+           TraitType) %>%
+  tally(name="nGenesInClusterSize5")
+
+nGenes  = left_join(nGenes, nGenes5)
+nGenes$nGenesInClusterSize5[is.na(nGenes$nGenesInClusterSize5)] = 0
+nGenes$propClustered = nGenes$nGenesInClusterSize5/nGenes$nGenes
+
+Fig1e = 
+  nGenes %>%
+  ggplot(aes(x = TraitType, 
+             y = propClustered)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust=1)) +
+  theme(axis.title.x=element_blank()) +
+  ylab("Proportion clustered genes") +
+  ggtitle('(E)')
+```
+
+### Figure 1f: Fraction of GOBP enriched clusters
+
+These files are the output of find_GOBP_enriched_clusters_GenePlexus.R
+```{r message=FALSE}
+# prep gobp enrichment df
+go_path = "./data_Zenodo/prediction_clusters_same_graph/GOBP_enrichment"
+
+go_files = list.files(go_path, 
+                      full.names = T, 
+                      pattern = "ConsensusPathDB")
+
+go_list = mclapply(go_files, 
+                   read.csv, 
+                   row.names = 1,
+                   mc.cores= detectCores()-1)
+
+godf = do.call(rbind, go_list)
+
+# add label to gobp file
+godf = 
+  godf %>%
+  filter(Disease %in% keep_disease) %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+  
+# how many clusters have at least one sig overlap?
+n_sig = 
+  godf %>%
+  filter(FDR < .05) %>%
+  group_by(Cluster, 
+           Disease, 
+           TraitType) %>%
+  tally() %>%
+  arrange(n)
+
+# per disease 
+n_sig_per_disease = 
+  n_sig %>%
+  group_by(Disease, 
+           TraitType) %>%
+  tally(name="nGOBP_enriched")
+
+nClusters5 = left_join(nClusters5, n_sig_per_disease)
+nClusters5$nGOBP_enriched[is.na(nClusters5$nGOBP_enriched)] = 0
+nClusters5$propGOBP_enriched = nClusters5$nGOBP_enriched/nClusters5$nClusters5
+
+Fig1f = 
+  nClusters5 %>%
+  ggplot(aes(x = TraitType, 
+             y = propGOBP_enriched)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust=1)) +
+  theme(axis.title.x=element_blank()) + 
+  ylab("Proportion GOBP enriched") +
+  ggtitle('(F)')
+```
+
+### Fig1: composite b-e
+```{r fig.width = 7, fig.height = 5, message=FALSE}
+fig1 = 
+  (plot_spacer() / Fig1c) | 
+  (plot_spacer() / Fig1d) | 
+  (plot_spacer() / Fig1e) | 
+  (Fig1b / Fig1f)
+
+ggsave(fig1, file = paste0(figure_path, "/Figure1.png"),
+       width = 180, height = 127, dpi = 300, units = "mm")
+fig1
+```
+
+## Figure 2: Chronic infammation cluster overlaps
+
+### Figure 2a: Number of traits overlapping at least one chronic inflammation cluster
+These data are the output of calculatePermutedFDR_faketraits.R
+```{r, message=FALSE}
+# load the overlap results file = res_df
+res_df = loadRData("./data_Zenodo/prediction_clusters_same_graph/scores/chronic_inflammation_gene_shot_pubs_greater10_thresh=0.8_predicted_with_ConsensusPathDB_clusteredOn_ConsensusPathDB_overlap_results.Rdata")
+
+# add TraitType to res_df
+res_df = 
+  res_df %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+res_df = 
+  res_df %>% 
+  filter(Disease %in% keep_disease)
+  
+
+# filter for significant overlaps 
+cutoff = 0.05
+sig = res_df %>% 
+  filter(PermutedFDR < cutoff,
+         Enrichment > 0)
+
+# diseases with at least one cluster
+# significantly overlapping a CI cluster 
+sig_disease = 
+  sig %>%
+  ungroup() %>%
+  select(Disease, 
+         TraitType) %>%
+  distinct() %>%
+  mutate(Signficant_Overlap = TRUE)
+
+#make not-significant df
+#filter for keep_disease
+not_sig_diseases = 
+  res_df %>%
+  ungroup() %>%
+  filter(!Disease %in% sig_disease$Disease) %>%
+  select(Disease, 
+         TraitType) %>%
+  distinct() %>%
+  mutate(Signficant_Overlap = FALSE)
+
+# bind 
+sig_disease = rbind(sig_disease,
+                    not_sig_diseases)
+
+# tally sig and not sig by trait type
+tally_sig_disease = 
+  sig_disease %>%
+  group_by(TraitType,
+           Signficant_Overlap) %>%
+  tally()
+
+# plot 
+tally_sig_disease$TraitType = factor(tally_sig_disease$TraitType, 
+                                   levels = c("Autoimmune Disease",
+                                              "Complex Disease",
+                                              "Non-disease Trait"))
+
+Fig2a =
+  ggplot(tally_sig_disease, 
+       aes(x = TraitType,
+           y = n,
+           fill = Signficant_Overlap)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = n), 
+            position = position_stack(vjust = 0.5)) +
+  theme_classic() +
+  scale_fill_manual(values=c("#90a4ae",
+                             "#bc3754")) +
+  xlab("Trait type") +
+  ylab("n Traits") +
+  guides(fill = guide_legend("CI enriched")) +
+  labs(tag = '(A)') + 
+  coord_flip()
+
+Fig2a
+```
+
+### Figure 2b: Proportion of CI overlapping clusters per disease
+```{r, message=FALSE}
+
+res_df = 
+  res_df %>%
+  mutate(SignificantOverlap =
+           case_when(PermutedFDR > .05 | Enrichment < 0 ~ FALSE,
+                     PermutedFDR <= .05 & Enrichment > 0 ~ TRUE)) 
+
+sig_clust_tally = 
+  res_df %>%
+  filter(SignificantOverlap == "TRUE") %>%
+  group_by(Disease, TraitType) %>%
+  tally(name="nSigCluster") 
+
+clust_total = 
+  res_df %>%
+  group_by(Disease, TraitType) %>%
+  tally(name="nCluster")
+
+sig_clust_tally = 
+  left_join(clust_total, sig_clust_tally) %>%
+  filter(!is.na(nSigCluster)) %>%
+  mutate(propSig = nSigCluster/nCluster)
+
+sig_clust_tally$TraitType = gsub(" Disease", "", sig_clust_tally$TraitType)
+
+Fig2b = 
+sig_clust_tally %>%
+ ggplot(aes(x = TraitType, 
+            y = propSig)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  ylab("Proportion CI enriched") +
+  labs(tag = "(B)") +
+  theme_classic() +
+  #theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  theme(axis.title.x=element_blank()) +
+  theme(plot.title=element_text(hjust=-0.13))
+
+  ggsave(Fig2b, 
+       file = paste0(figure_path,
+                     "/Fig2b_check.png"),
+       width = 4, 
+       height = 4, 
+       dpi = 300)
+
+```
+
+### Figure 2c: Chronic inflammation score of non-seed genes in overlapping and non-overlapping clusters
+```{r, message=FALSE}
+res_clust = 
+  res_df %>%
+  ungroup() %>%
+  rename(ChronicInflammationSource = Group1,
+         Cluster = Group2) %>%
+  left_join(clust_df) %>%
+  select(Gene,
+         Disease,
+         Cluster,
+         TraitType,
+         PredictionNetwork,
+         ClusterGraph,
+         ChronicInflammationSource,
+         ChronicInfThreshold,
+         Enrichment,
+         PermutedFDR,
+         SignificantOverlap) %>%
+  filter(!is.na(PermutedFDR)) # clusters with fewer than 5 genes
+
+# load gene shot pubs 10 gene plexus predictions
+cidf = read.delim("./data_Zenodo/GenePlexus_output/chronic_inflammation_gene_shot_pubs_greater10--ConsensusPathDB--Adjacency--GO--predictions.tsv")
+
+cidf = 
+  cidf %>% 
+  select(Entrez,
+         Probability,
+         Class.Label) %>%
+  rename(Gene = Entrez)
+
+clust_pred = 
+  left_join(res_clust, cidf) %>%
+  mutate(CI_GeneType = 
+           case_when(Probability < 0.8 ~ "not used for overlap",
+                     Probability >= 0.8 ~ "used for overlap"))
+
+clust_pred_mean = 
+  clust_pred %>%
+  group_by(Cluster,
+           CI_GeneType) %>%
+  mutate(MeanProb = mean(Probability)) %>%
+  select(Cluster, 
+         TraitType,
+         ClusterGraph, 
+         PredictionNetwork,
+         ChronicInflammationSource,
+         ChronicInfThreshold,
+         CI_GeneType,
+         MeanProb,
+         SignificantOverlap) %>%
+  distinct()
+
+# wilcox test
+
+wtest_false = 
+  clust_pred_mean %>%
+  ungroup %>%
+  filter(CI_GeneType == "not used for overlap",
+         TraitType != "Non-disease Trait", 
+         SignificantOverlap == "FALSE") %>%
+  pull(MeanProb)
+
+wtest_true = 
+  clust_pred_mean %>%
+  ungroup %>%
+  filter(CI_GeneType == "not used for overlap",
+         TraitType != "Non-disease Trait", 
+         SignificantOverlap == "TRUE") %>%
+  pull(MeanProb)
+
+wtest = wilcox.test(wtest_true, wtest_false, 
+                    alternative = "greater")$p.value
+```
+
+For complex diseases, the mean probability that unlabeled CI genes are related to CI is significantly higher for genes in a CI enriched enriched cluster than a non-CI enriched cluster (p = `r signif(wtest, 2)`). 
+
+```{r, message=FALSE}
+# plot
+df_p_val = data.frame(group1 = "FALSE",
+                      group2 = "TRUE",
+                      label = paste0("p = ", signif(wtest, 2)),
+                      y.position = .40)
+
+clust_pred_mean$SignificantOverlap =
+  factor(clust_pred_mean$SignificantOverlap, 
+         levels = c("FALSE","TRUE"))
+
+Fig2c = 
+  clust_pred_mean %>%
+  filter(CI_GeneType == "not used for overlap",
+         TraitType != "Non-disease Trait", # plot only real diseases
+         ) %>% 
+  ggplot(aes(x = SignificantOverlap, 
+             y = MeanProb)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  ylab("mean CI probability per cluster") +
+  xlab("CI enriched") +
+  labs(tag = "(C)") +
+  add_pvalue(df_p_val,
+             xmin = "group1",
+             xmax = "group2",
+             label = "label",
+             y.position = "y.position") +
+  theme_classic() +
+  theme(plot.title=element_text(hjust=-0.13))
+
+ggsave(Fig2c, 
+       file = paste0(figure_path,
+                     "/Fig2c_check.png"),
+       width = 4, 
+       height = 4, 
+       dpi = 300)
+```
+
+### Fig2: composite a-d
+```{r fig.width = 7, fig.height = 5, message=FALSE}
+Fig2a_fixed = Fig2a + theme(text = element_text(size = 8))
+Fig2b = Fig2b + theme(text = element_text(size = 8)) 
+Fig2c = Fig2c + theme(text = element_text(size = 8)) 
+
+Fig2_bottom = (Fig2b | Fig2c) +  plot_layout(widths = c(3, 2))
+
+ggsave(Fig2_bottom, file = paste0(figure_path, "/Figure2_bottom.png"),
+       width = 85, height = 51, dpi = 300, units = "mm")
+
+ggsave(Fig2a_fixed, file = paste0(figure_path, "/Figure2_top.png"),
+       width = 85, height = 25.5, dpi = 300, units = "mm")
+
+Fig2_bottom
+```
+
+

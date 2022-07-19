@@ -1,0 +1,969 @@
+---
+title: Predict and cluster on ConsensusPathDB -- Overlap Gene Shot with 10 publications
+  -- Saverunner results
+author: "Stephanie Hickey"
+date: "6/15/2022"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r, include=FALSE}
+knitr::opts_knit$set(root.dir = '..')
+```
+
+```{r, include=TRUE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ROCR)
+library(pheatmap)
+library(RColorBrewer)
+library(ggforce)
+library(patchwork)
+library(ggplotify)
+library(fgsea)
+source("./src/chronic_inflammation_functions.R")
+```
+
+## Drug repurposing results
+
+From SaveRunner on ConsensusPathDB
+
+#### Count significant (FDR < .01) drug-disease pairs
+```{r message=FALSE}
+# all drug results
+drugs = read.delim("./drugs/Results/Drug_Disease_network.txt")
+
+# change colnames and add new disease column
+drugs =
+  drugs %>%
+  rename(Cluster = disease)
+
+drugs$Disease = sub("_[^_]+$", "", drugs$Cluster)
+
+# add TraitType
+# get complex vs ai lables
+c_v_ai = read.csv("./data/complex_ai.csv", header = F)
+
+# change disease to match file names
+c_v_ai$Disease = gsub(" ", "_", c_v_ai$V1)
+c_v_ai$Disease = gsub("([_])|[[:punct:]]", "\\1", c_v_ai$Disease)
+c_v_ai$Disease = gsub("_[^_]*$", "", c_v_ai$Disease) 
+
+ai = 
+  c_v_ai %>%
+  filter(V2 == "autoimmune") %>%
+  pull(Disease)
+
+complex = 
+  c_v_ai %>%
+  filter(V2 == "complex") %>%
+  pull(Disease)
+
+drugs = 
+  drugs %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, 
+                                     complex, 
+                                     "Adenocarcinoma_of_lung_disorder") ~ "Non-disease Trait",
+                     Disease == "Adenocarcinoma_of_lung_disorder" ~ "Complex Disease"))
+
+# add gene plexus cv to plot  
+# only include traits with at least 15 seed genes
+
+load("./data_Zenodo/GenePlexus_parameter_checks/Geneplexus_summary_new_networks.Rdata")
+
+cv_df =
+  summary_df %>%
+  filter(Network == "ConsensusPathDB") %>%
+  select(Disease, 
+         nSeeds,
+         CVscore)
+
+# remove colitis, it's not an autoimmune disease or complex disease, really
+drugs = 
+  drugs %>%
+  left_join(cv_df) %>%
+  filter(!Disease == "Colitis",
+         nSeeds >= 15,
+         CVscore >= 1)
+
+# correct for multiple comparisons within disease
+drugs = 
+  drugs %>%
+  group_by(Disease) %>%
+  mutate(FDR = p.adjust(pval, method = "BH"))
+
+# Some drugs are associated with a disease through more
+# than one cluster. Choose the drug-disease pair with the
+# lowest FDR
+drugs_collapse = 
+  drugs %>%
+  group_by(drug,
+           Disease) %>% 
+  slice(which.min(FDR))
+
+# Calculate proportion of significant drug-disease pairs 
+# set FDR threshold
+cutoff = .01
+
+# tally all drug-disease pairs we found for ai's and complex disease
+tally_drugs = 
+  drugs_collapse %>%
+  filter(FDR <= cutoff,
+         CVscore >= 1) %>%
+  group_by(TraitType) %>%
+  tally(name = "nDrugDiseasePair")
+
+# tally diseases with significant drugs
+tally_disease = 
+  drugs_collapse %>%
+  ungroup() %>%
+  filter(FDR <= cutoff,
+         CVscore >= 1) %>%
+  select(Disease, TraitType) %>%
+  distinct() %>%
+  group_by(TraitType) %>%
+  tally(name = "nDisease")
+
+tally_drugs_disease = 
+  left_join(tally_disease, tally_drugs)
+
+knitr::kable(tally_drugs_disease)
+```
+
+We found drugs for every autoimmune and complex disease with a CI overlapping cluster
+
+```{r, message=FALSE}
+# tally all drug-disease pairs we found for each disease
+tally_drugs_disease = 
+  drugs_collapse %>%
+  filter(FDR <= cutoff,
+         CVscore >= 1) %>%
+  select(TraitType, 
+         Disease,
+         drug) %>%
+  distinct() %>%
+  group_by(TraitType, 
+           Disease) %>%
+  tally(name = "nDrugDiseasePair")
+
+# filter for significant drug disease pairs
+sig_drugs = 
+  drugs_collapse %>% 
+  filter(FDR < cutoff,
+         CVscore >= 1) 
+
+knitr::kable(tally_drugs_disease %>% arrange(TraitType, desc(nDrugDiseasePair)))
+```
+
+#### Check for previous drug/disease associations
+
+**Match indications in Drug Central with disease concept id**
+
+Use the disease concept id to exactly match diseases in our data to diseases/Neoplastic process in drug central. This is strict in that it if we associate a drug to "Psoriasis" and drug central has an indication for "Plaque Psoriasis" it will not be marked as previously indicated. However, this method is consistent across our diseases.
+```{r, message=FALSE}
+# load IDs for our diseases
+all_disease = read.csv("./data/chronic_inflammation_diseases_with_DOID.csv", row.names = 1)
+
+# get rid of DOID and names
+all_disease = 
+  all_disease %>%
+  select(diseaseId, 
+         diseaseName) %>%
+  distinct()
+
+#change disease names to match ours
+all_disease$diseaseName = gsub(" ", "_", all_disease$diseaseName)
+all_disease$diseaseName = gsub("([_])|[[:punct:]]", "\\1", all_disease$diseaseName)
+
+# filter for diseases with significant results
+disease_sig  = 
+  all_disease %>%
+  filter(diseaseName %in% unique(sig_drugs$Disease))
+
+colnames(disease_sig) = c("umls_cui", "Disease")
+  
+# load drug central data from Alex
+indications = read.delim("./data/drugcentral/databasecsvs/indications.tsv")
+# ids for drugs filtered through expert curation
+struct_ids = read.delim("./data/drugcentral/structid_drugnames.tsv")
+
+# filter indications by curated struct_ids
+# and add the drug_names
+indications = merge(indications, 
+                    struct_ids, 
+                    by = "struct_id")
+
+# filter for indication or off-label use
+# filter for diseases and syndromes T047 and Neoplastic process T191
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450611/
+indications = 
+  indications %>%
+  filter(relationship_name %in% c("indication","off-label use"),
+         cui_semantic_type %in% c("T047", "T191"))
+
+# add cuid for matching disease
+sig_drugs = 
+  sig_drugs %>%
+  left_join(disease_sig, 
+            by = "Disease")
+
+# add struct_ids for matching drugs 
+struct_ids = 
+  struct_ids %>%
+  rename(drug = drug_name)
+
+sig_drugs = 
+  sig_drugs %>%
+  left_join(struct_ids, 
+            by = "drug")
+
+# add indications
+indications_oi = 
+  indications %>%
+  select(struct_id,
+         umls_cui, 
+         relationship_name)
+
+sig_drugs = 
+  sig_drugs %>%
+  left_join(indications_oi,
+            by = c("struct_id", "umls_cui")) %>%
+  rename(Known_Relationship = relationship_name)
+
+sig_drugs$Known_Relationship[is.na(sig_drugs$Known_Relationship)] = "none"
+
+sig_drugs$Previously_indicated_umls_cui = 
+  ifelse(sig_drugs$Known_Relationship == "indication" |
+           sig_drugs$Known_Relationship == "off-label use",
+         TRUE,
+         FALSE)
+
+umls_match = 
+  sig_drugs %>%
+  filter(Previously_indicated_umls_cui == TRUE) %>%
+  group_by(Disease) %>%
+  tally(name = "n previous drug associations")
+
+knitr::kable(umls_match)
+```
+
+Saverunner found previously indicated drugs for 4/9 autoimmune disease and 3/18 complex diseases.
+
+#### Are our results enriched for drugs previously indicated to a disease?
+
+```{r, message=FALSE}
+# find all diseases in drug central that match
+# the diseases we have results for
+# using the CU IDs
+
+# fisher per disease
+fisher_vec = {}
+fisher_names = {}
+ndrugs_DC_indicated_vec = {}
+ndrugs_NOT_DC_indicated_vec = {}
+ndrugs_ours_indicated_vec = {}
+ndrugs_ours_NOT_indicated_vec = {}
+
+all_drugs = unique(indications$drug_name)
+
+for(d in disease_sig$umls_cui){
+  
+  drugs_DOI = 
+    indications %>%
+    filter(umls_cui == d) %>%
+    select(drug_name) %>%
+    distinct() %>%
+    pull
+  
+  ndrugs_DOI = length(drugs_DOI)
+  ndrugs_NOT_DOI = length(all_drugs) - ndrugs_DOI
+
+  for_fisher_our_results = 
+    sig_drugs %>%
+    filter(umls_cui == d) %>%
+    group_by(Previously_indicated_umls_cui) %>%
+    tally() %>%
+    pull(n)
+  
+  for_fisher = c(ndrugs_NOT_DOI, ndrugs_DOI, for_fisher_our_results)
+  if(length(for_fisher)<4) {next}
+    
+   fish = fisher.test(matrix(for_fisher, 2, 2),
+                alternative = "greater")$p.value
+   
+   fisher_names = c(fisher_names, d)
+   fisher_vec = c(fisher_vec, fish)
+   ndrugs_DC_indicated_vec = c(ndrugs_DC_indicated_vec, ndrugs_DOI)
+   ndrugs_NOT_DC_indicated_vec = c(ndrugs_NOT_DC_indicated_vec, ndrugs_NOT_DOI)
+   ndrugs_ours_indicated_vec = c(ndrugs_ours_indicated_vec, for_fisher_our_results[2])
+   ndrugs_ours_NOT_indicated_vec = c(ndrugs_ours_NOT_indicated_vec, for_fisher_our_results[1])
+}
+
+fisher_res = data.frame(umls_cui = fisher_names,
+                        nDrugs_indicated_Drug_Central = ndrugs_DC_indicated_vec,
+                        nDrugs_associated_by_our_method = ndrugs_ours_indicated_vec +
+                          ndrugs_ours_NOT_indicated_vec,
+                        nDrugs_both = ndrugs_ours_indicated_vec,
+                        pval = fisher_vec)
+
+fisher_res = left_join(fisher_res, disease_sig)
+
+fisher_res = 
+  fisher_res %>% 
+  arrange(pval)
+
+fisher_res$FDR = p.adjust(fisher_res$pval, method = "BH")
+
+knitr::kable(fisher_res %>% select(Disease, everything()))
+```
+
+We did really well for `Celiac_Disease` but nothing else is significant. Where do the indicated drugs rank among the saverunner associated drugs?
+```{r, message=FALSE}
+
+# add rank column
+sig_drugs = 
+  sig_drugs %>%
+  group_by(Disease) %>%
+  arrange(FDR) %>%
+  mutate(FDRrank = dense_rank(FDR))
+  
+check_rank = 
+  sig_drugs %>%
+  filter(Previously_indicated_umls_cui == TRUE) %>%
+  select(drug, 
+         Disease, 
+         TraitType, 
+         proximity, 
+         FDR, 
+         FDRrank)
+
+to_add = 
+  fisher_res %>%
+  select(Disease, nDrugs_associated_by_our_method)
+
+knitr::kable(check_rank %>% left_join(to_add) %>% arrange(Disease, FDRrank))
+```
+
+#### auPRC with previously indictated drugs as positives
+ranking stat is  SAveRUNNER -log10(FDR) 
+```{r, message=FALSE}
+
+drugs_collapse$log10FDR = -log10(drugs_collapse$FDR)
+
+# add struct_ids for matching drugs 
+drugs_collapse = 
+  drugs_collapse %>%
+  left_join(struct_ids, 
+            by = "drug")
+
+# add umls_cui for matching diseases 
+drugs_collapse = 
+  drugs_collapse %>%
+  left_join(disease_sig, 
+            by = "Disease")
+
+# add indications
+drugs_collapse = 
+  drugs_collapse %>%
+  left_join(indications_oi,
+            by = c("struct_id", "umls_cui")) %>%
+  rename(Known_Relationship = relationship_name)
+
+drugs_collapse$Known_Relationship[is.na(drugs_collapse$Known_Relationship)] = "none"
+
+drugs_collapse$Label = 
+  ifelse(drugs_collapse$Known_Relationship == "indication" |
+           drugs_collapse$Known_Relationship == "off-label use",
+         TRUE,
+         FALSE)
+
+auPRC_vec = {}
+log2auRPC_vec = {}
+disease_vec = {}
+npos_vec = {}
+
+check_disease = 
+  drugs_collapse %>%
+  filter(CVscore >= 1) %>%
+  pull(Disease) %>%
+  unique()
+  
+for(d in check_disease){
+  
+  predictions = 
+    drugs_collapse %>%
+    ungroup() %>%
+    filter(Disease == d) %>%
+    pull(log10FDR)
+  
+  labels = 
+    drugs_collapse %>%
+    ungroup() %>%
+    filter(Disease == d) %>%
+    pull(Label)
+  
+  npos = sum(labels);
+
+  if(npos >= 5){
+    
+  pred = prediction(predictions, labels)
+  perf = performance(pred, "aucpr")
+  
+  auprc = perf@y.values[[1]]
+  prior = npos/length(labels)
+  log2AoP = log2(auprc/prior)
+  
+  auPRC_vec = c(auPRC_vec, auprc);
+  log2auRPC_vec = c(log2auRPC_vec, log2AoP);
+  disease_vec = c(disease_vec, d) 
+  npos_vec = c(npos_vec, npos)
+  
+  } else {next}
+  
+}
+
+auPRC_res = data.frame(Disease = disease_vec,
+                       auPRC = auPRC_vec,
+                       log2auRPC = log2auRPC_vec,
+                       npos = npos_vec
+                       )
+
+auPRC_res = 
+  auPRC_res %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex) ~ "Non-disease Trait"))
+
+knitr::kable(auPRC_res %>% arrange(TraitType, desc(log2auRPC)))
+auPRC_res_drug_central = auPRC_res 
+auPRC_res_drug_central$Source = "Drug Central"
+```
+
+### auPRC: positive drugs are in phavse IV clinincal trial for the disease
+
+Ranking stat is SAveRUNNER -log10(FDR) 
+
+```{r, message=FALSE}
+
+# find disease mesh names
+# using the disgenet disease mappings file
+dis_ids = read.delim("./data/disease-gene_annotations/disgenet/2020-10/disease_mappings.tsv")
+
+msh_ids = 
+  dis_ids %>%
+  filter(vocabulary == "MSH",
+         diseaseId %in% disease_sig$umls_cui) %>%
+  rename(umls_cui = diseaseId)
+
+to_add = 
+  msh_ids %>%
+  select(umls_cui,
+         vocabularyName)
+
+drugs_for_ct = left_join(drugs_collapse, to_add)
+
+sig_drugs_for_ct = 
+  drugs_for_ct %>%
+  filter(CVscore >= 1,
+         FDR < cutoff)
+
+# and check for disease/drug pairs in the
+# clinical trial DB
+# load ct
+
+load("data_Zenodo/clinical_trials/20211004/basic_clinical_trial_info.rdata")
+
+status_oi = c("Active, not recruiting",
+              "Enrolling by invitation",
+              "Recruiting",
+              "Completed")
+
+ct_pairs = 
+  ct %>%
+  mutate(drug = tolower(intervention_mesh_term)) %>%
+  filter(overall_status %in% status_oi,
+         !is.na(drug),
+         phase == "Phase 4") %>%
+  select(condition_mesh_term, 
+         drug,
+         nct_id) %>%
+  rename(vocabularyName = condition_mesh_term)
+
+ct_pairs$PairInCT = TRUE
+
+# which of our pairs are in ct pairs?
+# match by vocabularyName (mesh name)
+# more than one mesh name per cui_id
+# select for distinct cui_ids
+
+our_pairs_in_ct = 
+  left_join(drugs_for_ct, 
+            ct_pairs, 
+            by = c("vocabularyName", "drug"))
+
+# split by true and false
+# collapse by cui_ids
+
+true_pairs = 
+  our_pairs_in_ct %>%
+  filter(PairInCT == TRUE) %>%
+  select(-PairInCT, -vocabularyName, -nct_id) %>%
+  distinct()
+
+true_pairs$PairInCT = TRUE
+
+remove_from_false = 
+  true_pairs %>%
+  select(umls_cui, drug)
+
+remove_from_false$Remove = TRUE
+
+false_pairs =
+  our_pairs_in_ct %>%
+  filter(is.na(PairInCT)) %>%
+  select(-PairInCT, -vocabularyName) %>%
+  distinct() %>%
+  left_join(remove_from_false) %>%
+  filter(is.na(Remove)) %>%
+  select(-Remove)
+
+false_pairs$PairInCT = FALSE
+
+final_pairs = 
+  rbind(true_pairs, false_pairs)
+  
+auPRC_vec = {}
+log2auRPC_vec = {}
+disease_vec = {}
+npos_vec = {}
+
+check_disease = 
+  final_pairs %>%
+  filter(CVscore >= 1) %>%
+  pull(Disease) %>%
+  unique()
+
+for(d in check_disease){
+  
+  predictions = 
+    final_pairs %>%
+    ungroup() %>%
+    filter(Disease == d) %>%
+    pull(log10FDR)
+  
+  labels = 
+    final_pairs %>%
+    ungroup() %>%
+    filter(Disease == d) %>%
+    pull(PairInCT)
+  
+  npos = sum(labels);
+
+  if(npos >= 5){
+    
+  pred = prediction(predictions, labels)
+  perf = performance(pred, "aucpr")
+  
+  auprc = perf@y.values[[1]]
+  prior = npos/length(labels)
+  log2AoP = log2(auprc/prior)
+  
+  auPRC_vec = c(auPRC_vec, auprc);
+  log2auRPC_vec = c(log2auRPC_vec, log2AoP);
+  disease_vec = c(disease_vec, d) 
+  npos_vec = c(npos_vec, npos)
+  
+  } else {next}
+  
+}
+
+auPRC_res = data.frame(Disease = disease_vec,
+                       auPRC = auPRC_vec,
+                       log2auRPC = log2auRPC_vec,
+                       npos = npos_vec
+                       )
+auPRC_res = 
+  auPRC_res %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex) ~ "Non-disease Trait"))
+
+write.csv(auPRC_res, "./data_Zenodo/prediction_clusters_same_graph/chronic_inflammation_gene_shot_pubs_greater10--predictedWith--ConsensusPathDB--clusteredOn--ConsensusPathDB_phase4_clinical_trial_auPRC.csv")
+
+  
+knitr::kable(auPRC_res %>% arrange(desc(log2auRPC)))
+```
+
+## Table S9: SAveRUNNER results
+
+Add info from the pvalue filtered SAveRUNNER results because these include the `adjusted_similarity` measure that we can sort by.
+
+```{r}
+drugs05 = read.delim("./data_Zenodo/drugResults/Drug_Disease_network_pval0.05.txt")
+
+drugs05 = 
+  drugs05 %>%
+  rename(Cluster = disease) %>%
+  select(-pval,
+         -proximity)
+
+drugs05$Disease = sub("_[^_]+$", "", drugs05$Cluster)
+
+final_pairs_sim =
+  left_join(final_pairs, drugs05)
+
+S9 =
+  final_pairs_sim %>%
+  select(Disease,
+         TraitType,
+         Cluster,
+         drug,
+         pval,
+         FDR,
+         Known_Relationship,
+         PairInCT,
+         adjusted_similarity)
+
+figure_path = "./results/prediction_clusters_same_graph/figures"
+write.csv(S9, file = paste0(figure_path, "/TableS9_SAveRUNNER_results.csv"), row.names = F)
+```
+
+### Top for autoimmune diseases 
+```{r, message=FALSE}
+ai_res = 
+  final_pairs_sim %>%
+  filter(TraitType == "Autoimmune Disease",
+         FDR <= cutoff) %>%
+  group_by(Disease) %>%
+  top_n(5, adjusted_similarity) %>%
+  top_n(-1, FDR) %>%
+  select(Disease,
+         TraitType,
+         drug,
+         proximity,
+         FDR,
+         adjusted_similarity,
+         Known_Relationship,
+         PairInCT) %>%
+  distinct() %>%
+  arrange(Disease, FDR, desc(adjusted_similarity))
+knitr::kable(ai_res)
+```
+
+### Top For complex diseases
+
+```{r, message=FALSE}
+complex_res = 
+  final_pairs_sim %>%
+  filter(TraitType == "Complex Disease",
+         FDR <= cutoff) %>%
+  group_by(Disease) %>%
+  top_n(5, adjusted_similarity) %>%
+  top_n(-1, FDR) %>%
+  select(Disease,
+         TraitType,
+         drug,
+         proximity,
+         FDR,
+         adjusted_similarity,
+         Known_Relationship,
+         PairInCT) %>%
+  distinct() %>%
+  arrange(Disease, FDR, desc(adjusted_similarity))
+
+knitr::kable(complex_res)
+```
+
+## Figure 4
+
+### Figure 4a: auPRC plots 
+
+Bind with Drug Central auPRC and plot
+```{r, message = F}
+auPRC_res$Source = "In Phase IV Clinical Trial"
+auPRC_res = rbind(auPRC_res, auPRC_res_drug_central)
+
+auPRC_res$Source = gsub("Drug Central", 
+                        "Previously Indicated",
+                        auPRC_res$Source)
+
+auPRC_res$Source = factor(auPRC_res$Source,
+                          levels = c("Previously Indicated", 
+                                     "In Phase IV Clinical Trial"))
+
+auPRC_res$TraitType = gsub(" Disease", "", auPRC_res$TraitType)
+
+Fig4a = 
+  auPRC_res %>%
+  ggplot(aes(x = TraitType, 
+             y = log2auRPC)) +
+  geom_jitter(shape=16, 
+              colour = "#90A4AE",
+              position=position_jitter(0.2)) +
+  geom_boxplot(color = c("#bc3754"),
+               fill = "NA",
+               outlier.size=0, 
+               outlier.shape=NA) +
+  geom_hline(yintercept=0, 
+             linetype="dashed", 
+             color = "#320a5e") +
+  theme_classic() +
+  #theme(axis.text.x = element_text(angle = 45, 
+                                   #hjust=1)) +
+  theme(axis.title.x=element_blank()) + 
+  theme(axis.text.x=element_text(colour="black")) +
+  theme(axis.text.y=element_text(colour="black")) +
+  ylab(bquote(log[2](auPRC/prior))) +
+  labs(tag = '(A)') +  
+  facet_wrap(~Source, ncol = 1)
+
+ggsave(Fig4a, file = "./results/prediction_clusters_same_graph/fig4a_check.png", width = 7.2, height = 7, dpi = 300, units = "in", device='png')
+
+Fig4a
+```
+
+### Figure 4b
+Stacked bar of number of drugs per disease + indicated + clical trial
+```{r, message=FALSE}
+final_pairs =
+  final_pairs %>%
+  mutate(plot_relationship = 
+           case_when(Known_Relationship == "indication" ~ "previously indicated",
+                     Known_Relationship == "off-label use" ~ "previously indicated",
+                     PairInCT == TRUE ~ "phase IV clinical trial",
+                     PairInCT == FALSE & Known_Relationship == "none" ~ "novel"))
+
+final_pairs$DiseaseNiceNames = gsub("_", " ", final_pairs$Disease)
+final_pairs$DiseaseNiceNames = gsub("Alzheimers Disease", "Alzheimer's disease", final_pairs$DiseaseNiceNames)
+final_pairs$DiseaseNiceNames = gsub("Behcet", "Behcet's", final_pairs$DiseaseNiceNames)
+final_pairs$DiseaseNiceNames = gsub("Crohn", "Crohn's", final_pairs$DiseaseNiceNames)
+
+final_pairs$plot_relationship = factor(final_pairs$plot_relationship, 
+                                   levels = c("novel",
+                                              "phase IV clinical trial",
+                                              "previously indicated"))
+Fig4b = 
+final_pairs %>%
+  filter(FDR < .01,
+         TraitType != "Non-disease Trait") %>%
+  group_by(DiseaseNiceNames,
+           TraitType,
+           plot_relationship) %>%
+  tally(name="nDrugs") %>%
+  ggplot(aes(x = DiseaseNiceNames,
+             y = nDrugs,
+             fill = plot_relationship)) +
+  geom_bar(stat="identity") +
+  #geom_text(aes(label = nDrugs), 
+            #position = position_stack(vjust = 0.5)) +
+  scale_fill_manual(values=c("#90a4ae",
+                             "#fac228",
+                             "#65156e")) +
+  xlab("Disease") +
+  ylab("Predicted drugs") +
+  guides(fill = guide_legend("Drug-disease relationship")) +
+  labs(tag = '(B)') + 
+  theme_classic() +
+  theme(legend.position = c(0.65, 0.34)) +
+  theme(legend.title=element_text(size=8)) +
+  theme(legend.key.size = unit(.05, 'in')) +
+  theme(axis.text.x=element_text(colour="black")) +
+  theme(axis.text.y=element_text(colour="black")) +
+  coord_flip() +
+  ggforce::facet_col(vars(TraitType), scales = "free_y", space = "free")
+
+ggsave(Fig4b, file = "./results/prediction_clusters_same_graph/fig4b_check.png", width = 7)
+
+Fig4b
+```
+
+### Figure 4c: Antihistamine heatmap
+
+Different antihistamines for different disorders? Use [atc codes](https://go.drugbank.com/atc/L04A) to ID antihistamines: R06
+```{r,  message=FALSE}
+
+# ATC code for drug target pairs are already in 
+# drug-target.tsv
+drug_target = read.delim("./data/drugcentral/drug-target.tsv")
+
+# remove drug target info
+# separate rows by atc code
+# add column for whether or not
+# the atc is AntiImmune
+# grep for these at the beginning of
+# a string
+
+antihist = 
+  drug_target %>%
+  select(-symbol,
+         -entrez) %>%
+  distinct() %>%
+  separate_rows(atc, sep = ", ") %>%
+  filter(grepl("^R06", atc)) %>%
+  pull(drug_name) %>%
+  unique()
+
+## matrix of log10FDR
+## these guys are variable across some diseases
+antihist_FDR = 
+  final_pairs_sim %>%
+  filter(drug %in% c("doxylamine",
+                     "mepyramine",
+                     "ketotifen",
+                     "levocetirizine",
+                     "bromazine",
+                     "dexbrompheniramine",
+                     "cyproheptadine",
+                     "fexofenadine",
+                     "cetirizine"),
+         FDR < cutoff,
+         TraitType == "Complex Disease") %>%
+  mutate(log10FDR = -log10(FDR)) %>%
+  select(Cluster, drug, log10FDR) %>%
+  pivot_wider(id_cols = Cluster, 
+              names_from = drug, 
+              values_from = log10FDR,
+              values_fill = 0)
+
+antihist_FDR = as.data.frame(antihist_FDR)
+rownames(antihist_FDR) = antihist_FDR$Cluster
+antihist_FDR$Cluster = NULL
+
+antihist_FDR_mat = do.call(data.frame,
+                      lapply(antihist_FDR, 
+                             function(x) replace(x, is.infinite(x), 100)))
+
+rownames(antihist_FDR_mat) = tolower(rownames(antihist_FDR_mat))
+
+stars = antihist_FDR_mat
+stars[stars < -log10(.01)] = ""
+stars[stars != ""] = "*"
+
+## matrix of adjusted similarity
+antihist_sim = 
+  final_pairs_sim %>%
+  filter(drug %in% c("doxylamine",
+                     "mepyramine",
+                     "ketotifen",
+                     "levocetirizine",
+                     "bromazine",
+                     "dexbrompheniramine",
+                     "cyproheptadine",
+                     "fexofenadine",
+                     "cetirizine"),
+         FDR < cutoff,
+         TraitType == "Complex Disease") %>%
+  mutate(log10FDR = -log10(FDR)) %>%
+  ungroup() %>%
+  select(Cluster, drug, adjusted_similarity) %>%
+  pivot_wider(id_cols = Cluster, 
+              names_from = drug, 
+              values_from = adjusted_similarity,
+              values_fill = 0)
+
+antihist_sim = as.data.frame(antihist_sim)
+rownames(antihist_sim) = tolower(antihist_sim$Cluster)
+
+antihist_sim$Cluster = NULL
+antihist_sim_mat = as.matrix(antihist_sim)
+
+# load group assignments for annotation
+
+groups = read.csv("./data_Zenodo/prediction_clusters_same_graph/subcluster_groups.csv", row.names = 1)
+
+col_anno = 
+  groups %>%
+  filter(DiseaseClusterNode %in% tolower(rownames(antihist_sim_mat))) %>%
+  select(DiseaseClusterNode, Cluster) %>%
+  rename(Group = Cluster) %>%
+  as.data.frame() 
+
+rownames(col_anno) = col_anno$DiseaseClusterNode
+col_anno$DiseaseClusterNode = NULL
+
+hist_oi = c("doxylamine",
+            "mepyramine",
+            "ketotifen",
+            "levocetirizine",
+            "bromazine",
+            "dexbrompheniramine",
+            "cyproheptadine",
+            "fexofenadine",
+            "cetirizine")
+
+gen = c("first",
+        "first",
+        "second",
+        "second",
+        "first",
+        "first",
+        "first",
+        "second",
+        "second")
+
+row_anno = as.data.frame(gen)
+colnames(row_anno) = "Generation"
+rownames(row_anno) = hist_oi
+
+## adj similarity heatmap
+paletteLength <- 100
+myColor = colorRampPalette(rev(c("#f9cb35", "#bc3754", "#210c4a")))((100))
+pretty_names = gsub("_", " ", rownames(antihist_sim_mat)) 
+pretty_names = gsub("kidney failure chronic", "chronic kidney failure", pretty_names)
+
+ann_colors = list(
+    Group = c(Group1 = "#f98e09", 
+              Group2 = "#bc3754"),
+    Generation = c(first = "#5ec962",
+                   second = "#90A4AE")
+)
+
+
+pheat = 
+  as.ggplot(
+  pheatmap(t(antihist_sim_mat),
+           color = myColor,
+           border_color = "black",
+           cluster_rows = TRUE,
+           cluster_cols = TRUE,
+           show_colnames = TRUE,
+           show_rownames = TRUE,
+           display_numbers = t(stars),
+           treeheight_row = 0,
+           treeheight_col = 0,
+           number_color = "black",
+           cellwidth = 10,
+           cellheight = 10,
+           legend = FALSE,
+           labels_col = pretty_names,
+           annotation_col = col_anno,
+           annotation_row = row_anno,
+           annotation_colors = ann_colors,
+           annotation_legend = FALSE,
+           width = 1.8,
+           height = 1.8,
+           fontsize = 8)) +
+  labs(tag = "(C)") +
+  theme(text = element_text(size = 10))
+
+ggsave(pheat, file = "./results/prediction_clusters_same_graph/drug_legend.png")
+
+```
+
+Composite
+```{r, message=FALSE, fig.width=7.1, fig.height=6.5}
+Fig4b = Fig4b + theme(text = element_text(size = 10))
+Fig4a = Fig4a + theme(text = element_text(size = 10))
+
+Fig4 = ((Fig4a / pheat + plot_layout(heights = c(3,5))) | Fig4b) + plot_layout(widths = c(3,2))
+ggsave(Fig4, file = "./results/prediction_clusters_same_graph/Fig4.png", width = 180, height = 165, units = "mm")
+
+Fig4
+```
+

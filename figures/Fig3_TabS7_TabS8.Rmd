@@ -1,0 +1,659 @@
+---
+title: "Cluster CI enriched disease subclusters based on average shortest path between clusters"
+author: "Stephanie Hickey"
+date: "6/20/2022"
+output: 
+  html_document:
+    code_folding: show
+---
+
+## Set-up
+```{r, include=FALSE, messsage=FALSE}
+knitr::opts_knit$set(root.dir = '..')
+```
+
+```{r, include=TRUE, messsage=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(poolr) # for stouffer's
+library(parallel)
+library(igraph)
+library(leidenbase)
+library(rrvgo)
+library(pheatmap)
+library(RColorBrewer)
+library(viridis)
+library(ggplotify)
+library(patchwork)
+library(gtable)
+source("./src/chronic_inflammation_functions.R")
+figure_path = "./results/prediction_clusters_same_graph/figures"
+if(!dir.exists(figure_path)){dir.create(figure_path)}
+```
+
+## Caluclate similarity between CI-enriched clusters using [SAveRUNNER](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04076-w)
+### Clean up saverunner results
+
+Used SAveRUNNER to get network distances and p-values between every CI-enriched disease cluster. The distance calculation in SAveRUNNER is directional, so I combined the p-values between A-B with B-A using Stouffer's method. Then I used the CI-enriched clusters as nodes and cluster those to find CI-signature groups.
+
+```{r, message=FALSE}
+# Load saverunner results
+sr = read.delim("./data_Zenodo/prediction_clusters_same_graph/SAveRUNNER/code/Results/network/txtFile/Drug_Disease_network_pval1.txt")
+
+# for some reason saverunner changes the "drug" column
+# which in our case is another cluster column
+# to lower. Change the "disease" col to match
+
+sr$disease = tolower(sr$disease)
+
+# rename drug and disease col
+sr = 
+  sr %>%
+  dplyr::rename(Cluster1 = disease,
+                Cluster2 = drug)
+
+# combine FDR
+
+sr_stouffers = function(row){
+  
+  print(row)
+  clust1 = sr$Cluster1[row]
+  clust2 = sr$Cluster2[row]
+  p1 = sr$pval[row]
+  sim1 = sr$adjusted_similarity[row]
+
+  p2 = 
+    sr %>%
+    filter(Cluster1 == clust2,
+           Cluster2 == clust1) %>%
+    pull(pval)
+  
+  sim2 = 
+    sr %>%
+    filter(Cluster1 == clust2,
+           Cluster2 == clust1) %>%
+    pull(adjusted_similarity)
+  
+  if(row > 1){
+    
+    check = 
+      sr[1:(row-1),] %>%
+      filter(Cluster1 == clust2,
+      Cluster2 == clust1) 
+    
+     if(nrow(check) > 0){
+      
+      combined = 
+        data.frame(Cluster1 = clust2,
+                   Cluster2 = clust1,
+                   stouffers_pval = stouffer(c(p1, p2), adjust = "none")$p,
+                   mean_adjusted_similarity = mean(c(sim1, sim2)))
+     } else {
+       
+       combined = data.frame(Cluster1 = clust1,
+                        Cluster2 = clust2,
+                        stouffers_pval = stouffer(c(p1, p2), adjust = "none")$p,
+                        mean_adjusted_similarity = mean(c(sim1, sim2))) 
+     } 
+    
+    } else {
+       
+       combined = data.frame(Cluster1 = clust1,
+                        Cluster2 = clust2,
+                        stouffers_pval = stouffer(c(p1, p2), adjust = "none")$p,
+                        mean_adjusted_similarity = mean(c(sim1, sim2))) 
+    }
+  
+  return(combined)
+}
+
+rowtoget = 1:nrow(sr)
+
+sr_combine_list = mclapply(rowtoget,
+                           sr_stouffers,
+                           mc.cores = detectCores() -1)
+
+sr_combine = do.call(rbind, sr_combine_list)
+sr_combine = dplyr::distinct(sr_combine)
+
+# add gene plexus cv to plot  
+# only include traits with at least 15 seed genes
+# remove collitis 
+
+load("./data_Zenodo/GenePlexus_parameter_checks/Geneplexus_summary_new_networks.Rdata")
+
+cv_df =
+  summary_df %>%
+  filter(Network == "ConsensusPathDB") %>%
+  dplyr::select(Disease, 
+         nSeeds,
+         CVscore)
+
+keep_disease = 
+  cv_df %>%
+  filter(CVscore >= 1,
+         nSeeds >= 15,
+         !Disease == "Colitis") %>%
+  pull(Disease)
+  
+sr_combine$Disease1 = gsub('_[^_]*$', '', sr_combine$Cluster1)
+sr_combine$Disease2 = gsub('_[^_]*$', '', sr_combine$Cluster2)
+
+sr_combine = 
+  sr_combine %>%
+  filter(Disease1 %in% tolower(keep_disease),
+         Disease2 %in% tolower(keep_disease))
+
+# adjust across the whole thing for multiple comparisons
+sr_combine$FDR = p.adjust(sr_combine$stouffers_pval, method = "BH")
+```
+
+  - Total edges : `r nrow(sr_combine)`
+  - edges FDR <= .05 : `r nrow(sr_combine %>% filter(FDR <= .05))`
+  - edges FDR <= .01 : `r nrow(sr_combine %>% filter(FDR <= .01))`
+  
+### Make graph and cluster
+
+Make an igraph object with edges between pairs with `FDR =< .01` and weight `mean_adjusted_similarity` 
+```{r, message=F}
+edges = 
+  sr_combine %>%
+  filter(FDR <= .01,
+         !Cluster1 == Cluster2) %>%
+  dplyr::select(Cluster1,
+         Cluster2,
+         mean_adjusted_similarity)
+
+g = graph_from_edgelist(as.matrix(edges[c(1,2)]))
+E(g)$weight = edges$mean_adjusted_similarity
+```
+
+Cluster and tally the number of clusters nodes from each disease belong to
+```{r, message=FALSE}
+clusters = leiden_find_partition(g,
+                                 partition_type = "ModularityVertexPartition",
+                                 resolution_parameter = .01,
+                                 seed = 1,
+                                 edge_weights = E(g)$weight,
+                                 num_iter = 100)
+
+cluster_df = data.frame(DiseaseClusterNode = as_ids(V(g)), 
+                        Cluster = clusters$membership)
+
+cluster_df$Disease = gsub('_[^_]*$', '', cluster_df$DiseaseClusterNode)
+
+disease_tally = 
+  cluster_df %>% 
+  group_by(Disease, Cluster) %>%
+  tally() %>%
+  pivot_wider(id_cols = Disease,
+              names_from = Cluster, 
+              values_from = n,
+              values_fill = 0)
+
+knitr::kable(disease_tally)
+```
+
+No disease with more than one node has all nodes in one cluster, suggesting that the genes within the disease cluster nodes are related to inflammatory processes that are not disease specific. 
+
+Are autoimmune diseases clustered?
+```{r, message=FALSE}
+# add TraitType
+# get complex vs ai lables
+c_v_ai = read.csv("./data/complex_ai.csv", header = F)
+
+# change disease to match file names
+c_v_ai$Disease = gsub(" ", "_", c_v_ai$V1)
+c_v_ai$Disease = gsub("([_])|[[:punct:]]", "\\1", c_v_ai$Disease)
+c_v_ai$Disease = gsub("_[^_]*$", "", c_v_ai$Disease) 
+
+ai = 
+  c_v_ai %>%
+  filter(V2 == "autoimmune") %>%
+  pull(Disease)
+
+complex = 
+  c_v_ai %>%
+  filter(V2 == "complex") %>%
+  pull(Disease)
+
+cluster_df = 
+  cluster_df %>%
+  mutate(TraitType =
+           case_when(Disease %in% tolower(ai) ~ "Autoimmune Disease",
+                     Disease %in% tolower(complex) ~ "Complex Disease",
+                     !Disease %in% c(tolower(ai), tolower(complex)) ~ "Non-disease Trait"))
+
+disease_tally = 
+  cluster_df %>% 
+  group_by(TraitType, Cluster) %>%
+  tally() %>%
+  pivot_wider(id_cols = TraitType,
+              names_from = Cluster, 
+              values_from = n,
+              values_fill = 0)
+
+knitr::kable(disease_tally)
+```
+
+More autoimmune disease nodes are in cluster 1 than any other cluster. Is it significant?
+```{r, message=FALSE}
+
+ fisher_enrich = function(trait_type, cluster){
+   
+   cluster_trait = 
+     cluster_df %>%
+     filter(TraitType == trait_type,
+            Cluster == cluster) %>%
+     nrow()
+   
+   cluster_not_trait = 
+     cluster_df %>%
+     filter(!TraitType == trait_type,
+            Cluster == cluster) %>%
+     nrow()
+   
+   not_cluster_trait = 
+     cluster_df %>%
+     filter(TraitType == trait_type,
+            !Cluster == cluster) %>%
+     nrow()
+   
+   neither = 
+     cluster_df %>%
+     filter(!TraitType == trait_type,
+            !Cluster == cluster) %>%
+     nrow()
+   
+   fish = fisher.test(matrix(c(cluster_trait,
+                               cluster_not_trait,
+                               not_cluster_trait,
+                               neither), 2,2),
+                      alternative = "greater")$p.value
+   return(fish)
+ }
+
+trait_vec = {}
+cluster_vec = {}
+pval_vec = {}
+
+for(i in 1:3){
+  for(t in c("Autoimmune Disease", "Complex Disease")){
+    
+    trait_vec = c(trait_vec, t)
+    cluster_vec = c(cluster_vec, i)
+    fish = fisher_enrich(t, i)
+    pval_vec = c(pval_vec, fish)
+    
+  }
+}
+
+fish_df = data.frame(TriatType = trait_vec,
+                     Cluster = cluster_vec,
+                     pval = pval_vec)
+
+knitr::kable(fish_df)
+```
+
+No enrichment for AI or complex diseases in any group.
+
+Are similar complex diseases in the same group?
+```{r}
+cluster_df$Cluster = paste0("Group", cluster_df$Cluster)
+
+cardio = c("coronary_arteriosclerosis",
+           "myocardial_infarction",
+           "myocardial_ischemia",
+           "atherosclerosis")
+
+lung = c("chronic_obstructive_airway_disease",
+         "pulmonary_emphysema")
+
+heptaorenal = c("fatty_liver",
+                "kidney_failure_chronic",
+                "nonalcoholic_fatty_liver_disease")
+
+cancer = c("malignant_mesothelioma",
+           "malignant_neoplasm_of_pancreas",
+           "malignant_tumor_of_colon",
+           "malignant_neoplasm_of_kidney",
+           "malignant_neoplasm_of_lung",
+           "small_cell_carcinoma_of_lung",
+           "squamous_cell_carcinoma_of_lung")
+
+all = c(tolower(ai), cardio, lung, heptaorenal, cancer)
+
+cluster_df = 
+  cluster_df %>%
+  mutate(TraitTypeFine =
+           case_when(Disease %in% tolower(ai) ~ "Autoimmune Disease",
+                     Disease %in% cardio ~ "Cardiovascular",
+                     Disease %in% lung ~ "Pulminary",
+                     Disease %in% heptaorenal ~ "Hepatorenal",
+                     Disease %in% cancer ~ "Cancer",
+                     !Disease %in% all ~ "Other"))
+
+disease_tally = 
+  cluster_df %>% 
+  group_by(TraitTypeFine, Cluster) %>%
+  tally() %>%
+  pivot_wider(id_cols = TraitTypeFine,
+              names_from = Cluster, 
+              values_from = n,
+              values_fill = 0)
+
+knitr::kable(disease_tally)
+```
+
+### Supplemental Table S7: CI-signature group assignments
+```{r, message=FALSE}
+S7 = 
+  cluster_df %>%
+  dplyr::rename(Cluster = DiseaseClusterNode,
+                CI_SignatureGroup = Cluster)
+
+write.csv(S7, 
+          file = paste0(figure_path, "/TableS7_CI_signature_groups.csv"),
+          row.names = FALSE)
+
+```
+
+### Figure 3a
+Plot CI-enriched clusters per CI-signature group by disease type
+```{r, message=FALSE}
+cluster_df$DiseaseNiceNames = gsub("_", " ", cluster_df$Disease)
+cluster_df$DiseaseNiceNames = gsub("alzheimers disease", "Alzheimer's disease", cluster_df$DiseaseNiceNames)
+cluster_df$DiseaseNiceNames = gsub("behcet", "Behcet's", cluster_df$DiseaseNiceNames)
+cluster_df$DiseaseNiceNames = gsub("crohn", "Crohn's", cluster_df$DiseaseNiceNames)
+
+n_nodes_per_disease = 
+  cluster_df %>%
+  group_by(Disease,
+           TraitTypeFine) %>%
+  tally(name="nNodes") %>%
+  arrange(nNodes) %>%
+  ungroup() %>%
+  group_by(TraitTypeFine) %>%
+  mutate(Order = row_number())
+
+n_groups_per_disease = 
+  cluster_df %>%
+  group_by(Disease,
+           Cluster,
+           TraitTypeFine,
+           DiseaseNiceNames) %>%
+  tally(name="Count")
+
+for_plot = left_join(n_groups_per_disease, n_nodes_per_disease)
+for_plot$TraitTypeFine = gsub("Autoimmune Disease", 
+                              "Autoimmune", 
+                              for_plot$TraitTypeFine)
+
+p2 = 
+for_plot %>% 
+  ggplot(aes(y = fct_reorder(DiseaseNiceNames, Order),
+             x = Count,
+             fill = Cluster)) +
+  geom_bar(stat = "identity", color = "white") +
+  scale_fill_manual(values = c("#f98e09", "#bc3754", "#57106e")) +
+  theme_classic() +
+  theme(legend.position="bottom") +
+  theme(legend.title = element_blank()) +
+  theme(axis.text=element_text(colour="black")) +
+  ylab("Disease") +
+  xlab("CI-enriched clusters per disease") +
+  labs(fill = "Group", title = "(A)") +
+  theme(text = element_text(size = 10)) +
+  theme(legend.key.size = unit(.1, 'in')) +
+  theme(strip.text = element_text(size = 8)) +
+  theme(axis.title = element_text(size = 8)) +
+  #geom_text(aes(label = Count), 
+            #position = position_stack(vjust = 0.5),
+            #colour = "white") +
+  ggforce::facet_col(vars(TraitTypeFine), scales = "free_y", space = "free")
+
+
+ggsave(p2, file = paste0(figure_path, "/groups_per_disease_cluster.png"),
+       width =  7,
+       height = 9)
+
+p2
+```
+
+### Supplemental Table S8: CI-signature group enriched GOBPs
+
+Get union of genes belonging to each node within each group. Pull the genes unique to each group and test for GOBP enrichment.
+```{r, message=F}
+
+clust_assign = read.csv("./data_Zenodo/prediction_clusters_same_graph/chronic_inflammation_gene_shot_pubs_greater10--predictedWith--ConsensusPathDB--clusteredOn--ConsensusPathDB_relevant_gene_cluster_assigments.csv", row.names = 1)
+
+clust_assign$Cluster = tolower(clust_assign$Cluster)
+
+node_genes = 
+  clust_assign %>%
+  filter(Cluster %in% cluster_df$DiseaseClusterNode)
+
+background = read.csv("./data/ConsensusPathDB/ConsensusPathDB_genes.csv")
+background = background$Gene
+
+GOBPlist = list()
+
+for(g in unique(cluster_df$Cluster)){
+  
+  print(g)
+  node_oi = 
+    cluster_df %>%
+    filter(Cluster == g) %>%
+    pull(DiseaseClusterNode)
+  
+  goi = 
+    node_genes %>%
+    filter(Cluster %in% node_oi) %>%
+    pull(Gene) %>%
+    unique()
+  
+  not_goi = 
+    node_genes %>%
+    filter(!Cluster %in% node_oi) %>%
+    pull(Gene) %>%
+    unique()
+  
+  goi = goi[!goi %in% not_goi]
+  
+  GOBPlist[[g]] = findEnrichedGOBP(goi, 
+                                  background, 
+                                  "org.Hs.eg.db",
+                                  "entrez",
+                                  min_size = 5,
+                                  max_size = 100)
+  
+  GOBPlist[[g]]$Cluster = g
+}
+
+unloadNamespace("package:org.Hs.eg.db")
+
+gobp = do.call(rbind, GOBPlist)
+```
+
+Save table S8
+```{r}
+S8 = 
+  gobp %>%
+  dplyr::rename(CI_SignatureGroup = Cluster) %>%
+  dplyr::select(CI_SignatureGroup, everything())
+
+write.csv(S8, file = paste0(figure_path, "/TableS8_CI_signature_groups_gobp_results.csv"), row.names = F)
+```
+
+Top GOBPs
+```{r}
+topBP = 
+  gobp %>% 
+  filter(FDR < .01) %>% 
+  group_by(Cluster) %>% 
+  dplyr::select(-OverlappingGenes) %>% 
+  top_n(-10, FDR)
+             
+knitr::kable(topBP)
+```
+
+### Figure 3b: top 10 GOBP terms heat map 
+```{r, message=FALSE}
+gobp$log10FDR = -log10(gobp$FDR)
+
+top_g1 = 
+  topBP %>%
+  filter(Cluster == "Group1") %>%
+  pull(Term)
+
+gobp_top1 = 
+  gobp %>%
+  filter(Term %in% top_g1) %>%
+  dplyr::select(Term, 
+                log10FDR, 
+                Cluster) %>%
+  pivot_wider(id_cols=Term,
+              names_from=Cluster,
+              values_from=log10FDR) %>%
+  arrange(desc(Group1)) %>%
+  dplyr::select(Term, Group1, Group2, Group3)
+
+top_g2 = 
+  topBP %>%
+  filter(Cluster == "Group2") %>%
+  pull(Term)
+
+gobp_top2 = 
+  gobp %>%
+  filter(Term %in% top_g2) %>%
+  dplyr::select(Term, 
+                log10FDR, 
+                Cluster) %>%
+  pivot_wider(id_cols=Term,
+              names_from=Cluster,
+              values_from=log10FDR) %>%
+  arrange(desc(Group2)) %>%
+  dplyr::select(Term, Group1, Group2, Group3)
+
+top_g3 = 
+  topBP %>%
+  filter(Cluster == "Group3") %>%
+  pull(Term)
+
+gobp_top3 = 
+  gobp %>%
+  filter(Term %in% top_g3) %>%
+  dplyr::select(Term, 
+                log10FDR, 
+                Cluster) %>%
+  pivot_wider(id_cols=Term,
+              names_from=Cluster,
+              values_from=log10FDR) %>%
+  arrange(desc(Group3)) %>%
+  dplyr::select(Term, Group1, Group2, Group3)
+
+gobp_top = as.data.frame(rbind(gobp_top1,gobp_top2,gobp_top3))
+
+rownames(gobp_top) = gobp_top$Term
+gobp_top$Term = NULL
+gobp_top = as.matrix(gobp_top)
+
+stars = gobp_top
+stars[stars < -log10(.01)] = ""
+stars[stars != ""] = "*"
+
+# for annotation
+top_g1 = as.data.frame(top_g1)
+colnames(top_g1) = "Term"
+top_g1$Top.Terms.For = "Group1"
+
+top_g2 = as.data.frame(top_g2)
+colnames(top_g2) = "Term"
+top_g2$Top.Terms.For = "Group2"
+
+top_g3 = as.data.frame(top_g3)
+colnames(top_g3) = "Term"
+top_g3$Top.Terms.For = "Group3"
+
+anno = rbind(top_g1, top_g2, top_g3)
+rownames(anno) = anno$Term
+anno$Term = NULL
+
+paletteLength <- 100
+myColor = colorRampPalette(c("#fcffa4", "#f98e09", "#bc3754"))((100))
+
+ann_colors = list(
+    Top.Terms.For = c(Group1 = "#f98e09", 
+                      Group2 = "#bc3754",
+                      Group3 = "#57106e")
+)
+```
+
+Make plot without legend and add it back later with affinity
+```{r, message=FALSE}
+pheat.map.clust = 
+pheatmap(gobp_top,
+           color = myColor,
+           border_color = NA,
+           cluster_rows = FALSE,
+           cluster_cols = FALSE,
+           show_colnames = TRUE,
+           show_rownames = TRUE,
+           gaps_row = c(10, 20),
+           display_numbers = stars,
+           annotation_row = anno,
+           annotation_colors = ann_colors,
+           annotation_legend = FALSE,
+           legend = FALSE,
+           number_color = "black",
+           cellwidth = 5.5,
+           cellheight = 9,
+           fontsize = 7.25)
+```
+
+version with legend
+```{r, message=FALSE}
+pheat.map.leg = 
+pheatmap(gobp_top,
+           color = myColor,
+           border_color = NA,
+           cluster_rows = FALSE,
+           cluster_cols = FALSE,
+           show_colnames = TRUE,
+           show_rownames = TRUE,
+           gaps_row = c(10, 20),
+           display_numbers = stars,
+           annotation_row = anno,
+           annotation_colors = ann_colors,
+           annotation_legend = FALSE,
+           legend = TRUE,
+           number_color = "black",
+           cellwidth = 5.5,
+           cellheight = 9,
+           fontsize = 7.25)
+
+#place legend later in Affinity
+ggsave(pheat.map.leg, file = paste0(figure_path, "/gopb_heatmap_legend.png"))
+```
+
+## Fig3 composite
+```{r, message=FALSE, fig.width=7.1, fig.height=6.02}
+gg_pheatmap = 
+  as.ggplot(pheat.map.clust) + 
+  labs(tag = "(B)") + 
+  theme(text = element_text(size = 10))
+
+fig3 = (p2 | gg_pheatmap) + plot_layout(width = c(1,4)) 
+ggsave(fig3,
+       file = paste0(figure_path, "/Fig3.png"),
+       width = 180,
+       height = 153,
+       units = "mm")
+
+fig3
+```
+Fix the pannel labels in Affinity
+
+
+
+

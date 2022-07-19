@@ -1,0 +1,885 @@
+---
+title: "Supplemental_figures"
+author: "Stephanie Hickey"
+date: "7/2/2022"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+## Set up
+```{r, setup, include=FALSE, message=FALSE}
+knitr::opts_knit$set(root.dir = '..')
+```
+
+### Load packages etc.
+```{r, include=TRUE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+library(parallel)
+library(ggpubr)
+library(rstatix)
+source("./src/chronic_inflammation_functions.R")
+figure_path = "./results/prediction_clusters_same_graph/figures"
+if(!dir.exists(figure_path)){dir.create(figure_path)}
+```
+
+### Labeling trait types for the rest of the Figures & Tables
+```{r, message=FALSE}
+# get complex vs ai labels
+c_v_ai = read.csv("./data/diseases_used_in_study.csv", row.names = 1)
+
+#Autoimmune diseases
+ai = 
+  c_v_ai %>%
+  filter(TraitType == "Autoimmune Disease") %>%
+  pull(Disease)
+
+#Complex diseases
+complex = 
+  c_v_ai %>%
+  filter(TraitType == "Complex Disease") %>%
+  pull(Disease)
+```
+
+## Supplemental Table S1: Disease and trait Geneplexus average log2(auPRC/prior) from 3-fold cross validation
+
+Results from `summarizeGeneplexusPredictions.R`
+```{r, message=FALSE}
+load("./results/GenePlexus_parameter_checks/Geneplexus_summary_new_networks.Rdata")
+
+# we did not use these in the analysis
+remove_traits = c("Colitis","Height_gene_shot")
+
+S1 = 
+  summary_df %>%
+  dplyr::rename(PredictionNetwork = Network) %>%
+  filter(!Disease %in% c(remove_traits, "chronic_inflammation_go"))
+
+# save
+write.csv(S1, 
+          file = paste0(figure_path, "/TableS1_CV_Scores.csv"), 
+          row.names = F)
+```
+
+## Supplemental Table S2: Disease and trait genes
+```{r,  message=FALSE}
+# load the disease genes from disgenet or pascal
+files = list.files("./data/disease_gene_files", 
+                   pattern = ".txt",
+                   full.names = TRUE)
+
+temp = lapply(files, read.delim)
+
+dgdf = do.call(rbind, temp) 
+
+dgdf = 
+  dgdf %>%
+  dplyr::rename(EntrezID = Gene) %>%
+  filter(!Disease %in% remove_traits) %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+
+# add gene symbol
+symbols = entrez2symbol(as.character(dgdf$EntrezID))
+dgdf$GeneSymbol = symbols
+
+# rearrange cols
+S2 = 
+  dgdf %>%
+  select(GeneSymbol, 
+         EntrezID, 
+         Disease, 
+         TraitType)
+# save
+write.csv(S2, 
+          file = paste0(figure_path, "/TableS2_seed_genes.csv"), 
+          row.names = F)
+```
+
+## Supplemental Table S3: Gene/Cluster assignments
+### Load gene to cluster assignment files
+```{r, message=FALSE}
+loadClusters = function(cluster_path){
+  
+  files = list.files(cluster_path, full.names = T, pattern = ".csv")
+  # remove fake trait clusters
+  files = files[grep("Fake_", files, invert=TRUE)]
+  # load
+  clust_list = mclapply(files, 
+                      read.csv, 
+                      row.names = 1,
+                      mc.cores = detectCores()-1)
+  # bind list
+  clust_df = do.call(rbind, clust_list)
+  return(clust_df)
+}
+
+cluster_dir = "./data_Zenodo/prediction_clusters_same_graph/clusters/"
+
+string = loadClusters(paste0(cluster_dir, "predicted_withSTRING--clustered_on_STRING"))
+string_exp = loadClusters(paste0(cluster_dir, "predicted_withSTRING-EXP--clustered_on_STRING-EXP"))
+string_string_exp = loadClusters(paste0(cluster_dir, "predicted_withSTRING--clustered_on_STRING-EXP"))
+biogrid = loadClusters(paste0(cluster_dir, "predicted_withBioGRID--clustered_on_BioGRID"))
+cpdb = loadClusters(paste0(cluster_dir, "predicted_withConsensusPathDB--clustered_on_ConsensusPathDB"))
+
+# bind dfs together
+clust_list = list(string, string_exp, string_string_exp, biogrid, cpdb)
+clust_df = do.call(rbind, clust_list)
+
+# mark inflammatory gene sets if any
+inflamm = unique(clust_df$Disease[grep("inflamm", clust_df$Disease)])
+
+# add trait type to the cluster df
+clust_df = 
+  clust_df %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     Disease %in% inflamm ~ "Inflammation Gene Set",
+                     !Disease %in% c(ai, complex, inflamm)  ~ "Non-disease Trait"))
+
+remove_traits = c(inflamm,
+                  "Colitis",
+                  "Height_gene_shot")
+clust_df = 
+  clust_df %>%
+  filter(!Disease %in% remove_traits)
+```
+
+### Add GenePlexus prediction average 3-fold CV for each disease/prediction network combo
+Also has number of seed genes. Filter for >= 15
+```{r, message=FALSE}
+summary_df = 
+  summary_df %>%
+  dplyr::rename(PredictionNetwork = Network) %>%
+  filter(!Disease %in% remove_traits) %>%
+  select(Disease,  
+         PredictionNetwork, 
+         CVscore,
+         nSeeds,
+         TraitType) 
+
+clust_df = 
+  clust_df %>%
+  left_join(summary_df) 
+```
+
+### Remove diseases/traits where no permuted traits clustered. 
+Without permuted traits with clusters with at least five genes we can't compute overlap p-values.
+```{bash, eval = F}
+# out files from submit_clusterRandomGenes.R
+cd ./run/sbatches_clusterRandomGenes
+grep -hnr --with-filename "number clustered" *STRING-EXP.out > STRING-EXP_number_clustered.txt
+grep -hnr --with-filename "number clustered" *STRING.out > STRING_number_clustered.txt
+grep -hnr --with-filename "number clustered" *BioGrid.out > BioGrid_number_clustered.txt
+grep -hnr --with-filename "number clustered" *ConsensusPathDB.out > ConsensusPathDB_number_clustered.txt
+```
+```{r,message=FALSE, include=TRUE}
+files = list.files("./data",
+                   pattern = "_number_clustered.txt",
+                   full.names = T)
+
+graph_name = gsub("_number_clustered.txt", "", basename(files))
+
+nclust_list = lapply(files, read.delim, header = F, sep = " ")
+
+for(i in 1:length(nclust_list)){
+  
+  nclust_list[[i]]$nFakesClustered = gsub("number clustered = ", "", nclust_list[[i]]$V2)
+  nclust_list[[i]]$nFakesClustered = as.numeric(nclust_list[[i]]$nFakesClustered)
+  nclust_list[[i]]$Disease = gsub(paste0("_",graph_name[i],".*"), "", nclust_list[[i]]$V1)
+  nclust_list[[i]]$ClusterGraph = graph_name[i]
+}
+
+nclust = 
+  do.call(rbind, nclust_list) %>%
+  select(ClusterGraph, 
+         nFakesClustered, 
+         Disease)
+
+nclust = 
+  nclust %>%
+  filter(!Disease %in% remove_traits) %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     Disease %in% inflamm ~ "Inflammation Gene Set",
+                     !Disease %in% c(ai, complex, inflamm)  ~ "Non-disease Trait"))
+
+nclust$ClusterGraph = gsub("BioGrid", "BioGRID", nclust$ClusterGraph)
+
+# join with nclust
+clust_df = 
+  clust_df %>%
+  left_join(nclust)
+```
+
+### Merge with GenePlexus prediction scores
+```{r, message=FALSE}
+pred_path = "./data_Zenodo/GenePlexus_output"
+gp_files = list.files(pred_path, full.names = TRUE)
+gp_files = gp_files[grep("--DisGeNet--predictions.tsv", gp_files)]
+gp_files = gp_files[grep("inflamm", gp_files, invert = TRUE)]
+
+gp_list = mclapply(gp_files, 
+                   read.delim,
+                   mc.cores= detectCores()-1)
+
+file_name_split = str_split(basename(gp_files), pattern = "--")
+dis_names = unlist(lapply(file_name_split, function(x) x[[1]]))
+prednet = unlist(lapply(file_name_split, function(x) x[[2]]))
+
+for(i in 1:length(gp_list)){
+  
+  gp_list[[i]]$Disease = dis_names[i]
+  gp_list[[i]]$PredictionNetwork = prednet[i]
+  
+}
+
+gpdf = do.call(rbind, gp_list)
+```
+
+### Filter, arrange, and save
+```{r, message=FALSE}
+S3 = 
+  clust_df %>%
+  filter(nSeeds >= 15,
+         CVscore >= 1,
+         nFakesClustered > 0,
+         !Disease %in% remove_traits) %>%
+  dplyr::rename(nClusteredPermutations = nFakesClustered,
+                Entrez = Gene) %>%
+  left_join(gpdf) %>%
+  dplyr::select(PredictionNetwork,
+                ClusterGraph,
+                Disease,
+                TraitType,
+                nClusteredPermutations,
+                Cluster,
+                Entrez,
+                Symbol,
+                Probability,
+                GeneType)
+
+write.csv(S3, 
+          file = paste0(figure_path, "/TableS3_gene_cluster_assignments.csv"), 
+          row.names = F)
+```
+
+## Supplemental Table S4: Chronic inflammation gene sets with GenePlexus predictions
+```{r, message=FALSE}
+pred_path = "./data_Zenodo/GenePlexus_output"
+ci_files = list.files(pred_path, pattern = "inflamm", full.names = TRUE)
+ci_files = ci_files[grep("--GO--predictions.tsv", ci_files)]
+
+ci_list = mclapply(ci_files, 
+                   read.delim,
+                   mc.cores= detectCores()-1)
+
+file_name_split = str_split(basename(ci_files), pattern = "--")
+ci_names = unlist(lapply(file_name_split, function(x) x[[1]]))
+prednet = unlist(lapply(file_name_split, function(x) x[[2]]))
+
+for(i in 1:length(ci_list)){
+  
+  ci_list[[i]]$ChronicInflammationSource = ci_names[i]
+  ci_list[[i]]$PredictionNetwork = prednet[i]
+  
+}
+
+cidf = do.call(rbind, ci_list)
+
+S4 = 
+  cidf %>%
+  filter(!ChronicInflammationSource %in% 
+           c("chronic_inflammation_go",
+           "chronic_inflammatory_response_GO2EG")) %>%
+  mutate(GeneType = case_when(Class.Label == "P" ~ "seed",
+                              Class.Label != "P" & Probability >= .80 ~ "predicted CI-associated",
+                              Class.Label != "P" & Probability < .80 ~ "not likely CI-associated")) %>%
+  select(-Name, -Class.Label) 
+
+write.csv(S4, 
+          file = paste0(figure_path, "/TableS4_CI_genes.csv"), 
+          row.names = F)
+
+```
+
+## Supplemental Table S5: CI-overlap results
+```{r, message=FALSE}
+files = 
+  list.files("./data_Zenodo/prediction_clusters_same_graph/scores",
+                   pattern = ".Rdata",
+                   full.names = T)
+
+res_list = lapply(files, loadRData)
+
+res_list = lapply(res_list, 
+                  function(x){
+                    x$ChronicInfThreshold = as.character(x$ChronicInfThreshold);
+                    x
+                  })
+
+res_df = do.call(rbind, res_list)
+
+# add TraitType to res_df
+res_df = 
+  res_df %>%
+  filter(!Disease %in% remove_traits) %>%
+  mutate(TraitType =
+           case_when(Disease %in% ai ~ "Autoimmune Disease",
+                     Disease %in% complex ~ "Complex Disease",
+                     !Disease %in% c(ai, complex)  ~ "Non-disease Trait"))
+
+# add cv score 
+S5 = 
+  res_df %>%
+  left_join(summary_df) %>%
+  filter(CVscore >= 1,
+         nSeeds >= 15)
+
+colnames(S5) = c(
+  "ChronicInflammationSource",
+  "nChronicInflammationSourceGenes",
+  "Cluster",
+  "nClusterGenes",
+  "nOverlap",
+  "phyperPval",
+  "Enrichment",
+  "Disease",
+  "ChronicInf",
+  "ChronicInfThreshold",
+  "ClusterGraph",
+  "PredictionNetwork",
+  "phyperFDR",
+  "TraitType",
+  "PermutedPval",
+  "PermutedFDR",
+  "nClustersFromPermutedSets",
+  "CVscore",
+  "nSeeds")
+
+S5 = 
+  S5 %>%
+  ungroup() %>%
+  select(PredictionNetwork,
+         ClusterGraph,
+         ChronicInflammationSource,
+         Disease,
+         Cluster,
+         nOverlap,
+         nChronicInflammationSourceGenes,
+         nClusterGenes,
+         Enrichment,
+         PermutedPval,
+         PermutedFDR,
+         nClustersFromPermutedSets)
+
+write.csv(S5, 
+          file = paste0(figure_path, "/TableS5_CI_overlap_results.csv"), 
+          row.names = F)
+```
+
+## Supplemental Table S6: Number of diseases considered for CI overlap
+We included a disease if it:  
+
+  - had cv > 1 on the prediction network
+  - had clusters with at least 5 genes
+  - had at least 1 permuted gene list that has clusters with at least 5 genes
+  
+```{r, message=FALSE, include=TRUE}
+# total diseases
+disease_tally = 
+  summary_df %>%
+  filter(nSeeds >= 15,
+         TraitType != "Inflammation Gene Sets") %>%
+  group_by(TraitType, PredictionNetwork) %>%
+  tally(name = "nTotal")
+
+# Traits in each category with CV score > 1
+cv_tally = 
+  summary_df %>%
+  filter(CVscore >= 1) %>%
+  group_by(TraitType, PredictionNetwork) %>%
+  tally(name = "nCV1") %>%
+  arrange(PredictionNetwork)
+
+disease_tally = 
+  left_join(disease_tally, cv_tally) %>%
+  select(TraitType,
+         PredictionNetwork,
+         nTotal,
+         nCV1)
+
+# Traits that clustered
+nClustered = 
+  clust_df %>%
+  select(Disease, 
+         PredictionNetwork,
+         ClusterGraph,
+         TraitType) %>%
+  distinct() %>%
+  group_by(PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally(name= "nClustered")
+
+# Traits that clustered with CV >=1
+nClusteredCV1 = 
+  clust_df %>%
+  filter(CVscore >=1) %>%
+  select(Disease, 
+         PredictionNetwork,
+         ClusterGraph,
+         TraitType) %>%
+  distinct() %>%
+  group_by(PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally(name= "nClusteredCV1")
+
+# n traits where at least one fake trait clustered
+fakes_clustered_tally = 
+  nclust %>%
+  filter(nFakesClustered > 0) %>%
+  group_by(TraitType, ClusterGraph) %>%
+  tally(name = "nFakesClustered") %>%
+  arrange(ClusterGraph)
+
+#Traits that clustered with CV >=1 and > 0 Fakes clustered
+clust_df = 
+  clust_df %>%
+  left_join(nclust)
+
+nClusteredCV1Fakes = 
+  clust_df %>%
+  filter(CVscore >=1,
+         nFakesClustered > 0,
+         ClusterGraph == "ConsensusPathDB",
+         TraitType == "Non-disease Trait") %>%
+  pull(Disease) %>% unique()
+         
+nClusteredCV1Fakes = 
+  clust_df %>%
+  filter(CVscore >=1,
+         nFakesClustered > 0) %>%
+  select(Disease, 
+         PredictionNetwork,
+         ClusterGraph,
+         TraitType) %>%
+  distinct() %>%
+  group_by(PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally(name= "nClusteredCV1withFakes")
+
+disease_tally = 
+  left_join(disease_tally, nClustered) %>%
+  left_join(fakes_clustered_tally) %>%
+  left_join(nClusteredCV1) %>%
+  left_join(nClusteredCV1Fakes)
+
+# Traits with clusters with at least 5 genes
+nGenesPerCluster = 
+  clust_df %>%
+  group_by(Disease,
+           Cluster,
+           PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally()
+
+nClustered5 = 
+  nGenesPerCluster %>%
+  filter(n >= 5) %>%
+  ungroup() %>%
+  select(-Cluster, -n) %>%
+  distinct() %>%
+  group_by(TraitType,
+           PredictionNetwork,
+           ClusterGraph) %>%
+  tally(name = "nClustered5")
+
+# Traits with clusters with at least 5 genes and CV >= 1
+nGenesPerCluster = 
+  clust_df %>%
+  filter(CVscore >=1) %>%
+  group_by(Disease,
+           Cluster,
+           PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally()
+
+nClustered5CV1 =
+  nGenesPerCluster %>%
+  filter(n >= 5) %>%
+  ungroup() %>%
+  select(-Cluster, -n) %>%
+  distinct() %>%
+  group_by(TraitType,
+           PredictionNetwork,
+           ClusterGraph) %>%
+  tally(name = "nClustered5CV1")
+
+# Traits with clusters with at least 5 genes and CV >= 1 and >0 clustered permuted traits
+nGenesPerCluster = 
+  clust_df %>%
+  filter(CVscore >=1,
+         nFakesClustered > 0) %>%
+  group_by(Disease,
+           Cluster,
+           PredictionNetwork,
+           ClusterGraph,
+           TraitType) %>%
+  tally()
+
+nClustered5CV1fakes =
+  nGenesPerCluster %>%
+  filter(n >= 5) %>%
+  ungroup() %>%
+  select(-Cluster, -n) %>%
+  distinct() %>%
+  group_by(TraitType,
+           PredictionNetwork,
+           ClusterGraph) %>%
+  tally(name = "nClustered5CV1withFakes")
+
+disease_tally = 
+  left_join(disease_tally, nClustered5) %>%
+  left_join(nClustered5CV1) %>%
+  left_join(nClustered5CV1fakes)
+
+###Number of traits with CV >=1 that cluster with 100 iterations of the Leiden algorithm, and/or have at least one cluster containing >= 5 genes.
+
+disease_tally = 
+  disease_tally %>%
+  dplyr::rename(nPermutedClustersSize5 = nFakesClustered,
+                      nClustersSize5 = nClustered5,
+                      nFinal = nClustered5CV1withFakes) %>%
+               select(-nClustered,
+                      -nClusteredCV1,
+                      -nClusteredCV1withFakes,
+                      -nClustered5CV1)
+
+write.csv(disease_tally, file = paste0(figure_path, "/TableS6.csv"))
+S6 = disease_tally 
+
+knitr::kable(disease_tally)
+```
+
+## Supplemental Table S7: CI-signature group assignments
+Only includes ConsensusPathDB clusters. See Fig3_TabS7_TabS8.Rmd
+
+## Supplemental Table S8: GOBP enrichments for CI-signature groups 
+Only includes ConsensusPathDB clusters. See Fig3_TabS7_TabS8.Rmd
+
+## Supplemental Table S9: SAveRUNNER results
+Only includes ConsensusPathDB clusters. See Fig4_TabS9.Rmd
+
+## Figure S1: Number of genes in each inflammation geneset
+```{r, fig.width=10, fig.height=8, fig.cap = "Fig. S1: Number of seed and Geneplexus predicted by each network in inflammation genes in each gene set"}
+
+P = 
+cidf %>%
+  filter(Probability >= .80,
+         !ChronicInflammationSource %in% c("chronic_inflammation_go", 
+                                           "chronic_inflammatory_response_GO2EG")) %>%
+  ggplot(aes(x = ChronicInflammationSource, 
+             fill = Class.Label)) +
+  geom_bar() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 60, 
+                                   hjust=1)) +
+  theme(legend.position="bottom") +
+  ylab("Number of Genes") + 
+  theme(axis.text = element_text(size = 8)) +
+  facet_wrap(~PredictionNetwork, ncol = 2) 
+
+ggsave(P, 
+       file = paste0(figure_path,
+                     "/FigS1_nChronicInflammation_seed_genes.png"),
+       width = 7, 
+       height = 7, 
+       dpi = 300)
+
+P
+```
+
+## Figure S2: Proportion of traits overlapping at least one chronic inflammation cluster 
+```{r, fig.width=8, fig.height=10, message = FALSE, fig.cap = "Fig S2: Proportion of traits with at least one CI-enriched cluster. The top network is the network used for Geneplexsus prediction, the bottom network was used for clustering"}
+       
+res_list = 
+  res_df %>%
+  group_by(Group1,
+           PredictionNetwork,
+           ClusterGraph) %>%
+  group_split()
+
+tallySigDiseases = function(df, cutoff){
+  
+  sig_disease = 
+    df %>%
+    filter(PermutedFDR < cutoff,
+           Enrichment > 0) %>%
+    select(Disease, 
+           TraitType,
+           PredictionNetwork,
+           ClusterGraph,
+           ChronicInfThreshold,
+           Group1) %>%
+    distinct() %>%
+    mutate(Signficant_Overlap = "Yes")
+  
+  not_sig_diseases = 
+    df %>%
+    filter(!Disease %in% sig_disease$Disease) %>%
+    select(Disease, 
+           TraitType,
+           PredictionNetwork,
+           ClusterGraph,
+           ChronicInfThreshold,
+           Group1) %>%
+    distinct() %>%
+    mutate(Signficant_Overlap = "No")
+  
+  # bind 
+  sig_disease = rbind(sig_disease, not_sig_diseases)
+  
+  return(sig_disease)
+}
+
+sig_disease_list = lapply(res_list, tallySigDiseases, cutoff = .05)
+sig_disease_df = do.call(rbind, sig_disease_list)
+
+tally_sig_disease =
+  sig_disease_df %>%
+  group_by(TraitType,
+           PredictionNetwork,
+           ClusterGraph,
+           Group1,
+           Signficant_Overlap) %>%
+  tally() %>%
+  pivot_wider(names_from = Signficant_Overlap, 
+              values_from = n, 
+              values_fill = 0) %>%
+  mutate(Total = Yes + No) %>%
+  mutate(PropSig = Yes/Total)
+
+# plot 
+tally_sig_disease$TraitType = factor(tally_sig_disease$TraitType, 
+                                   levels = c("Autoimmune Disease",
+                                              "Complex Disease",
+                                              "Non-disease Trait"))
+Fig2a = 
+  tally_sig_disease %>%
+  filter(!Group1 %in% c("chronic_inflammation_go", 
+                        "chronic_inflammatory_response_GO2EG")) %>%
+  ggplot(aes(x = TraitType,
+             y = PropSig,
+             fill = Group1)) +
+  geom_col() +
+  theme_classic() +
+  xlab("Trait type") +
+  ylab("Proportion diseases with CI Overlap") +
+  guides(fill = guide_legend("CI gene set")) +
+  coord_flip() +
+  theme(legend.position="none",
+        text = element_text(size = 8),
+        strip.text = element_text(size = 5.5),
+        ) + 
+  facet_wrap(~PredictionNetwork + ClusterGraph + Group1,
+             ncol = 3)
+
+ggsave(Fig2a, 
+       file = paste0(figure_path,
+                     "/FigS2_proportion_clustered_FDR05.png"),
+       width = 7, 
+       height = 10, 
+       dpi = 300)
+
+Fig2a
+```
+
+## Figure S3-S7: Chronic inflammation association score of non-seed genes in overlapping and non-overlapping clusters. 
+```{r, fig.width=7, fig.height=4, message = FALSE, fig.cap = "The top network is the network used for Geneplexsus prediction, the bottom network was used for clustering"}
+# merge overlap FDR with cluster assignments
+
+res_clust = 
+  res_df %>%
+  ungroup() %>%
+  dplyr::rename(ChronicInflammationSource = Group1,
+         Cluster = Group2) %>%
+  left_join(clust_df) %>%
+  select(Gene,
+         Disease,
+         Cluster,
+         TraitType,
+         PredictionNetwork,
+         ClusterGraph,
+         ChronicInflammationSource,
+         ChronicInfThreshold,
+         Enrichment,
+         PermutedFDR) %>%
+  mutate(SignificantOverlap =
+           case_when(PermutedFDR > .05 | Enrichment < 0 ~ FALSE,
+                     PermutedFDR <= .05 & Enrichment > 0 ~ TRUE)) %>%
+  filter(!is.na(PermutedFDR)) # clusters with fewer than 5 genes
+  
+# merge with chronic inflammation GenePlexus predictions
+
+cidf = 
+  cidf %>% # all predictions bound into one file
+  select(Entrez,
+         Probability,
+         Class.Label,
+         PredictionNetwork,
+         ChronicInflammationSource) %>%
+  dplyr::rename(Gene = Entrez)
+  
+clust_pred = 
+  left_join(res_clust, cidf) %>%
+  mutate(CI_GeneType = 
+           case_when(ChronicInfThreshold == "P" & Class.Label == "P"  ~ "Seed",
+                     ChronicInfThreshold == "P" & Class.Label != "P" ~ "not Seed",
+                     ChronicInfThreshold == 0.8 & Probability >= 0.8 ~ "Seed",
+                     ChronicInfThreshold == 0.8 & Probability < 0.8 ~ "not Seed")) 
+
+# merge with CVscores
+clust_pred = 
+  left_join(clust_pred, summary_df)
+  
+clust_pred_mean = 
+  clust_pred %>%
+  group_by(Cluster,
+           ClusterGraph,
+           PredictionNetwork,
+           ChronicInflammationSource,
+           ChronicInfThreshold,
+           CI_GeneType) %>%
+  mutate(MeanProb = mean(Probability)) %>%
+  select(Cluster, 
+         TraitType,
+         ClusterGraph, 
+         PredictionNetwork,
+         ChronicInflammationSource,
+         ChronicInfThreshold,
+         CI_GeneType,
+         MeanProb,
+         SignificantOverlap,
+         CVscore) %>%
+  distinct()
+
+# pvals
+clust_pred_mean_filt = 
+  clust_pred_mean %>%
+  filter(CI_GeneType == "not Seed",
+         TraitType != "Non-disease Trait", # plot only real diseases
+         !ChronicInflammationSource %in% c("chronic_inflammation_go",                 
+                                           "chronic_inflammatory_response_GO2EG"))
+
+clust_pred_mean_filt$SignificantOverlap = factor(clust_pred_mean_filt$SignificantOverlap, 
+                                            levels = c("FALSE",
+                                                       "TRUE"))
+pred_mean_wilcox = 
+  clust_pred_mean_filt %>%
+  group_by(ClusterGraph, 
+           PredictionNetwork, 
+           ChronicInflammationSource) %>%
+  wilcox_test(formula = MeanProb ~ SignificantOverlap,  p.adjust.method = "BH") %>%
+  adjust_pvalue(method = "BH") %>%
+  add_significance("p.adj") %>%
+  add_y_position(formula = MeanProb ~ SignificantOverlap, 
+                   fun = "max")
+
+# plot
+n = 2
+for(pn in unique(clust_pred_mean_filt$PredictionNetwork)){
+if(pn == "STRING"){next}
+n = n + 1
+plot_p = 
+  pred_mean_wilcox %>%
+  filter(PredictionNetwork == pn) 
+
+p1 = 
+  clust_pred_mean_filt %>%
+  filter(PredictionNetwork == pn) %>% 
+  ggplot(aes(x = SignificantOverlap, 
+             y = MeanProb,
+             fill = ChronicInflammationSource)) +
+  geom_boxplot() +
+  ylab("mean probability per cluster") +
+  theme_classic() +
+   theme(legend.position="none",
+        text = element_text(size = 8),
+        strip.text = element_text(size = 5.5),
+        strip.text.x = element_text(margin = margin(.1, 0, .1, 0, "cm"))
+        ) + 
+  facet_wrap(~PredictionNetwork + ClusterGraph + ChronicInflammationSource,
+             ncol = 3, scales = "free_y") +
+  stat_pvalue_manual(plot_p, label = "p.adj.signif", tip.length = 0.01) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))
+
+ggsave(p1, 
+       file = paste0(figure_path,
+                     "/FigS", n, "_mean_pred_non_seed_", pn, ".png"),
+       width = 7, 
+       height = 4, 
+       dpi = 300)
+
+plot(p1 + ggtitle(paste0("FigS", n, " cluster and predict on ", pn)))
+
+}
+
+n = 5
+for(cg in c("STRING", "STRING-EXP")){
+
+n = n + 1
+
+plot_p = 
+  pred_mean_wilcox %>%
+  filter(PredictionNetwork == "STRING",
+         ClusterGraph == cg)
+
+p1 = 
+  clust_pred_mean_filt %>%
+  filter(PredictionNetwork ==  "STRING",
+         ClusterGraph == cg) %>% 
+  ggplot(aes(x = SignificantOverlap, 
+             y = MeanProb,
+             fill = ChronicInflammationSource)) +
+  geom_boxplot() +
+  ylab("mean probability per cluster") +
+  theme_classic() +
+   theme(legend.position="none",
+        text = element_text(size = 8),
+        strip.text = element_text(size = 5.5),
+        strip.text.x = element_text(margin = margin(.1, 0, .1, 0, "cm"))
+        ) + 
+  facet_wrap(~PredictionNetwork + ClusterGraph + ChronicInflammationSource,
+             ncol = 3, scales = "free_y") +
+  stat_pvalue_manual(plot_p, label = "p.adj.signif", tip.length = 0.01) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))
+
+ggsave(p1, 
+       file = paste0(figure_path,
+                     "/FigS", n, "_mean_pred_non_seed_STRING_",cg,".png"),
+       width = 7, 
+       height = 4, 
+       dpi = 300)
+
+plot(p1 + ggtitle(paste0("FigS", n, "- predict on STRING, cluster on ", cg)))
+}
+```
+
+
+
+
+
+
+
+
