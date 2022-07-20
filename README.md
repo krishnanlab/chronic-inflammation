@@ -40,6 +40,7 @@ This folder, `data_Zenodo`, will include:
 - `ConsensusPathDB`: ConsensusPathDB network
 - `string`: String network
 - `string-exp`: String-exp network
+- `prediction_clusters_same_graph`: Compendium of results to create paper figures
 
 ### data directory
 The 'data' directory has some required data. This includes:
@@ -60,7 +61,7 @@ This readme has instructions for how to run each script without use of slurm
 for a sample disease
 
 ### figures directory
-`figures` contains Markdown notebooks used to analyze final results. Output
+`figures` contains Markdown notebooks used to analyze final results. These results
 can be found in the Zenodo record
 
 ## Pipeline instructions
@@ -78,8 +79,8 @@ Disgenet.
 
 __Arguments__:
 
-1. A one column text file of disease(s), CUIDs, of interest
-2. Output directory where `disease_gene_files` directory and results will go
+1. Text file with one column (no header) containing the disease ids of interest from disgenet
+2. Directory where "disease_gene_files" folder will go
 
 __Run__:
 ```bash
@@ -87,7 +88,44 @@ Rscript prep_disease_gene_dfs.R \
  ../data/chronic_inflammation_diseases_non-ovlp_cuid.txt \
  ../data
 ```
+### Getting inflammation genes from human genome
+__Script__:  
+`getInflammationGenesFrom_org.HS.eg.db.R`
 
+__Purpose__:
+Takes the human genome and gets genes from inflammation related GO terms
+
+__Arguments__:
+N/A
+
+__Run__:
+```bash
+Rscript getInflammationGenesFrom_org.HS.eg.db.R
+```
+
+### Creating network edgelists
+__Script__:  
+`prepEdgelist.R`
+
+__Purpose__:
+Formats and creates an edgelist and Rdata object for a given network
+
+__Arguments__:
+
+1. Path to tab delimited edgelist
+2. Path to output dir
+3. Network name
+4. True/False, keep edge weights or not
+
+__Run__:
+```bash
+Rscript prepForClusterSaverunner.R \
+ ../data_Zenodo/biogrid/biogrid_entrez_edgelist.txt \
+ ../data_Zenodo/biogrid/ \
+ bioGRID \
+ TRUE
+
+```
 
 ### Getting UK Biobank seed genes
 __Script__:  
@@ -101,7 +139,7 @@ __Arguments__:
 
 1. File from Zenodo of UK BioBank traits of interest
 2. Location of Pascal output in Zenodo for each trait
-3. location of `disease_gene_files`, where files will be outputted
+3. location of `disease_gene_files`, where files will be output
 
 __Run__:
 ```bash
@@ -111,21 +149,19 @@ Rscript getNegativeControls.R \
  ../data/
 ```
 
-
-
 ### Running Geneplexus
 __Script__:  
 `bin/GenePlexus/example_run.py`
 
 __Purpose__:
 Runs GenePlexus on a trait of interest and output the results. This project
-used `STRING`,`Adjacency`, and `DisGeNet` for its final results
+used `ConsensusPathDB`,`Adjacency`, and `DisGeNet` for its final results
 
 __Arguments__:  
 
 -i : Disease seed genes \
 -j : Job name \
--n : Network, options are BioGRID, STRING-EXP, STRING, GIANT-TN \
+-n : Network, options are BioGRID, STRING-EXP, STRING, ConsensusPathDB \
 -f : Features, options are Embedding, Adjacency, Influence \
 -g : GSC type, options are GO or DisGeNet \
 -s : Output directory \
@@ -135,8 +171,8 @@ __Run__:
 ```bash
 python example_run.py \
  -i ../../data/disease_gene_files/Chronic_Obstructive_Airway_Disease.txt \
- -j Chronic_Obstructive_Airway_Disease--STRING--Adjacency--DisGeNet \
- -n STRING \
+ -j Chronic_Obstructive_Airway_Disease--ConsensusPathDB--Adjacency--DisGeNet \
+ -n ConsensusPathDB \
  -f Adjacency \
  -g DisGeNet \
  -s ../../results/GenePlexus_output/ \
@@ -163,7 +199,7 @@ __Run__:
 Rscript summarizeGeneplexusPredictions.R \
   ../results/GenePlexus_output/ \
   ../results/GenePlexus_parameters \
-  1
+  1.0
 ```
 
 
@@ -177,22 +213,53 @@ for each disease.
 
 __Arguments__:
 
-1. GenePlexus predictions
+1. GenePlexus prediction path
 2. Prediction threshold, either `mccf1` or a number < 1
 3. Path to igraph object containing network for clustering
 4. Leiden algorithm partition type
 5. Resolution parameter
-6. GenePlexus results path, creates folder `clusters_threshold.80`
+6. GenePlexus results path
+7. True/False, Is the network weighted?
 
 __Run__:
 ```bash
 Rscript filterAndClusterGeneplexusPredications.R \
- ../results/GenePlexus_output/predictions_cv_greater1/Chronic_Obstructive_Airway_Disease--STRING--Adjacency--DisGeNet--predictions.tsv \
+ ../results/GenePlexus_output/Chronic_Obstructive_Airway_Disease--bioGRID--Adjacency--DisGeNet--predictions.tsv \
  0.8 \
  ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
  ModularityVertexPartition \
  0.1 \
- ../results/GenePlexus_output/
+ ../results/prediction_clusters_same_graph
+ FALSE
+
+```
+
+
+### Clustering inflammation genes
+__Script__:  
+`clusterInflammationGenes.R`
+
+__Purpose__:
+Clustering the inflammation genes
+
+__Arguments__:
+
+1. Path to inflammation genes
+2. Path to igraph object that has network for clustering
+3. Partition type
+4. Resolution parameter
+5. Results path
+6. True/False, Is the network weighted?
+
+__Run__:
+```bash
+Rscript clusterInflammationGenes.R \
+ ../data/disease_gene_files/inflammation_genes/chronic_inflammatory_response_GO2ALLEGS.txt \
+ ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
+ ModularityVertexPartition \
+ 0.1
+ ../results/prediction_clusters_same_graph/
+ FALSE
 
 ```
 
@@ -207,12 +274,13 @@ disease and assigns the genes to clusters
 
 __Arguments__:
 
-1. Path to dat containing all fake traits generated
+1. Path to data containing all fake traits generated
 2. Disease of interest
 3. Path to igraph object containing network for clustering
 4. Partition type
 5. Resolution parameter
 6. Results path
+7. True/False, Is the network weighted?
 
 __Run__:
 ```bash
@@ -222,12 +290,13 @@ Rscript clusterRandomGenes.R \
  ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
  ModularityVertexPartition \
  0.1
- ../results/GenePlexus_output/clusters_threshold.80
+ ../results/prediction_clusters_same_graph/clusters/predicted_withBioGRID--clustered_on_BioGRID
+ FALSE
 
 ```
 
 
-### Get GOBP enriched clusters
+### Get GOBP enriched clusters from GenePlexus resuls
 __Script__:  
 `find_GOBP_enriched_clusters_GenePlexus.R`
 
@@ -243,12 +312,32 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript find_GOBP_enriched_clusters_GenePlexus.R \
- ../results/GenePlexus_output/clusters_threshold.80/chronic_inflammation_go--threshold--0.8--ClusterGraph--BioGrid_clusters.csv \
- ../data_Zenodo/biogrid/BioGrid_genes.csv \
- ../results/GenePlexus_output/GOBP_enrichment
+ ../data_Zenodo/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Malignant_neoplasm_of_pancreas--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_genes.csv \
+ ../results/prediction_clusters_same_graph/GOBP_enrichment
 
 ```
+### Get GOBP enriched clusters for inflammation clusters
+__Script__:  
+`find_GOBP_enriched_inflammation_clusters.R`
 
+__Purpose__:
+Finds GOBPs that are enriched in each cluster of a disease
+
+__Arguments__:
+
+1. Path to cluster file
+2. Background genes from network
+3. Output directory
+
+__Run__:
+```bash
+Rscript find_GOBP_enriched_clusters_GenePlexus.R \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Malignant_neoplasm_of_pancreas--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_genes.csv  \
+ ../results/prediction_clusters_same_graph/GOBP_enrichment
+
+```
 
 
 ### Cluster overlap scores
@@ -274,35 +363,13 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript scoreClusterOverlaps_GenePlexus.R \
- ../results/GenePlexus_output/clusters_threshold.80 \
- ../results/GenePlexus_output/predictions_cv_greater1/chronic_inflammation_go--STRING--Adjacency--GO--predictions.tsv \
- ../results/GenePlexus_String_Adjacency \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB \
+ ../results/GenePlexus_output/chronic_inflammation_gene_shot--ConsensusPathDB--Adjacency--GO--predictions.tsv \
+ ../results/prediction_clusters_same_graph \
  Chronic_Obstructive_Airway_Disease \
  0.8 \
- ../data_Zenodo/biogrid/BioGrid_genes.csv
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_genes.csv
 
-```
-
-### FDR calculation
-__Script__:  
-`calculatePermutedFDR.R`
-
-__Purpose__:
-Calculates the FDR for a disease based on how the real clusters overlap with 
-chronic inflammation genes relative to the 5000 fake trait clusters.
-
-__Arguments__:
-
-1. Path to folder with overlap score files from `scoreClusterOverlaps_GenePlexus.R`
-2. Output directory
-3. Boolean. Make `TRUE` if want FDR for only the real diseases/traits
-
-__Run__:
-```bash
-Rscript calculatePermutedFDR.R \
- ../results/GenePlexus_String_Adjacency/scores \
- ../results/ \
- TRUE
 ```
 
 
@@ -319,28 +386,52 @@ __Arguments__:
 1. overlap_results.Rdata location
 2. FDR cutoff
 3. Output directory
-4. Path to num_random_clustered folder (created in clusterRandomGenes.R)
-5. Path to gene cluster assignment files 
+4. Path to gene cluster assignment files 
 
 __Run__:
 ```bash
 Rscript filterSignificantOverlaps_GenePlexus.R \
- ../results/overlap_results_real_only.Rdata \
- .01 \
- ../results/ \
- ../results/num_random_clustered \
- ../results/GenePlexus_output/clusters_threshold.80
+ ../results/prediction_clusters_same_graph/scores/chronic_inflammatory_response_GO2ALLEGS_thresh=0.8_clusteredOn_STRING-EXP_overlap_results.Rdata \
+ .05 \
+ ../results/prediction_clusters_same_graph/ \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withSTRING-EXP--clustered_on_STRING-EXP
+
+```
+
+### Running SAveRUNNER to compare clusters with STRING-EXP as the interactome
+__Script__:  
+`prepForClusterSaverunner.R`
+
+__Purpose__:
+Sets up files for running SAveRUNNER with cluster genes. This instance is stored in `data_Zenodo/prediction_clusters_same_graph/SAveRUNNER`
+
+__Arguments__:
+
+1. Saverunner input directory
+2. path to interactome edgelist
+3. path to "final for alex" file with significant clusters
+4. path to gene cluster assigments
+
+__Run__:
+```bash
+Rscript prepForClusterSaverunner.R \
+ ../data_Zenodo/prediction_clusters_same_graph/SAveRUNNER/code/input_files \
+ ../data_Zenodo/prediction_clusters_same_graph/SAveRUNNER/code/input_files/interactome.txt \
+ ../data_Zenodo/prediction_clusters_same_graph/chronic_inflammation_gene_shot_pubs_greater10--predictedWith--ConsensusPathDB--clusteredOn--ConsensusPathDB_final_for_alex.csv \
+ ../data_Zenodo/prediction_clusters_same_graph/chronic_inflammation_gene_shot_pubs_greater10--predictedWith--ConsensusPathDB--clusteredOn--ConsensusPathDB_relevant_gene_cluster_assigments.csv
 
 ```
 
 
+
 ### Finding drugs
 Drugs were obtained using the SAveRUNNER software, located at https://github.com/sportingCode/SAveRUNNER.
+The instance is stored in `data_Zenodo/drugs/SAveRUNNER`
 
 
 
 ### Analyses and visualizations
-`drug_repurposing_analysis.html` and `figures_and_tables_geneplexus0.80.html` can be recreated with the R notebooks in `figures`
+The `figures` has R markdown scripts that will recreate figures (including supplemental) in the paper
 
 
 ### Drug data downloads
