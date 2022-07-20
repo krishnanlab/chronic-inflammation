@@ -268,7 +268,7 @@ ggsave(file = paste0(out_dir, "/string_proportion_new_genes_boxplots.pdf"),
 # find and move the diseases with cv >= thresh to new folder --------------
 # find diseases with SLA cv score >= thresh
 # and save them to refer to later
-load("../results/GenePlexus_parameters/Geneplexus_summary.Rdata")
+load(paste0(out_dir,"/Geneplexus_summary.Rdata"))
 
 sla1 = 
   summary_df %>%
@@ -283,7 +283,7 @@ remove_trait = c("chronic_inflammation_gene_shot",
                  "Height_gene_shot")
 
 sla1 = sla1[!sla1 %in% remove_trait]
-save(sla1, file = "../results/GenePlexus_parameters/diseases_with_SLA_models_cv_greater1.Rdata")
+save(sla1, file = paste0(out_dir,"/diseases_with_SLA_models_cv_greater1.Rdata"))
 
 # cp predictions with cv > thresh into new folder
 print(summary_df$CVscore)

@@ -1,7 +1,7 @@
 #' @args[1] path to overlap_results.Rdata
 #' @args[2] cutoff
 #' @args[3] output dir
-#' @args[4] path to number_clustered.txt
+# @args[4] path to number_clustered.txt
 #' @args[5] Path to gene cluster assignment files 
 
 args <- commandArgs(TRUE)
@@ -9,28 +9,24 @@ source("../src/chronic_inflammation_functions.R")
 library(tidyverse)
 library(parallel)
 
-df = loadRData(args[1])
+results_file = args[1]  
+df = loadRData(results_file) 
+
+results_file = basename(results_file)
+
+ci_gene_set = gsub("_thresh.*", "", results_file)
+clusterGraph = gsub("^.*clusteredOn_", "", results_file)
+clusterGraph = gsub("_overlap_results.Rdata", "", clusterGraph)
+predNet = gsub("^.*predicted_with_", "", results_file)
+predNet = gsub("_clusteredOn.*", "", predNet)
+
 cutoff = as.numeric(args[2])
 outdir = args[3]
 
-# get rid of traits where there were clustering errors with the fake traits
-# grep -hnr --with-filename "number clustered" *.out > number_clustered.txt
-
-nclust = read.delim(args[4], header = F, sep = " ")
-nclust$nFakesClustered = gsub("number clustered = ", "", nclust$V2)
-nclust$nFakesClustered = as.numeric(nclust$nFakesClustered)
-
-nclust$Disease = gsub("_BioGrid.*", "", nclust$V1)
-
-remove = 
-  nclust %>%
-  filter(nFakesClustered < 5000) %>%
-  pull(Disease)
-
 # fix it for alex
 final_alex = df %>%
-  filter(PermutedFDR <= cutoff,
-         !Disease %in% remove)
+  filter(PermutedFDR <= cutoff)
+         #!Disease %in% remove)
 
 colnames(final_alex) = c(
   "Chronic_Inflamation_Cluster",
@@ -42,14 +38,20 @@ colnames(final_alex) = c(
   "Enrichment",
   "Disease",
   "ChronicInf",
+  "ChronicInfThreshold",
+  "ClusterGraph",
+  "PredictionNetwork",
   "phyperFDR",
   "PermutedPval",
-  "PermutedFDR")
+  "PermutedFDR",
+  "nFakeClusters")
 
 final_alex = 
   final_alex %>%
   ungroup() %>%
-  select(Chronic_Inflamation_Cluster,
+  select(PredictionNetwork,
+         ClusterGraph,
+         Chronic_Inflamation_Cluster,
          Disease_Cluster,
          n_overlap,
          n_Disease_Cluster_genes,
@@ -61,7 +63,15 @@ final_alex =
          PermutedPval,
          PermutedFDR)
 
-write.csv(final_alex, file = paste0(outdir, "/final_for_alex.csv"))
+write.csv(final_alex, 
+          file = paste0(outdir, 
+                        "/", 
+                        ci_gene_set,
+                        "--predictedWith--",
+                        predNet,
+                        "--clusteredOn--", 
+                        clusterGraph, 
+                        "_final_for_alex.csv"))
 
 # make df with gene assignments from real and fake clusters
 cluster_path = args[5]
@@ -104,7 +114,15 @@ df_filt =
   df %>%
   filter(Cluster %in% greater5)
 
-write.csv(df_filt, file = paste0(outdir, "/relevant_gene_cluster_assigments.csv"))
+write.csv(df_filt, 
+          file = paste0(outdir, 
+                        "/",
+                        ci_gene_set,
+                        "--predictedWith--",
+                        predNet,
+                        "--clusteredOn--", 
+                        clusterGraph, 
+                        "_relevant_gene_cluster_assigments.csv"))
           
     
           

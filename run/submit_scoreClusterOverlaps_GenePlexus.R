@@ -6,44 +6,106 @@ dirname = "sbatches_ScoreClusterOverlaps_GenePlexus"
 if(!dir.exists(dirname)){
   dir.create(dirname)}
 
-# for args[2]
-ci = "../results/GenePlexus_output/predictions_cv_greater1/chronic_inflammation_go--STRING--Adjacency--GO--predictions.tsv"
+clust_net = "ConsensusPathDB"
+clust_net_dir = "ConsensusPathDB"
+pred_net = "ConsensusPathDB"
+
 # for args[5]
-thresh = 0.80
+thresholds = 0.80
+
 # for args[1]
-cluster_dir = "../results/GenePlexus_output/clusters_threshold.80"
-# for args[3]
-out_dir = "../results/GenePlexus_String_Adjacency"
+cluster_dir = paste0("../results/prediction_clusters_same_graph/clusters/predicted_with", 
+                     pred_net, 
+                     "--clustered_on_", 
+                     clust_net)
 
-# load diseases of interest
+# for args[2]
+ci_dir = "../results/GenePlexus_output"
+
+ci_files = list.files(ci_dir,
+                      full.names = TRUE,
+                      pattern = paste0("--", pred_net ,"--Adjacency--GO--predictions.tsv"))
+
+out_dir = "../results/prediction_clusters_same_graph"
+
+# diseases of interest
 # for args[4]
-# object is sla1
-load("../results/GenePlexus_parameters/diseases_with_SLA_models_cv_greater1.Rdata")
 
+clust_files = list.files(cluster_dir)
+diseases = gsub("--.*","",clust_files)
+diseases = diseases[grep("Fake_", diseases, invert = TRUE)]
+
+# args[6]
 # genes in biogrid for args[6]
-network_genes = "../data_Zenodo/biogrid/BioGrid_genes.csv"
+network_genes = paste0("../data/", clust_net_dir, "/", clust_net,"_genes.csv")
 
-for(disease in sla1){
-  
-  cioi_name = sub("_clusters.csv", "", basename(ci))
+  for(ci in ci_files){
+    
+    cioi_name = sub(paste0("--", pred_net, "--Adjacency--GO--predictions.tsv"), "", basename(ci))
+    
+    for(thresh in thresholds){
+      
+      for(disease in diseases){
+    
+      score_file = paste0(out_dir, 
+                          "/scores/",
+                          cioi_name,
+                          "_thresh=",
+                          thresh,
+                          "_predicted_with_",
+                          pred_net,
+                          "_clusteredOn_",
+                          clust_net,
+                          "/",
+                          disease,
+                          "_",
+                          cioi_name,
+                          "_thresh=",
+                          thresh,
+                          "_predicted_with_",
+                          pred_net,
+                          "_clusteredOn_",
+                          clust_net,
+                          "_enrichment_scores.csv")
+      
+      if(file.exists(score_file)){next}
   
   rjobsh <- paste0(cioi_name,
                    "_",
                    disease,
+                   "_pred_",
+                   pred_net,
+                   "_clust_",
+                   clust_net,
+                   "_thresh=",
+                   thresh,
                    ".rjob.sh"); cat(rjobsh, "\n")
   
   rjobConn <- file(paste0(dirname,"/",rjobsh))
   writeLines(c("#!/bin/sh -login",
-               "#SBATCH --mem=70GB",
+               "#SBATCH --mem=100GB",
                paste0("#SBATCH --job-name=score_", disease),
-               paste0("#SBATCH --output=", dirname, "/", disease, "_", cioi_name, ".out"),
-               "#SBATCH --time=3:59:00",
+               paste0("#SBATCH --output=", 
+                      dirname, 
+                      "/", 
+                      disease, 
+                      "_", 
+                      cioi_name, 
+                      "_pred_",
+                      pred_net,
+                      "_clust_",
+                      clust_net, 
+                      "_thresh=", 
+                      thresh, 
+                      ".out"),
+               "#SBATCH --time=4:00:00",
                "#SBATCH --nodes=1",
                "#SBATCH --cpus-per-task=1",
+               "#SBATCH --account=wang-krishnan",
                "",
                "cd ../src",
                "",
-               "ml -* GCC/8.3.0 OpenMPI/3.1.4 R/4.0.2",
+               "Rmodules",
                "",
                paste0("Rscript scoreClusterOverlaps_GenePlexus.R ",
                       cluster_dir,
@@ -62,13 +124,8 @@ for(disease in sla1){
   
   system(paste0("sbatch ", paste0(dirname,"/",rjobsh)))
   
-  njobs <- system("squeue -u  mckimale | wc -l", intern=TRUE)
-  njobs <- as.numeric(njobs)
-  
-  while(njobs > 1000) {
-    Sys.sleep(360)
-    njobs <- system("squeue -u mckimale | wc -l", intern=TRUE)
-    njobs <- as.numeric(njobs)
+
+  }
   }
 }
 

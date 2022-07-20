@@ -1,32 +1,42 @@
 # This file will submit up to 1000 qsubs at once
 library("tidyverse")
 
+# geneplexus prediction network
+pred_net = "STRING"
+clust_dir = "string"
+clust_net = "STRING"
+# weighted network? for args[7]
+weight = T
+
 # path to folder with gene plexus predictions
 #for args[1]
-gp_path = "../results/GenePlexus_output/predictions_cv_greater1"
-#setwd(gp_path)
-#gp_files = list.files(pattern = ".tsv")
-gp_files = list.files(gp_path,pattern=".tsv")
+gp_path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/GenePlexus_output"
+setwd(gp_path)
+gp_files = list.files(pattern = ".tsv")
+gp_files = gp_files[grep(paste0(pred_net, "--"), gp_files)]
+gp_files = gp_files[grep("inflamm", gp_files, invert = T)]
 
 # path(s) to list of node neighbors from edgelist
 # for args[2]
-#thresholds = c("mccf1", seq(0.5, 0.95, .05))
-#Using .8 because thats what we ended up using, origianlly ran with sequence
-thresholds=c("0.8")
-
+# thresholds = c("mccf1", seq(0.5, 0.95, .05))
+thresholds = .80
 # path to graph
 # for args[3]
-edge_path = "../data_Zenodo/biogrid/BioGrid_igraph.Rdata"
-netname = gsub("igraph.Rdata", "", basename(edge_path))
+edge_path = paste0("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/",
+                   clust_dir, 
+                   "/",
+                   clust_net,
+                   "_igraph.Rdata")
+
 # results path for args[6]
-results_path ="../results/GenePlexus_output/"
+results_path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/results/prediction_clusters_same_graph"
 # leiden alg partition type
 partition_type = "ModularityVertexPartition"
 # resolution parameter
 res = 0.1
 
-#setwd("../run")
-print(getwd())
+setwd("/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/run")
+
 dirname <- "sbatches_filterAndClusterGeneplexusPredictions"
 if(!dir.exists(dirname)){
   dir.create(dirname)
@@ -39,19 +49,22 @@ for(thresh in thresholds) {
     rjobsh <- paste0(filename,
                      "_treshold=",
                      thresh,
+                     "_cluster_on_",
+                     clust_net,
                      ".rjob.sh"); cat(rjobsh, "\n")
     rjobConn <- file(paste0(dirname,"/",rjobsh))
     writeLines(c("#!/bin/sh -login",
-                 "#SBATCH --mem=40GB",
-                 paste0("#SBATCH --job-name=", filename, "_", thresh, "_", netname),
-                 paste0("#SBATCH --output=", dirname, "/", filename, "_", thresh, "_", netname, ".out"),
-                 "#SBATCH --time=0:30:00",
+                 "#SBATCH --mem=100GB",
+                 paste0("#SBATCH --job-name=", filename, "_", thresh, "_", clust_net),
+                 paste0("#SBATCH --output=", dirname, "/", filename, "_", thresh, "_", clust_net, ".out"),
+                 "#SBATCH --time=3:00:00",
                  "#SBATCH --nodes=1",
                  "#SBATCH --cpus-per-task=1",
+                 "#SBATCH --account=wang-krishnan",
                  "",
-                 "cd ../src",
+                 "cd /mnt/research/compbio/krishnanlab/projects/chronic_inflammation/src",
                  "",
-                 "ml -* GCC/8.3.0 OpenMPI/3.1.4 R/4.0.2",
+                 "Rmodules",
                  "",
                  paste0("Rscript filterAndClusterGeneplexusPredications.R ",
                         gp_path,
@@ -66,19 +79,13 @@ for(thresh in thresholds) {
                         " ",
                         res,
                         " ",
-                        results_path)),rjobConn)
+                        results_path,
+                        " ",
+                        weight)),rjobConn)
     
     close(rjobConn)
     
     system(paste0("sbatch ", paste0(dirname,"/",rjobsh)))
-    
-    njobs <- system("squeue -u  mckimale | wc -l", intern=TRUE)
-    njobs <- as.numeric(njobs)
-    
-    while(njobs > 1000) {
-      Sys.sleep(360)
-      njobs <- system("squeue -u mckimale | wc -l", intern=TRUE)
-      njobs <- as.numeric(njobs)
-    }
+
   }
 }

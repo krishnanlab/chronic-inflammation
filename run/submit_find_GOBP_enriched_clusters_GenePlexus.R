@@ -1,39 +1,58 @@
 # This file will submit up to 1000 qsubs at once
 library("tidyverse")
 # number of hypergeo iterations
+setwd("../run")
+
 dirname <- "sbatches_GOBP_enriched_clusters_GenePlexus"
 if(!dir.exists(dirname)){
   dir.create(dirname)
 }
 
+netname = "STRING-EXP"
+netdir = "string-exp"
+pred_net = "STRING-EXP"
+
 # path to background genes
-#background = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/biogrid/BioGrid_genes.csv"
-background = "../data_Zenodo/biogrid/BioGrid_genes.csv"
+background = paste0("../data/", 
+                    netdir, 
+                    "/", 
+                    netname,
+                    "_genes.csv")
 
 #outdir
-outdir = "../results/GenePlexus_output/GOBP_enrichment"
+outdir = "../results/prediction_clusters_same_graph/GOBP_enrichment"
 
-cluster_dir = "../results/GenePlexus_output/clusters_threshold.80"
-cluster_files = list.files(cluster_dir, full.names = TRUE, pattern = ".csv")
-  
+cluster_dir = paste0("../results/prediction_clusters_same_graph/clusters/predicted_with", 
+                     pred_net,
+                     "--clustered_on_",
+                     netname)
+
+cluster_files = list.files(cluster_dir, full.names = TRUE)
+cluster_files = cluster_files[grep("Fake_", cluster_files, invert=TRUE)]
+redo = c("Own_or_rent_accommodation_lived_in_Rent_from_local_authority,_local_council,_housing_association", "Gas_or_solid_fuel_cooking_heating_An_open_solid_fuel_fire_that_you_use_regularly_in_winter_time", "Malignant_neoplasm_of_pancreas", "PARKINSON_DISEASE_2_AUTOSOMAL_RECESSIVE_JUVENILE")
+
+cluster_files = cluster_files[grep(paste(redo,collapse="|"), cluster_files)]
+
+
   for(file in cluster_files){
     
     filename = sub(".csv", "", basename(file))
     print(filename)
     rjobsh <- paste0(filename,
-                     "GOBP.rjob.sh"); cat(rjobsh, "\n")
+                     "_GOBP.rjob.sh"); cat(rjobsh, "\n")
     rjobConn <- file(paste0(dirname,"/",rjobsh))
     writeLines(c("#!/bin/sh -login",
-                 "#SBATCH --mem=60GB",
+                 "#SBATCH --mem=128GB",
                  paste0("#SBATCH --job-name=", filename),
                  paste0("#SBATCH --output=", dirname, "/", filename, "_GOBP.out"),
-                 "#SBATCH --time=2:00:00",
+                 "#SBATCH --time=3:00:00",
                  "#SBATCH --nodes=1",
                  "#SBATCH --cpus-per-task=1",
+                 "#SBATCH --account=wang-krishnan",
                  "",
                  "cd ../src",
                  "",
-                 "ml -* GCC/8.3.0 OpenMPI/3.1.4 R/4.0.2",
+                 "Rmodules",
                  "",
                  paste0("Rscript find_GOBP_enriched_clusters_GenePlexus.R ",
                         file,
@@ -46,14 +65,6 @@ cluster_files = list.files(cluster_dir, full.names = TRUE, pattern = ".csv")
     close(rjobConn)
     
     system(paste0("sbatch ", paste0(dirname,"/",rjobsh)))
-    
-    njobs <- system("squeue -u mckimale | wc -l", intern=TRUE)
-    njobs <- as.numeric(njobs)
-    
-    while(njobs > 1000) {
-      Sys.sleep(360)
-      njobs <- system("squeue -u mckimale | wc -l", intern=TRUE)
-      njobs <- as.numeric(njobs)
-    }
+
   }
 

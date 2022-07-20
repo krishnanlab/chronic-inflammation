@@ -3,7 +3,6 @@ library("tidyverse")
 
 # path to file with all random disease gene sets
 #for args[1]
-#random_path = "/mnt/research/compbio/krishnanlab/projects/chronic_inflammation/data/5000Expandedfaketraits_biogrid.tsv"
 random_path = "../data_Zenodo/5000Expandedfaketraits_biogrid.tsv"
 # load diseases of interest
 # for args[2]
