@@ -31,7 +31,6 @@ if(!dir.exists(outdir)) {dir.create(outdir)}
 
 # nodes -------------------------------------------------------------------
 keep_nodes = as.character(inflam_genes$Gene)
-
 # edges -------------------------------------------------------------------
 # filter for edges incident on nodes from above
 print("make disease subgraph")

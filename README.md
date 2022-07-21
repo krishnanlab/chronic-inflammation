@@ -119,11 +119,11 @@ __Arguments__:
 
 __Run__:
 ```bash
-Rscript prepForClusterSaverunner.R \
+Rscript prepEdgelist.R \
  ../data_Zenodo/biogrid/biogrid_entrez_edgelist.txt \
  ../data_Zenodo/biogrid/ \
  bioGRID \
- TRUE
+ FALSE
 
 ```
 
@@ -224,13 +224,13 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript filterAndClusterGeneplexusPredications.R \
- ../results/GenePlexus_output/Chronic_Obstructive_Airway_Disease--bioGRID--Adjacency--DisGeNet--predictions.tsv \
+ ../results/GenePlexus_output/Chronic_Obstructive_Airway_Disease--ConsensusPathDB--Adjacency--DisGeNet--predictions.tsv \
  0.8 \
- ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_igraph.Rdata \
  ModularityVertexPartition \
  0.1 \
- ../results/prediction_clusters_same_graph
- FALSE
+ ../results/prediction_clusters_same_graph \
+ TRUE
 
 ```
 
@@ -254,12 +254,12 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript clusterInflammationGenes.R \
- ../data/disease_gene_files/inflammation_genes/chronic_inflammatory_response_GO2ALLEGS.txt \
- ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
+ ../data/disease_gene_files/chronic_inflammatory_response_GO2ALLEGS.txt \
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_igraph.Rdata \
  ModularityVertexPartition \
- 0.1
- ../results/prediction_clusters_same_graph/
- FALSE
+ 0.1 \
+ ../results/prediction_clusters_same_graph/ \
+ TRUE
 
 ```
 
@@ -285,13 +285,13 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript clusterRandomGenes.R \
- ../data_Zenodo/5000Expandedfaketraits_biogrid.tsv \
+ ../data_Zenodo/5000Expandedfaketraits_ConsensusPathDB.tsv \
  Chronic_Obstructive_Airway_Disease \
- ../data_Zenodo/biogrid/BioGrid_igraph.Rdata \
+ ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_igraph.Rdata \
  ModularityVertexPartition \
- 0.1
- ../results/prediction_clusters_same_graph/clusters/predicted_withBioGRID--clustered_on_BioGRID
- FALSE
+ 0.1 \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB \
+ TRUE
 
 ```
 
@@ -312,7 +312,7 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript find_GOBP_enriched_clusters_GenePlexus.R \
- ../data_Zenodo/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Malignant_neoplasm_of_pancreas--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Chronic_Obstructive_Airway_Disease--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
  ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_genes.csv \
  ../results/prediction_clusters_same_graph/GOBP_enrichment
 
@@ -333,7 +333,7 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript find_GOBP_enriched_clusters_GenePlexus.R \
- ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Malignant_neoplasm_of_pancreas--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB/Chronic_Obstructive_Airway_Disease--threshold--0.8--PredictionGraph--ConsensusPathDB--ClusterGraph--ConsensusPathDB_clusters.csv \
  ../data_Zenodo/ConsensusPathDB/ConsensusPathDB_genes.csv  \
  ../results/prediction_clusters_same_graph/GOBP_enrichment
 
@@ -364,7 +364,7 @@ __Run__:
 ```bash
 Rscript scoreClusterOverlaps_GenePlexus.R \
  ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB \
- ../results/GenePlexus_output/chronic_inflammation_gene_shot--ConsensusPathDB--Adjacency--GO--predictions.tsv \
+ ../results/GenePlexus_output/inflammatory_response_GO2EG_expr--ConsensusPathDB--Adjacency--GO--predictions.tsv \
  ../results/prediction_clusters_same_graph \
  Chronic_Obstructive_Airway_Disease \
  0.8 \
@@ -391,10 +391,10 @@ __Arguments__:
 __Run__:
 ```bash
 Rscript filterSignificantOverlaps_GenePlexus.R \
- ../results/prediction_clusters_same_graph/scores/chronic_inflammatory_response_GO2ALLEGS_thresh=0.8_clusteredOn_STRING-EXP_overlap_results.Rdata \
+ ../results/prediction_clusters_same_graph/scores/chronic_inflammatory_response_GO2ALLEGS_thresh=0.8_predicted_with_ConsensusPathDB_clusteredOn_ConsensusPathDB_overlap_results.Rdata \
  .05 \
  ../results/prediction_clusters_same_graph/ \
- ../results/prediction_clusters_same_graph/clusters/predicted_withSTRING-EXP--clustered_on_STRING-EXP
+ ../results/prediction_clusters_same_graph/clusters/predicted_withConsensusPathDB--clustered_on_ConsensusPathDB
 
 ```
 

@@ -27,8 +27,8 @@ netname = gsub("_igraph.Rdata", "", basename(args[3]))
 outdir = args[6]
 if(!dir.exists(outdir)) {dir.create(outdir)}
 
-outdir = paste0(outdir, "/clustered_on_", netname)
-if(!dir.exists(outdir)) {dir.create(outdir)}
+#outdir = paste0(outdir, "/clustered_on_", netname)
+#if(!dir.exists(outdir)) {dir.create(outdir)}
 
 doi_random = 
   all_random %>%

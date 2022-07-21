@@ -2,7 +2,7 @@
 #' @args[2] cutoff
 #' @args[3] output dir
 # @args[4] path to number_clustered.txt
-#' @args[5] Path to gene cluster assignment files 
+#' @args[4] Path to gene cluster assignment files 
 
 args <- commandArgs(TRUE)
 source("../src/chronic_inflammation_functions.R")
@@ -74,7 +74,7 @@ write.csv(final_alex,
                         "_final_for_alex.csv"))
 
 # make df with gene assignments from real and fake clusters
-cluster_path = args[5]
+cluster_path = args[4]
 files = list.files(cluster_path, full.names = T, pattern = ".csv")
 
 doi = unique(final_alex$Disease)

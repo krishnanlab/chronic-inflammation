@@ -99,14 +99,12 @@ nModels =
   select(n) %>%
   distinct() %>%
   pull(n)
-
 cv2_tally = 
   summary_df %>%
   group_by(Network, 
            Features) %>%
   tally(CVscore >= thresh) %>%
   mutate(Proportion = n/nModels)
-
 #plot bar
 cv2_tally %>%
   ggplot(aes(x = Features,

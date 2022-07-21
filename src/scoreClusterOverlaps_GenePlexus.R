@@ -23,17 +23,18 @@ cioi_name = sub("--.*$", "", basename(args[2]))
 # disease clusters --------------------------------------------------------
 print("disease clusters")
 disease_dir = args[1]
+storeold=getwd()
 setwd(disease_dir)
 doi = args[4]
 
 doi_grep = paste0("^", doi)
 doi_fake_grep = paste0("Fake_", doi)
-
-real_files = list.files(disease_dir, pattern = doi_grep)
+#Since I set the wd, don't need to put disease_dir in here
+real_files = list.files(pattern = doi_grep)
 pred_net = sub(".*?--PredictionGraph--", "", basename(real_files))
 pred_net = sub("--.*", "", pred_net)
 
-fake_files = list.files(disease_dir, pattern = doi_fake_grep)
+fake_files = list.files( pattern = doi_fake_grep)
 files = c(real_files, fake_files)
 
 # read in the cluster files
@@ -67,8 +68,8 @@ dis_filt = dis %>%
   filter(Cluster %in% keep)
 
 all_diseases = unique(dis_filt$Disease)
-
 # hypergeometric test -----------------------------------------------------
+setwd(storeold)
 
 print("hypergeometric test")
 
